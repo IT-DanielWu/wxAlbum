@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ysn.com.jackphotos.widget.component.TitleBarView
+        android:id="@+id/photos_activity_title_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/photos_activity_photo_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/photos_activity_bottom_bar"
+        android:layout_below="@+id/photos_activity_title_bar_view"
+        android:background="@color/jack_photo_list_bg"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/photos_activity_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/photos_activity_photo_recycler_view"
+        android:background="#9e111212"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/jack_primary_text"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/photos_activity_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/photos_activity_photo_recycler_view"
+        android:layout_alignTop="@+id/photos_activity_photo_recycler_view"
+        android:background="#c4111212"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/photos_activity_folder_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/photos_activity_photo_recycler_view"
+        android:layout_alignTop="@+id/photos_activity_photo_recycler_view"
+        android:layout_marginTop="80dp"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:overScrollMode="never"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:scrollbars="vertical"/>
+
+    <RelativeLayout
+        android:id="@+id/photos_activity_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/jack_bottom_bar"
+        android:layout_alignParentBottom="true"
+        android:background="@color/jack_bottom_bar">
+
+        <FrameLayout
+            android:id="@+id/photos_activity_folder_select_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:foreground="@drawable/jack_selector_btn_foreground">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/photos_activity_folder_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/jack_primary_text" />
+
+                <ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_alignBottom="@+id/photos_activity_folder_name"
+                    android:layout_marginStart="2dp"
+                    android:layout_toEndOf="@+id/photos_activity_folder_name"
+                    android:src="@drawable/jack_ic_indicator" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/photos_activity_preview_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:foreground="@drawable/jack_selector_btn_foreground">
+
+            <TextView
+                android:id="@+id/photos_activity_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/jack_small_space"
+                android:paddingEnd="@dimen/jack_space"
+                android:text="@string/jack_photo_text_preview"
+                android:textColor="@color/jack_primary_text"
+                android:textSize="@dimen/jack_primary_text" />
+        </FrameLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/jack_title_bar"
+    android:background="@color/jack_title_bar"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/title_bar_view_icon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/jack_selector_close"
+        android:paddingStart="@dimen/jack_space"
+        android:paddingEnd="@dimen/jack_space">
+
+        <ImageView
+            android:id="@+id/title_bar_view_icon"
+            android:layout_width="@dimen/jack_title_bar_close_size"
+            android:layout_height="@dimen/jack_title_bar_close_size"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/jack_ic_close" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/title_bar_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/title_bar_view_icon_layout"
+        android:text="@string/jack_photo_text_photo"
+        android:textColor="@color/jack_primary_text"
+        android:textSize="@dimen/jack_primary_text" />
+
+    <FrameLayout
+        android:id="@+id/title_bar_view_confirm_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/jack_space"
+        android:foreground="@drawable/jack_selector_btn_foreground">
+
+        <TextView
+            android:id="@+id/title_bar_view_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/jack_title_bar_confirm_height"
+            android:background="@drawable/jack_bg_title_bar_confirm"
+            android:gravity="center"
+            android:paddingStart="@dimen/jack_title_bar_confirm_horizontal_padding"
+            android:paddingEnd="@dimen/jack_title_bar_confirm_horizontal_padding"
+            android:text="@string/jack_photo_text_confirm"
+            android:textColor="@color/jack_primary_text"
+            android:textSize="@dimen/jack_accent_text" />
+    </FrameLayout>
+</RelativeLayout>

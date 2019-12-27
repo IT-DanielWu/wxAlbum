@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/folder_item_image_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/jack_bg_folder_image"
+        android:layout_margin="10dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="3dp">
+
+        <ImageView
+            android:id="@+id/folder_item_photo"
+            android:layout_width="@dimen/jack_folder_image_size"
+            android:layout_height="@dimen/jack_folder_image_size"
+            android:background="@color/jack_folder_item_image_bg"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/folder_item_select_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/jack_folder_item_padding"
+        android:src="@drawable/jack_ic_selected_tag" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toStartOf="@+id/folder_item_select_tag"
+        android:layout_toEndOf="@+id/folder_item_image_layout"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/folder_item_folder_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/jack_folder_item_name"
+            android:textSize="@dimen/jack_primary_text" />
+
+        <TextView
+            android:id="@+id/folder_item_photo_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:singleLine="true"
+            android:textColor="@color/jack_folder_item_photo_count"
+            android:textSize="@dimen/jack_accent_text" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/folder_item_image_layout"
+        android:layout_marginLeft="@dimen/jack_folder_item_padding"
+        android:layout_marginRight="@dimen/jack_folder_item_padding"
+        android:background="@color/jack_folder_item_line" />
+</RelativeLayout>

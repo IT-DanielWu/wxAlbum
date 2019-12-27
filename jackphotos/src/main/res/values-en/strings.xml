@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Jack Photo</string>
+    <string name="jack_photo_text_photo">Photos</string>
+    <string name="jack_photo_text_confirm">Confirm</string>
+    <string name="jack_photo_text_preview">Preview</string>
+    <string name="jack_photo_text_select">Select</string>
+    <string name="jack_photo_text_all_photo">All Photos</string>
+    <string name="jack_photo_text_today">Today</string>
+    <string name="jack_photo_text_this_week">This week</string>
+    <string name="jack_photo_text_this_month">This month</string>
+    <string name="jack_photo_text_cancel">Cancel</string>
+    <string name="jack_photo_text_tips">Tips</string>
+    <string name="jack_photo_text_permissions_hint">This album needs to be granted access to storage and photos, please go to Settings > App > Permissions to configure permissions.</string>
+
+    <string name="jack_photo_format_image_count">%d</string>
+</resources>

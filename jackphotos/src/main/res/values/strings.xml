@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Jack Photo</string>
+    <string name="jack_photo_text_photo">图片</string>
+    <string name="jack_photo_text_confirm">确定</string>
+    <string name="jack_photo_text_preview">预览</string>
+    <string name="jack_photo_text_select">选择</string>
+    <string name="jack_photo_text_all_photo">全部图片</string>
+    <string name="jack_photo_text_today">今天</string>
+    <string name="jack_photo_text_this_week">本周</string>
+    <string name="jack_photo_text_this_month">本月</string>
+    <string name="jack_photo_text_cancel">取消</string>
+    <string name="jack_photo_text_tips">提示</string>
+    <string name="jack_photo_text_permissions_hint">该相册需要赋予访问存储和拍照的权限，请到“设置”>“应用”>“权限”中配置权限。</string>
+
+    <string name="jack_photo_format_image_count">%d张</string>
+</resources>
