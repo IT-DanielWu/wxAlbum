@@ -106,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingStart="@dimen/jack_small_space"
+                android:gravity="center"
                 android:paddingEnd="@dimen/jack_space"
                 android:text="@string/jack_photo_text_preview"
                 android:textColor="@color/jack_primary_text"
