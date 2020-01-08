@@ -1,9 +1,13 @@
 package ysn.com.jackphotos.model.bean;
 
+import android.app.Activity;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+
+import ysn.com.jackphotos.model.mode.JackCropMode;
 
 /**
  * @Author yangsanning
@@ -13,11 +17,6 @@ import java.util.ArrayList;
  * @History 2019/12/27 author: description:
  */
 public class PhotoConfig implements Parcelable {
-
-    /**
-     * 是否剪切
-     */
-    public boolean isCrop = false;
 
     /**
      * 是否支持拍照
@@ -49,12 +48,27 @@ public class PhotoConfig implements Parcelable {
      */
     public ArrayList<String> selectedPhotoPathList;
 
-    /**
-     * 图片剪切的宽高比, 宽固定为手机屏幕的宽
-     */
-    public float cropRatio = 1.0f;
-
     public int requestCode;
+
+    /**
+     * 裁剪模式
+     */
+    public JackCropMode jackCropMode = JackCropMode.NO_USE;
+
+    /**
+     * 文件保存路径
+     */
+    public String cropFilePath;
+
+    /**
+     * 采用系统裁剪的时候使用到的参数{@link ysn.com.jackphotos.utils.PhotoPageUtils#startSystemCropActivity(Activity, PhotoConfig, Uri)}
+     * aspectX, aspectY: 裁剪框比例
+     * outputX, outputY: 输出图片大小
+     */
+    public int aspectX = 1;
+    public int aspectY = 1;
+    public int outputX = 300;
+    public int outputY = 300;
 
     @Override
     public int describeContents() {
@@ -63,30 +77,44 @@ public class PhotoConfig implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte(this.isCrop ? (byte) 1 : (byte) 0);
         dest.writeByte(this.useCamera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.onlyTakePhotos ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isSingle ? (byte) 1 : (byte) 0);
         dest.writeByte(this.canPreview ? (byte) 1 : (byte) 0);
         dest.writeInt(this.maxSelectCount);
         dest.writeStringList(this.selectedPhotoPathList);
-        dest.writeFloat(this.cropRatio);
         dest.writeInt(this.requestCode);
+
+        dest.writeSerializable(jackCropMode);
+
+        dest.writeString(this.cropFilePath);
+
+        dest.writeInt(this.aspectX);
+        dest.writeInt(this.aspectY);
+        dest.writeInt(this.outputX);
+        dest.writeInt(this.outputY);
     }
 
     public PhotoConfig() {
     }
 
     protected PhotoConfig(Parcel in) {
-        this.isCrop = in.readByte() != 0;
         this.useCamera = in.readByte() != 0;
         this.onlyTakePhotos = in.readByte() != 0;
         this.isSingle = in.readByte() != 0;
         this.canPreview = in.readByte() != 0;
         this.maxSelectCount = in.readInt();
         this.selectedPhotoPathList = in.createStringArrayList();
-        this.cropRatio = in.readFloat();
         this.requestCode = in.readInt();
+
+        this.jackCropMode = (JackCropMode) in.readSerializable();
+
+        this.cropFilePath = in.readString();
+
+        this.aspectX = in.readInt();
+        this.aspectY = in.readInt();
+        this.outputX = in.readInt();
+        this.outputY = in.readInt();
     }
 
     public static final Creator<PhotoConfig> CREATOR = new Creator<PhotoConfig>() {

@@ -127,7 +127,6 @@ public class PhotofolderHelper {
             public void run() {
                 synchronized (PhotofolderHelper.class) {
                     boolean isAndroidQ = AndroidVersionUtils.isAndroidQ();
-                    String imageCacheDir = FileUtils.getPhotoCacheDir(context);
                     ArrayList<PhotoFolder> photoFolderList;
                     if (cachePhotoFolderList == null || isPreload) {
                         ArrayList<Photo> sdCardPhotoList = FileUtils.loadPhotoForSDCard(context);
@@ -148,9 +147,7 @@ public class PhotofolderHelper {
                         for (Photo photo : sdCardPhotoList) {
                             // 过滤未下载完成或者不存在的文件(因Android Q用uri判断图片是否有效的方法耗时, 故这里不进行判断)
                             boolean isEffective = isAndroidQ || FileUtils.isEffective(photo.getPath());
-                            // 过滤剪切保存的图片；
-                            boolean isCutImage = FileUtils.isCutImage(imageCacheDir, photo.getPath());
-                            if (isEffective && !isCutImage) {
+                            if (isEffective) {
                                 photoList.add(photo);
                             }
                         }

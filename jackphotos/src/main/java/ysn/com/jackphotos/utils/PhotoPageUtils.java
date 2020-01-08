@@ -2,16 +2,20 @@ package ysn.com.jackphotos.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.constant.JackConstant;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.model.bean.PhotoConfig;
 import ysn.com.jackphotos.page.PreviewActivity;
+import ysn.com.view.cropimageview.utils.FileUtils;
 
 /**
  * @Author yangsanning
@@ -73,5 +77,33 @@ public class PhotoPageUtils {
         intent.putExtra(JackConstant.EXTRA_IS_SINGLE, isSingle);
         intent.putExtra(JackConstant.EXTRA_POSITION, position);
         activity.startActivityForResult(intent, JackConstant.PAGE_REQUEST_CODE_PREVIEW);
+    }
+
+    /**
+     * 跳转系统裁剪
+     */
+    public static Uri startSystemCropActivity(Activity activity, PhotoConfig photoConfig, Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        // 裁剪框比例
+        intent.putExtra("aspectX", photoConfig.aspectX);
+        intent.putExtra("aspectY", photoConfig.aspectY);
+        // 输出图片大小
+        intent.putExtra("outputX", photoConfig.outputX);
+        intent.putExtra("outputY", photoConfig.outputY);
+        intent.putExtra("scale", true);
+
+        Uri uriFile;
+        if (ValidatorUtils.isBlank(photoConfig.cropFilePath)) {
+            uriFile = FileUtils.getYsnUri(activity, Bitmap.CompressFormat.PNG);
+        } else {
+            uriFile = FileUtils.getImageUri(activity, new File(photoConfig.cropFilePath), (System.currentTimeMillis() / 1000));
+        }
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFile);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+        activity.startActivityForResult(intent, JackConstant.PAGE_REQUEST_CODE_CROP);
+        return uriFile;
     }
 }

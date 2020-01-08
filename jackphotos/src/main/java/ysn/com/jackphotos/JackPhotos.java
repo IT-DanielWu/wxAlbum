@@ -17,10 +17,6 @@ public class JackPhotos {
      * 通过它获取图片集合
      */
     public static final String EXTRA_PHOTOS = "EXTRA_PHOTOS";
-    /**
-     * 是否是来自于相机拍照
-     */
-    public static final String EXTRA_IS_FROM_CAMERA = "EXTRA_IS_FROM_CAMERA";
 
     public static PhotoBuilder create() {
         return new PhotoBuilder();

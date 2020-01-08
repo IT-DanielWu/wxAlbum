@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.model.bean.PhotoConfig;
-import ysn.com.jackphotos.page.CropImageActivity;
+import ysn.com.jackphotos.model.mode.JackCropMode;
 import ysn.com.jackphotos.page.PhotosActivity;
 import ysn.com.jackphotos.utils.PhotoPageUtils;
 
@@ -26,18 +26,38 @@ public class PhotoBuilder {
     }
 
     /**
-     * 是否使用图片剪切功能(默认false), 裁剪功能仅支持单选
+     * 设置裁剪模式(裁剪功能仅支持单选)
      */
-    public PhotoBuilder setCrop(boolean isCrop) {
-        photoConfig.isCrop = isCrop;
+    public PhotoBuilder setCropMore(JackCropMode jackCropMode) {
+        photoConfig.jackCropMode = jackCropMode;
         return this;
     }
 
     /**
-     * 图片裁剪的宽高比, 宽固定为手机屏幕的宽
+     * 设置裁剪参数(当裁剪模式为 {@link JackCropMode#SYSTEM} 时方有效)
+     * outputX, outputY: 输出图片大小
      */
-    public PhotoBuilder setCropRatio(float ratio) {
-        photoConfig.cropRatio = ratio;
+    public PhotoBuilder setSystemCropConfig(int outputX, int outputY) {
+        photoConfig.outputX = outputX;
+        photoConfig.outputY = outputY;
+        return this;
+    }
+
+    /**
+     * 设置裁剪参数(当裁剪模式为 {@link JackCropMode#SYSTEM} 时方有效)
+     * aspectX, aspectY: 裁剪框比例
+     * outputX, outputY: 输出图片大小
+     */
+    public PhotoBuilder setSystemCropConfig(int aspectX, int aspectY, int outputX, int outputY) {
+        photoConfig.aspectX = aspectX;
+        photoConfig.aspectY = aspectY;
+        photoConfig.outputX = outputX;
+        photoConfig.outputY = outputY;
+        return this;
+    }
+
+    public PhotoBuilder setCropFilePath(String cropFilePath) {
+        photoConfig.cropFilePath = cropFilePath;
         return this;
     }
 
@@ -90,16 +110,27 @@ public class PhotoBuilder {
     }
 
     /**
-     * 打开相册
+     * 纠正参数
      */
-    public void start(Activity activity, int requestCode) {
-        photoConfig.requestCode = requestCode;
+    private void redressConfig() {
         // 仅拍照, useCamera必须为true
         if (photoConfig.onlyTakePhotos) {
             photoConfig.useCamera = true;
         }
-        PhotoPageUtils.startPhotoPage(activity,
-            (photoConfig.isCrop ? CropImageActivity.class : PhotosActivity.class), requestCode, photoConfig);
+
+        // 裁剪功能仅支持单选
+        if (photoConfig.jackCropMode != JackCropMode.NO_USE) {
+            photoConfig.isSingle = true;
+        }
+    }
+
+    /**
+     * 打开相册
+     */
+    public void start(Activity activity, int requestCode) {
+        photoConfig.requestCode = requestCode;
+        redressConfig();
+        PhotoPageUtils.startPhotoPage(activity, PhotosActivity.class, requestCode, photoConfig);
     }
 
     /**
@@ -107,12 +138,8 @@ public class PhotoBuilder {
      */
     public void start(Fragment fragment, int requestCode) {
         photoConfig.requestCode = requestCode;
-        // 仅拍照, useCamera必须为true
-        if (photoConfig.onlyTakePhotos) {
-            photoConfig.useCamera = true;
-        }
-        PhotoPageUtils.startPhotoPage(fragment,
-            (photoConfig.isCrop ? CropImageActivity.class : PhotosActivity.class), requestCode, photoConfig);
+        redressConfig();
+        PhotoPageUtils.startPhotoPage(fragment, PhotosActivity.class, requestCode, photoConfig);
     }
 
     /**
@@ -120,11 +147,7 @@ public class PhotoBuilder {
      */
     public void start(android.app.Fragment fragment, int requestCode) {
         photoConfig.requestCode = requestCode;
-        // 仅拍照, useCamera必须为true
-        if (photoConfig.onlyTakePhotos) {
-            photoConfig.useCamera = true;
-        }
-        PhotoPageUtils.startPhotoPage(fragment,
-            (photoConfig.isCrop ? CropImageActivity.class : PhotosActivity.class), requestCode, photoConfig);
+        redressConfig();
+        PhotoPageUtils.startPhotoPage(fragment, PhotosActivity.class, requestCode, photoConfig);
     }
 }

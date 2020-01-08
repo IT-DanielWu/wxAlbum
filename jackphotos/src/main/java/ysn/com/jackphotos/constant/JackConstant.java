@@ -17,6 +17,7 @@ public class JackConstant {
 
     public static final int PAGE_REQUEST_CODE_CAMERA = 2000;
     public static final int PAGE_REQUEST_CODE_PREVIEW = 2001;
+    public static final int PAGE_REQUEST_CODE_CROP = 2002;
 
     public static final String EXTRA_MAX_SELECT_COUNT = "EXTRA_MAX_SELECT_COUNT";
     public static final String EXTRA_IS_SINGLE = "EXTRA_IS_SINGLE";

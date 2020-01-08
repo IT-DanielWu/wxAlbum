@@ -10,12 +10,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.JackPhotos;
+import ysn.com.jackphotos.model.mode.JackCropMode;
+import ysn.com.jackphotos.utils.FileUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAGE_REQUEST_CODE_JACK_PHOTOS && data != null) {
             ArrayList<String> photoPathList = data.getStringArrayListExtra(JackPhotos.EXTRA_PHOTOS);
-            boolean isFromCamera = data.getBooleanExtra(JackPhotos.EXTRA_IS_FROM_CAMERA, false);
-            Log.d("JackPhotos", "是否是拍照图片：" + isFromCamera);
             resultAdapter.setNewData(photoPathList);
         }
     }
@@ -82,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //单选并剪裁
                 JackPhotos.create()
                     .useCamera(true)
-                    // 设置是否使用裁剪
-                    .setCrop(true)
-                    // 图片剪切的宽高比(默认1.0f, 宽固定为手机屏幕的宽)
-                    .setCropRatio(1.0f)
+                    // 设置裁剪模式
+                    .setCropMore(JackCropMode.SYSTEM)
+                    // 设置裁剪路径
+                    .setCropFilePath(FileUtils.createPhotoFile().getAbsolutePath())
                     .setSingle(true)
                     .canPreview(true)
                     .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
@@ -99,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_activity_camera_and_crop:
                 JackPhotos.create()
-                    .setCrop(true)
-                    .setCropRatio(1.0f)
+                    .setCropMore(JackCropMode.SYSTEM)
                     .onlyTakePhoto(true)
                     .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
                 break;

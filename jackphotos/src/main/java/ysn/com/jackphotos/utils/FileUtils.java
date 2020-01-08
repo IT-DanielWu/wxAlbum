@@ -33,28 +33,6 @@ import ysn.com.jackphotos.model.bean.Photo;
  */
 public class FileUtils {
 
-    private static final String JACK_PHOTOS = "jack_photos";
-    private static final String PHOTOS_SUFFIX = ".jpg";
-    private static final int PHOTOS_QUALITY = 75;
-
-    /**
-     * 获取缓存图片的文件夹
-     */
-    public static String getPhotoCacheDir(Context context) {
-        String cachePath;
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-            || !Environment.isExternalStorageRemovable()) {
-            if (AndroidVersionUtils.isAndroidQ()) {
-                cachePath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath();
-            } else {
-                cachePath = context.getExternalCacheDir().getPath();
-            }
-        } else {
-            cachePath = context.getCacheDir().getPath();
-        }
-        return cachePath + File.separator + JACK_PHOTOS;
-    }
-
     /**
      * 从SDCard加载图片
      */
@@ -144,24 +122,6 @@ public class FileUtils {
         return false;
     }
 
-
-    /**
-     * 是否是剪切返回的图片
-     */
-    public static boolean isCutImage(Context context, String path) {
-        return isCutImage(FileUtils.getPhotoCacheDir(context), path);
-    }
-
-    /**
-     * 是否是剪切返回的图片
-     */
-    public static boolean isCutImage(String dir, String path) {
-        if (!ValidatorUtils.isBlank(path)) {
-            return path.startsWith(dir);
-        }
-        return false;
-    }
-
     /**
      * 创建图片uri
      */
@@ -186,7 +146,7 @@ public class FileUtils {
     /**
      * 创建图片文件
      */
-    public static File createPhotoFile() throws IOException {
+    public static File createPhotoFile() {
         String photoFileName = String.format("JPEG_%s.jpg", TimeUtils.getTime());
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         if (!storageDir.exists()) {
@@ -197,37 +157,5 @@ public class FileUtils {
             return null;
         }
         return file;
-    }
-
-    /**
-     * 保存图片
-     */
-    public static String savePhoto(Bitmap bitmap, String path, String name) {
-        FileOutputStream b = null;
-        File file = new File(path);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        String fileName = path + File.separator + name + PHOTOS_SUFFIX;
-
-        try {
-            b = new FileOutputStream(fileName);
-            // 把数据写入文件
-            bitmap.compress(Bitmap.CompressFormat.JPEG, PHOTOS_QUALITY, b);
-            return fileName;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (b != null) {
-                    b.flush();
-                    b.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return "";
     }
 }

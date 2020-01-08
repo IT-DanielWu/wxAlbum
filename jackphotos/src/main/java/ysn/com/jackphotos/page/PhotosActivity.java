@@ -34,6 +34,7 @@ import ysn.com.jackphotos.constant.JackConstant;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.model.bean.PhotoConfig;
 import ysn.com.jackphotos.model.bean.PhotoFolder;
+import ysn.com.jackphotos.model.mode.JackCropMode;
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.AnimatorUtils;
 import ysn.com.jackphotos.utils.FileUtils;
@@ -77,7 +78,9 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean applyLoadImage = Boolean.FALSE;
     private boolean applyCamera = Boolean.FALSE;
+
     private Uri cameraUri;
+    private Uri cropUri;
     private String cameraPhotoPath;
 
     private TitleBarView titleBarView;
@@ -113,16 +116,12 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         if (PermissionUtils.hasWriteExternalPermission(this) && PermissionUtils.hasCameraPermission(this)) {
             Intent imageCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (imageCaptureIntent.resolveActivity(getPackageManager()) != null) {
-                File photoFile = null;
+                File photoFile;
                 Uri photoUri = null;
                 if (AndroidVersionUtils.isAndroidQ()) {
                     photoUri = FileUtils.createPhotoPathUri(this);
                 } else {
-                    try {
-                        photoFile = FileUtils.createPhotoFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    photoFile = FileUtils.createPhotoFile();
 
                     if (photoFile != null) {
                         cameraPhotoPath = photoFile.getAbsolutePath();
@@ -358,13 +357,22 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         for (Photo photo : selectedPhotoList) {
             photoPathList.add(photo.getPath());
         }
-        complete(photoPathList, Boolean.FALSE);
+
+        complete(photoPathList);
     }
 
-    private void complete(ArrayList<String> photoPathList, final boolean isFromCamera) {
+    private void complete(ArrayList<String> photoPathList) {
+        if (JackCropMode.NO_USE == photoConfig.jackCropMode) {
+            finish(photoPathList);
+        } else {
+            cropUri = PhotoPageUtils.startSystemCropActivity(this, photoConfig,
+                UriUtils.getImageContentUri(this, photoPathList.get(0)));
+        }
+    }
+
+    private void finish(ArrayList<String> photoPathList) {
         Intent intent = new Intent();
         intent.putStringArrayListExtra(JackPhotos.EXTRA_PHOTOS, photoPathList);
-        intent.putExtra(JackPhotos.EXTRA_IS_FROM_CAMERA, isFromCamera);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -492,21 +500,27 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case JackConstant.PAGE_REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
-                    ArrayList<String> images = new ArrayList<>();
+                    ArrayList<String> photoPathList = new ArrayList<>();
                     if (AndroidVersionUtils.isAndroidQ()) {
                         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, cameraUri));
-                        images.add(UriUtils.getPathForUri(this, cameraUri));
+                        photoPathList.add(UriUtils.getPathForUri(this, cameraUri));
                     } else {
                         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(cameraPhotoPath))));
-                        images.add(cameraPhotoPath);
+                        photoPathList.add(cameraPhotoPath);
                     }
-                    complete(images, Boolean.TRUE);
+                    complete(photoPathList);
                 } else {
                     if (photoConfig.onlyTakePhotos) {
                         finish();
                     }
                 }
                 break;
+            case JackConstant.PAGE_REQUEST_CODE_CROP:
+                if (resultCode == RESULT_OK) {
+                    ArrayList<String> photoPathList = new ArrayList<>();
+                    photoPathList.add(UriUtils.getPathForUri(this, cropUri));
+                    finish(photoPathList);
+                }
             default:
                 break;
         }
