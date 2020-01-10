@@ -70,6 +70,11 @@ public class PhotoConfig implements Parcelable {
     public int outputX = 300;
     public int outputY = 300;
 
+    /**
+     * 文件输出路径
+     */
+    public String rootDirPath;
+
     @Override
     public int describeContents() {
         return 0;
@@ -93,6 +98,8 @@ public class PhotoConfig implements Parcelable {
         dest.writeInt(this.aspectY);
         dest.writeInt(this.outputX);
         dest.writeInt(this.outputY);
+
+        dest.writeString(this.rootDirPath);
     }
 
     public PhotoConfig() {
@@ -115,6 +122,8 @@ public class PhotoConfig implements Parcelable {
         this.aspectY = in.readInt();
         this.outputX = in.readInt();
         this.outputY = in.readInt();
+
+        this.rootDirPath = in.readString();
     }
 
     public static final Creator<PhotoConfig> CREATOR = new Creator<PhotoConfig>() {

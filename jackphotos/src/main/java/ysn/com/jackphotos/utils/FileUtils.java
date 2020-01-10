@@ -1,26 +1,17 @@
 package ysn.com.jackphotos.utils;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.v4.os.EnvironmentCompat;
 
 import java.io.File;
 import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import ysn.com.jackphotos.model.bean.Photo;
 
@@ -32,6 +23,8 @@ import ysn.com.jackphotos.model.bean.Photo;
  * @History 2019/12/27 author: description:
  */
 public class FileUtils {
+
+    private static final String FILE_CAMERA_PREFIX = "/ysn_camera_";
 
     /**
      * 从SDCard加载图片
@@ -123,39 +116,34 @@ public class FileUtils {
     }
 
     /**
-     * 创建图片uri
+     * 获取图片uri
+     *
+     * @param rootDirPath 存储目录
      */
-    public static Uri createPhotoPathUri(Context context) {
-        String status = Environment.getExternalStorageState();
-        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-        String photoName = timeFormat.format(new Date(System.currentTimeMillis()));
-
-        // 创建时包含的数据信息
-        ContentValues contentValues = new ContentValues(2);
-        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, photoName);
-        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-
-        // 判断是否有SD卡,优先使用SD卡存储,当没有SD卡时使用手机存储
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            return context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-        } else {
-            return context.getContentResolver().insert(MediaStore.Images.Media.INTERNAL_CONTENT_URI, contentValues);
+    public static Uri getCameraUri(Context context, String rootDirPath) {
+        if (ValidatorUtils.isBlank(rootDirPath)) {
+            rootDirPath = ysn.com.view.cropimageview.utils.FileUtils.getImageFolderFile().getAbsolutePath();
         }
+        long timeMillis = System.currentTimeMillis();
+        return ysn.com.view.cropimageview.utils.FileUtils.getImageUri(
+            context, createImageFile(rootDirPath, timeMillis), (timeMillis / 1000));
     }
 
     /**
-     * 创建图片文件
+     * 创建带{@link FileUtils#FILE_CAMERA_PREFIX}的图片文件
      */
-    public static File createPhotoFile() {
-        String photoFileName = String.format("JPEG_%s.jpg", TimeUtils.getTime());
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        if (!storageDir.exists()) {
-            storageDir.mkdir();
+    public static File createImageFile(String rootDirPath, long timeMillis) {
+        return createFile(new File(rootDirPath), (FILE_CAMERA_PREFIX + timeMillis + ".jpeg"));
+    }
+
+    /**
+     * @param rootDir  存储目录
+     * @param fileName 文件名
+     */
+    public static File createFile(File rootDir, String fileName) {
+        if (rootDir.exists()) {
+            rootDir.mkdir();
         }
-        File file = new File(storageDir, photoFileName);
-        if (!Environment.MEDIA_MOUNTED.equals(EnvironmentCompat.getStorageState(file))) {
-            return null;
-        }
-        return file;
+        return new File(rootDir, fileName);
     }
 }

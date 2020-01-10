@@ -1,6 +1,8 @@
 package ysn.com.jackphotos;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -53,6 +55,14 @@ public class PhotoBuilder {
         photoConfig.aspectY = aspectY;
         photoConfig.outputX = outputX;
         photoConfig.outputY = outputY;
+        return this;
+    }
+
+    /**
+     * 设置文件输出路径(默认{@link ysn.com.view.cropimageview.utils.FileUtils#getYsnUri(Context, Bitmap.CompressFormat)})
+     */
+    public PhotoBuilder setRootDirPath(String rootDirPath) {
+        photoConfig.rootDirPath = rootDirPath;
         return this;
     }
 

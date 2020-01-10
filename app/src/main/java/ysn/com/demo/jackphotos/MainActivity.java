@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 
 import ysn.com.jackphotos.JackPhotos;
 import ysn.com.jackphotos.model.mode.JackCropMode;
-import ysn.com.jackphotos.utils.FileUtils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // 设置裁剪模式
                     .setCropMore(JackCropMode.SYSTEM)
                     // 设置裁剪路径
-                    .setCropFilePath(FileUtils.createPhotoFile().getAbsolutePath())
                     .setSingle(true)
                     .canPreview(true)
                     .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
@@ -93,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 JackPhotos.create()
                     // 仅拍照
                     .onlyTakePhoto(true)
+                    // 设置文件输出路径
+                    .setRootDirPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
                     .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
                 break;
 

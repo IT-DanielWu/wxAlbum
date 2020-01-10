@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,8 +23,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.JackPhotos;
@@ -35,7 +32,6 @@ import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.model.bean.PhotoConfig;
 import ysn.com.jackphotos.model.bean.PhotoFolder;
 import ysn.com.jackphotos.model.mode.JackCropMode;
-import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.AnimatorUtils;
 import ysn.com.jackphotos.utils.FileUtils;
 import ysn.com.jackphotos.utils.PermissionUtils;
@@ -81,7 +77,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
 
     private Uri cameraUri;
     private Uri cropUri;
-    private String cameraPhotoPath;
 
     private TitleBarView titleBarView;
     private TextView timeTextView;
@@ -116,30 +111,10 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         if (PermissionUtils.hasWriteExternalPermission(this) && PermissionUtils.hasCameraPermission(this)) {
             Intent imageCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (imageCaptureIntent.resolveActivity(getPackageManager()) != null) {
-                File photoFile;
-                Uri photoUri = null;
-                if (AndroidVersionUtils.isAndroidQ()) {
-                    photoUri = FileUtils.createPhotoPathUri(this);
-                } else {
-                    photoFile = FileUtils.createPhotoFile();
-
-                    if (photoFile != null) {
-                        cameraPhotoPath = photoFile.getAbsolutePath();
-                        if (AndroidVersionUtils.isAndroidN()) {
-                            // 通过FileProvider创建一个content类型的Uri
-                            photoUri = FileProvider.getUriForFile((this), (getPackageName() + ".JackPhotosProvider"), photoFile);
-                        } else {
-                            photoUri = Uri.fromFile(photoFile);
-                        }
-                    }
-                }
-
-                cameraUri = photoUri;
-                if (photoUri != null) {
-                    imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                    imageCaptureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivityForResult(imageCaptureIntent, JackConstant.PAGE_REQUEST_CODE_CAMERA);
-                }
+                cameraUri = FileUtils.getCameraUri(this, photoConfig.rootDirPath);
+                imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+                imageCaptureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivityForResult(imageCaptureIntent, JackConstant.PAGE_REQUEST_CODE_CAMERA);
             }
         } else {
             PermissionUtils.requestWriteExternalAndCameraPermission(this);
@@ -500,14 +475,9 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case JackConstant.PAGE_REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
+                    sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, cameraUri));
                     ArrayList<String> photoPathList = new ArrayList<>();
-                    if (AndroidVersionUtils.isAndroidQ()) {
-                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, cameraUri));
-                        photoPathList.add(UriUtils.getPathForUri(this, cameraUri));
-                    } else {
-                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(cameraPhotoPath))));
-                        photoPathList.add(cameraPhotoPath);
-                    }
+                    photoPathList.add(UriUtils.getPathForUri(this, cameraUri));
                     complete(photoPathList);
                 } else {
                     if (photoConfig.onlyTakePhotos) {
