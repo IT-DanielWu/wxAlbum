@@ -66,11 +66,6 @@ public class PhotoBuilder {
         return this;
     }
 
-    public PhotoBuilder setCropFilePath(String cropFilePath) {
-        photoConfig.cropFilePath = cropFilePath;
-        return this;
-    }
-
     /**
      * 是否单选(默认false)
      */

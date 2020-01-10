@@ -24,8 +24,6 @@ import ysn.com.jackphotos.model.bean.Photo;
  */
 public class FileUtils {
 
-    private static final String FILE_CAMERA_PREFIX = "/ysn_camera_";
-
     /**
      * 从SDCard加载图片
      */
@@ -115,25 +113,13 @@ public class FileUtils {
         return false;
     }
 
-    /**
-     * 获取图片uri
-     *
-     * @param rootDirPath 存储目录
-     */
-    public static Uri getCameraUri(Context context, String rootDirPath) {
-        if (ValidatorUtils.isBlank(rootDirPath)) {
-            rootDirPath = ysn.com.view.cropimageview.utils.FileUtils.getImageFolderFile().getAbsolutePath();
-        }
-        long timeMillis = System.currentTimeMillis();
-        return ysn.com.view.cropimageview.utils.FileUtils.getImageUri(
-            context, createImageFile(rootDirPath, timeMillis), (timeMillis / 1000));
-    }
 
     /**
-     * 创建带{@link FileUtils#FILE_CAMERA_PREFIX}的图片文件
+     * @param rootDirPath 存储目录
+     * @param fileName    文件名
      */
-    public static File createImageFile(String rootDirPath, long timeMillis) {
-        return createFile(new File(rootDirPath), (FILE_CAMERA_PREFIX + timeMillis + ".jpeg"));
+    public static File createFile(String rootDirPath, String fileName) {
+        return createFile(new File(rootDirPath), fileName);
     }
 
     /**

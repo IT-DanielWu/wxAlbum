@@ -94,13 +94,7 @@ public class PhotoPageUtils {
         intent.putExtra("outputY", photoConfig.outputY);
         intent.putExtra("scale", true);
 
-        Uri uriFile;
-        if (ValidatorUtils.isBlank(photoConfig.cropFilePath)) {
-            uriFile = FileUtils.getYsnUri(activity, Bitmap.CompressFormat.PNG);
-        } else {
-            uriFile = FileUtils.getImageUri(activity, new File(photoConfig.cropFilePath), (System.currentTimeMillis() / 1000));
-        }
-
+        Uri uriFile = UriUtils.getCropUri(activity, photoConfig.rootDirPath);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFile);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
         activity.startActivityForResult(intent, JackConstant.PAGE_REQUEST_CODE_CROP);

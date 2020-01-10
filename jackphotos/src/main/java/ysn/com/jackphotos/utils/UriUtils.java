@@ -23,8 +23,11 @@ import java.io.File;
  */
 public class UriUtils {
 
+    private static final String FILE_CAMERA_PREFIX = "/ysn_camera_";
+    private static final String FILE_CROP_PREFIX = "/ysn_crop_";
+
     @SuppressLint("NewApi")
-    public static String getPathForUri(Context context,Uri uri){
+    public static String getPathForUri(Context context, Uri uri) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
@@ -107,7 +110,7 @@ public class UriUtils {
     }
 
     /**
-     * @param uri  The Uri to check.
+     * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
      */
     private static boolean isExternalStorageDocument(Uri uri) {
@@ -131,14 +134,14 @@ public class UriUtils {
     }
 
     /**
-     *  判断是否是Google相册的图片，类似于content://com.google.android.apps.photos.content/...
+     * 判断是否是Google相册的图片，类似于content://com.google.android.apps.photos.content/...
      **/
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
     /**
-     *  判断是否是Google相册的图片，类似于content://com.google.android.apps.photos.contentprovider/0/1/mediakey:/local%3A821abd2f-9f8c-4931-bbe9-a975d1f5fabc/ORIGINAL/NONE/1075342619
+     * 判断是否是Google相册的图片，类似于content://com.google.android.apps.photos.contentprovider/0/1/mediakey:/local%3A821abd2f-9f8c-4931-bbe9-a975d1f5fabc/ORIGINAL/NONE/1075342619
      **/
     public static boolean isGooglePlayPhotosUri(Uri uri) {
         return "com.google.android.apps.photos.contentprovider".equals(uri.getAuthority());
@@ -164,5 +167,38 @@ public class UriUtils {
                 return null;
             }
         }
+    }
+
+    /**
+     * 获取相机uri
+     *
+     * @param rootDirPath 存储目录
+     */
+    public static Uri getCameraUri(Context context, String rootDirPath) {
+        long timeMillis = System.currentTimeMillis();
+        return UriUtils.getImageUri(context, rootDirPath, (FILE_CAMERA_PREFIX + timeMillis + ".jpeg"), timeMillis);
+    }
+
+    /**
+     * 获取裁剪uri
+     *
+     * @param rootDirPath 存储目录
+     */
+    public static Uri getCropUri(Context context, String rootDirPath) {
+        long timeMillis = System.currentTimeMillis();
+        return UriUtils.getImageUri(context, rootDirPath, (FILE_CROP_PREFIX + timeMillis + ".png"), timeMillis);
+    }
+
+    /**
+     * 获取图片uri
+     *
+     * @param rootDirPath 存储目录
+     */
+    public static Uri getImageUri(Context context, String rootDirPath, String fileName, long timeMillis) {
+        if (ValidatorUtils.isBlank(rootDirPath)) {
+            rootDirPath = ysn.com.view.cropimageview.utils.FileUtils.getImageFolderFile().getAbsolutePath();
+        }
+        return ysn.com.view.cropimageview.utils.FileUtils.getImageUri(
+            context, FileUtils.createFile(rootDirPath, fileName), (timeMillis / 1000));
     }
 }

@@ -33,7 +33,6 @@ import ysn.com.jackphotos.model.bean.PhotoConfig;
 import ysn.com.jackphotos.model.bean.PhotoFolder;
 import ysn.com.jackphotos.model.mode.JackCropMode;
 import ysn.com.jackphotos.utils.AnimatorUtils;
-import ysn.com.jackphotos.utils.FileUtils;
 import ysn.com.jackphotos.utils.PermissionUtils;
 import ysn.com.jackphotos.utils.PhotoPageUtils;
 import ysn.com.jackphotos.utils.TimeUtils;
@@ -111,7 +110,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         if (PermissionUtils.hasWriteExternalPermission(this) && PermissionUtils.hasCameraPermission(this)) {
             Intent imageCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (imageCaptureIntent.resolveActivity(getPackageManager()) != null) {
-                cameraUri = FileUtils.getCameraUri(this, photoConfig.rootDirPath);
+                cameraUri = UriUtils.getCameraUri(this, photoConfig.rootDirPath);
                 imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
                 imageCaptureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startActivityForResult(imageCaptureIntent, JackConstant.PAGE_REQUEST_CODE_CAMERA);

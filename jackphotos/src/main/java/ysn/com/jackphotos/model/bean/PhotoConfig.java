@@ -56,11 +56,6 @@ public class PhotoConfig implements Parcelable {
     public JackCropMode jackCropMode = JackCropMode.NO_USE;
 
     /**
-     * 文件保存路径
-     */
-    public String cropFilePath;
-
-    /**
      * 采用系统裁剪的时候使用到的参数{@link ysn.com.jackphotos.utils.PhotoPageUtils#startSystemCropActivity(Activity, PhotoConfig, Uri)}
      * aspectX, aspectY: 裁剪框比例
      * outputX, outputY: 输出图片大小
@@ -92,8 +87,6 @@ public class PhotoConfig implements Parcelable {
 
         dest.writeSerializable(jackCropMode);
 
-        dest.writeString(this.cropFilePath);
-
         dest.writeInt(this.aspectX);
         dest.writeInt(this.aspectY);
         dest.writeInt(this.outputX);
@@ -115,8 +108,6 @@ public class PhotoConfig implements Parcelable {
         this.requestCode = in.readInt();
 
         this.jackCropMode = (JackCropMode) in.readSerializable();
-
-        this.cropFilePath = in.readString();
 
         this.aspectX = in.readInt();
         this.aspectY = in.readInt();
