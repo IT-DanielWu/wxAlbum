@@ -13,10 +13,9 @@
 
     <color name="jack_bottom_bar">#171918</color>
 
-    <color name="jack_folder_item_image_bg">#FFFFFF</color>
-    <color name="jack_folder_item_name">#000000</color>
+    <color name="jack_folder_item_name">#FFFFFF</color>
     <color name="jack_folder_item_photo_count">#aaaaaa</color>
-    <color name="jack_folder_item_line">#aaaaaa</color>
+    <color name="jack_folder_item_line">#4C4C4C</color>
 
     <color name="jack_crop_bg">#272828</color>
     <color name="jack_preview_bg">#272828</color>

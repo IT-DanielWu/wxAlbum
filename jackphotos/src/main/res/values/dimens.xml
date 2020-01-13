@@ -16,7 +16,9 @@
     <dimen name="jack_photo_item_select_tag_padding">5dp</dimen>
     <dimen name="jack_photo_camera_item_padding">20dp</dimen>
 
-    <dimen name="jack_folder_image_size">80dp</dimen>
+    <dimen name="jack_folder_image_size">55dp</dimen>
+    <dimen name="jack_folder_name_max_width">195dp</dimen>
+    <dimen name="jack_folder_item_select_tag_size">18dp</dimen>
     <dimen name="jack_folder_item_padding">10dp</dimen>
 
     <dimen name="jack_bottom_bar">42dp</dimen>

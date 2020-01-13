@@ -51,7 +51,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final PhotoFolder photoFolder = photoFolderList.get(position);
         holder.folderNameTextView.setText(photoFolder.getName());
-        holder.selectTagImageView.setVisibility(selectPosition == position ? View.VISIBLE : View.GONE);
+        holder.selectImageView.setVisibility(selectPosition == position ? View.VISIBLE : View.GONE);
 
         ArrayList<Photo> photoList = photoFolder.getPhotoList();
         if (ValidatorUtils.isEmptyList(photoList)) {
@@ -100,14 +100,14 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView photoImageView;
-        ImageView selectTagImageView;
+        ImageView selectImageView;
         TextView folderNameTextView;
         TextView photoCountTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
             photoImageView = itemView.findViewById(R.id.folder_item_photo);
-            selectTagImageView = itemView.findViewById(R.id.folder_item_select_tag);
+            selectImageView = itemView.findViewById(R.id.folder_item_select);
             folderNameTextView = itemView.findViewById(R.id.folder_item_folder_name);
             photoCountTextView = itemView.findViewById(R.id.folder_item_photo_count);
         }

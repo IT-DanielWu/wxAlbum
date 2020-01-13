@@ -185,7 +185,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     private void hideFolderRecyclerView() {
         if (isShowFolderRecyclerView) {
             maskView.setVisibility(View.GONE);
-            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, 0, folderRecyclerView.getHeight());
+            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, 0, -folderRecyclerView.getHeight());
             isShowFolderRecyclerView = false;
         }
     }
@@ -196,7 +196,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     private void showFolderRecyclerView() {
         if (!isShowFolderRecyclerView) {
             maskView.setVisibility(View.VISIBLE);
-            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, folderRecyclerView.getHeight(), 0);
+            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, -folderRecyclerView.getHeight(), 0);
             isShowFolderRecyclerView = true;
         }
     }
