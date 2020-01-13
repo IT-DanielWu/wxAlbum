@@ -20,7 +20,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -81,7 +80,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     private TitleBarView titleBarView;
     private TextView timeTextView;
     private RecyclerView photoRecyclerView;
-    private FrameLayout previewLayout;
     private TextView previewTextView;
     private RecyclerView folderRecyclerView;
     private View maskView;
@@ -128,11 +126,10 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         photoRecyclerView = findViewById(R.id.photos_activity_photo_recycler_view);
         folderRecyclerView = findViewById(R.id.photos_activity_folder_recycler_view);
         previewTextView = findViewById(R.id.photos_activity_preview);
-        previewLayout = findViewById(R.id.photos_activity_preview_layout);
         maskView = findViewById(R.id.photos_activity_mask);
 
         titleBarView.setOnTitleBarClickListener(this);
-        previewLayout.setOnClickListener(this);
+        previewTextView.setOnClickListener(this);
         maskView.setOnClickListener(this);
 
         //  默认隐藏文件夹列表
@@ -204,7 +201,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.photos_activity_preview_layout) {
+        if (id == R.id.photos_activity_preview) {
             startPreviewActivity(new ArrayList<>(photosAdapter.getSelectedPhotoList()), 0);
         } else if (id == R.id.photos_activity_mask) {
             hideFolderRecyclerView();
@@ -301,9 +298,10 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     private void updatePhotoCountUi(int count) {
         if (count == 0) {
             titleBarView.setConfirmView(false, R.string.jack_photo_text_confirm);
+            previewTextView.setEnabled(false);
             previewTextView.setText(R.string.jack_photo_text_preview);
         } else {
-            previewLayout.setEnabled(true);
+            previewTextView.setEnabled(true);
             previewTextView.setText(getString(R.string.jack_photo_text_preview) + "(" + count + ")");
             if (photoConfig.isSingle) {
                 titleBarView.setConfirmView(true, R.string.jack_photo_text_confirm);

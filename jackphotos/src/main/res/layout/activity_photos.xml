@@ -36,23 +36,16 @@
         android:layout_alignParentBottom="true"
         android:background="@color/jack_bottom_bar">
 
-        <FrameLayout
-            android:id="@+id/photos_activity_preview_layout"
+        <TextView
+            android:id="@+id/photos_activity_preview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:foreground="@drawable/jack_selector_btn_foreground">
-
-            <TextView
-                android:id="@+id/photos_activity_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingStart="@dimen/jack_small_space"
-                android:paddingEnd="@dimen/jack_space"
-                android:text="@string/jack_photo_text_preview"
-                android:textColor="@color/jack_primary_text"
-                android:textSize="@dimen/jack_primary_text" />
-        </FrameLayout>
+            android:gravity="center"
+            android:paddingStart="@dimen/jack_small_space"
+            android:paddingEnd="@dimen/jack_space"
+            android:text="@string/jack_photo_text_preview"
+            android:textColor="@drawable/jack_text_selector_preview"
+            android:textSize="@dimen/jack_primary_text" />
     </RelativeLayout>
 
     <View
