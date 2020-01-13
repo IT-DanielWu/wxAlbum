@@ -36,7 +36,6 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
     private View specialLayout;
     private TextView specialTitleTextView;
     private ImageView specialArrowIamgeView;
-    private View confirmLayout;
     private TextView confirmTextView;
 
     public TitleBarView(Context context) {
@@ -80,7 +79,6 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
         specialLayout = findViewById(R.id.title_bar_view_special_title_layout);
         specialTitleTextView = findViewById(R.id.title_bar_view_special_title);
         specialArrowIamgeView = findViewById(R.id.title_bar_view_special_title_arrow);
-        confirmLayout = findViewById(R.id.title_bar_view_confirm_layout);
         confirmTextView = findViewById(R.id.title_bar_view_confirm);
 
         iconImageView.setImageResource(iconRes);
@@ -92,8 +90,8 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
 
     private void setViewListener() {
         findViewById(R.id.title_bar_view_icon_layout).setOnClickListener(this);
-        findViewById(R.id.title_bar_view_confirm_layout).setOnClickListener(this);
         specialLayout.setOnClickListener(this);
+        confirmTextView.setOnClickListener(this);
     }
 
     @Override
@@ -102,7 +100,7 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
             if (onTitleBarClickListener != null) {
                 onTitleBarClickListener.onIconClick();
             }
-        } else if (view.getId() == R.id.title_bar_view_confirm_layout) {
+        } else if (view.getId() == R.id.title_bar_view_confirm) {
             if (onTitleBarClickListener != null) {
                 onTitleBarClickListener.onConfirmClick();
             }
@@ -135,7 +133,7 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
     }
 
     public void setConfirmEnabled(boolean enabled) {
-        confirmLayout.setEnabled(enabled);
+        confirmTextView.setEnabled(enabled);
     }
 
     public void setConfirmText(int confirmTextRes) {
@@ -146,13 +144,13 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
         confirmTextView.setText(confirmText);
     }
 
-    public void setConfirmView(boolean isVisibility, @StringRes int confirmTextRes) {
-        confirmLayout.setVisibility(isVisibility ? VISIBLE : GONE);
+    public void setConfirmView(boolean enabled, @StringRes int confirmTextRes) {
+        confirmTextView.setEnabled(enabled);
         confirmTextView.setText(confirmTextRes);
     }
 
-    public void setConfirmView(boolean isVisibility, String confirmText) {
-        confirmLayout.setVisibility(isVisibility ? VISIBLE : GONE);
+    public void setConfirmView(boolean enabled, String confirmText) {
+        confirmTextView.setEnabled(enabled);
         confirmTextView.setText(confirmText);
     }
 

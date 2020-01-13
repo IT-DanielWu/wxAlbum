@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="jack_primary_text">#FFFFFF</color>
+    <color name="jack_primary_text">#F1F1F1</color>
+    <color name="jack_primary_text_ban">#343434</color>
 
     <color name="jack_primary">#07C163</color>
     <color name="jack_title_bar">#343434</color>

@@ -42,7 +42,8 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="@dimen/jack_title_bar_special_padding_left"
-        android:paddingEnd="@dimen/jack_title_bar_special_padding_right">
+        android:paddingEnd="@dimen/jack_title_bar_special_padding_right"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/title_bar_view_special_title"
@@ -62,25 +63,18 @@
             android:src="@drawable/jack_ic_title_bar_special_arrow" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/title_bar_view_confirm_layout"
+    <ysn.com.jackphotos.widget.component.PressedTextView
+        android:id="@+id/title_bar_view_confirm"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/jack_title_bar_btn_height"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/jack_space"
-        android:foreground="@drawable/jack_selector_btn_foreground">
-
-        <TextView
-            android:id="@+id/title_bar_view_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/jack_title_bar_btn_height"
-            android:background="@drawable/jack_bg_title_bar_confirm"
-            android:gravity="center"
-            android:paddingStart="@dimen/jack_title_bar_confirm_horizontal_padding"
-            android:paddingEnd="@dimen/jack_title_bar_confirm_horizontal_padding"
-            android:text="@string/jack_photo_text_confirm"
-            android:textColor="@color/jack_primary_text"
-            android:textSize="@dimen/jack_accent_text" />
-    </FrameLayout>
+        android:background="@drawable/jack_bg_title_bar_confirm_enabled_true"
+        android:gravity="center"
+        android:paddingStart="@dimen/jack_title_bar_confirm_horizontal_padding"
+        android:paddingEnd="@dimen/jack_title_bar_confirm_horizontal_padding"
+        android:text="@string/jack_photo_text_confirm"
+        android:textColor="@drawable/jack_title_bar_confirm_text_selector"
+        android:textSize="@dimen/jack_accent_text" />
 </RelativeLayout>
