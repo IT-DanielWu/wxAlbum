@@ -9,7 +9,10 @@
     <dimen name="jack_radius">3dp</dimen>
 
     <dimen name="jack_title_bar_close_size">15dp</dimen>
-    <dimen name="jack_title_bar_confirm_height">28dp</dimen>
+    <dimen name="jack_title_bar_btn_height">28dp</dimen>
+    <dimen name="jack_title_bar_special_arrow_size">19dp</dimen>
+    <dimen name="jack_title_bar_special_padding_left">8dp</dimen>
+    <dimen name="jack_title_bar_special_padding_right">6dp</dimen>
     <dimen name="jack_title_bar_confirm_horizontal_padding">10dp</dimen>
 
     <dimen name="jack_photo_item_select_tag_size">26dp</dimen>

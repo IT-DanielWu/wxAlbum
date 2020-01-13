@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ysn="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,41 +37,9 @@
         android:background="@color/jack_bottom_bar">
 
         <FrameLayout
-            android:id="@+id/photos_activity_folder_select_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:foreground="@drawable/jack_selector_btn_foreground">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:id="@+id/photos_activity_folder_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/jack_primary_text" />
-
-                <ImageView
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
-                    android:layout_alignBottom="@+id/photos_activity_folder_name"
-                    android:layout_marginStart="2dp"
-                    android:layout_toEndOf="@+id/photos_activity_folder_name"
-                    android:src="@drawable/jack_ic_indicator" />
-            </RelativeLayout>
-        </FrameLayout>
-
-        <FrameLayout
             android:id="@+id/photos_activity_preview_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
             android:foreground="@drawable/jack_selector_btn_foreground">
 
             <TextView
@@ -99,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/photos_activity_title_bar_view"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dp"
         android:overScrollMode="never"
@@ -108,5 +77,6 @@
     <ysn.com.jackphotos.widget.component.TitleBarView
         android:id="@+id/photos_activity_title_bar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        ysn:tbv_special="true" />
 </RelativeLayout>

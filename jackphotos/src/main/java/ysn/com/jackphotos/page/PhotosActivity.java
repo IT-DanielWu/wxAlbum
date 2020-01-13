@@ -1,11 +1,11 @@
 package ysn.com.jackphotos.page;
 
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -38,6 +38,7 @@ import ysn.com.jackphotos.utils.PhotoPageUtils;
 import ysn.com.jackphotos.utils.TimeUtils;
 import ysn.com.jackphotos.utils.UriUtils;
 import ysn.com.jackphotos.utils.ValidatorUtils;
+import ysn.com.jackphotos.utils.ViewUtils;
 import ysn.com.jackphotos.widget.adapter.FolderAdapter;
 import ysn.com.jackphotos.widget.adapter.PhotosAdapter;
 import ysn.com.jackphotos.widget.component.TitleBarView;
@@ -82,7 +83,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     private RecyclerView photoRecyclerView;
     private FrameLayout previewLayout;
     private TextView previewTextView;
-    private TextView folderNameTextView;
     private RecyclerView folderRecyclerView;
     private View maskView;
 
@@ -98,7 +98,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
             StatusBarUtils.setColor(this, getResources().getColor(R.color.jack_title_bar));
             initView();
             loadPhotos();
-            hidePhotoFolderList();
             updatePhotoCountUi(0);
         }
     }
@@ -130,13 +129,20 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         folderRecyclerView = findViewById(R.id.photos_activity_folder_recycler_view);
         previewTextView = findViewById(R.id.photos_activity_preview);
         previewLayout = findViewById(R.id.photos_activity_preview_layout);
-        folderNameTextView = findViewById(R.id.photos_activity_folder_name);
         maskView = findViewById(R.id.photos_activity_mask);
 
         titleBarView.setOnTitleBarClickListener(this);
         previewLayout.setOnClickListener(this);
-        findViewById(R.id.photos_activity_folder_select_layout).setOnClickListener(this);
         maskView.setOnClickListener(this);
+
+        //  默认隐藏文件夹列表
+        folderRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                folderRecyclerView.setTranslationY(-folderRecyclerView.getHeight());
+                folderRecyclerView.setVisibility(View.GONE);
+            }
+        }, 100);
 
         initPhotoRecyclerView();
     }
@@ -144,6 +150,50 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onIconClick() {
         finish();
+    }
+
+    @Override
+    public void onSpecialTitleClick() {
+        if (ValidatorUtils.isNotEmptyList(photoFolderList)) {
+            if (isShowFolderRecyclerView) {
+                hideFolderRecyclerView();
+            } else {
+                showFolderRecyclerView();
+            }
+        }
+    }
+
+    /**
+     * 隐藏文件夹列表
+     */
+    private void hideFolderRecyclerView() {
+        if (isShowFolderRecyclerView) {
+            maskView.setVisibility(View.GONE);
+            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, new AnimatorUtils.OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd(View view, Animator animation) {
+                    folderRecyclerView.setVisibility(View.GONE);
+                    titleBarView.setSpecialTitleEnabled(true);
+                }
+            }, 0, -folderRecyclerView.getHeight());
+            isShowFolderRecyclerView = false;
+        }
+    }
+
+    /**
+     * 显示文件夹列表
+     */
+    private void showFolderRecyclerView() {
+        if (!isShowFolderRecyclerView) {
+            ViewUtils.setVisibility(maskView, folderRecyclerView);
+            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, new AnimatorUtils.OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd(View view, Animator animation) {
+                    titleBarView.setSpecialTitleEnabled(true);
+                }
+            }, -folderRecyclerView.getHeight(), 0);
+            isShowFolderRecyclerView = true;
+        }
     }
 
     @Override
@@ -156,14 +206,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         int id = view.getId();
         if (id == R.id.photos_activity_preview_layout) {
             startPreviewActivity(new ArrayList<>(photosAdapter.getSelectedPhotoList()), 0);
-        } else if (id == R.id.photos_activity_folder_select_layout) {
-            if (ValidatorUtils.isNotEmptyList(photoFolderList)) {
-                if (isShowFolderRecyclerView) {
-                    hideFolderRecyclerView();
-                } else {
-                    showFolderRecyclerView();
-                }
-            }
         } else if (id == R.id.photos_activity_mask) {
             hideFolderRecyclerView();
         }
@@ -176,28 +218,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         if (ValidatorUtils.isNotEmptyList(photoList)) {
             PhotoPageUtils.startPreviewActivity(this, photoList,
                 photosAdapter.getSelectedPhotoList(), photoConfig.isSingle, photoConfig.maxSelectCount, position);
-        }
-    }
-
-    /**
-     * 隐藏文件夹列表
-     */
-    private void hideFolderRecyclerView() {
-        if (isShowFolderRecyclerView) {
-            maskView.setVisibility(View.GONE);
-            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, 0, -folderRecyclerView.getHeight());
-            isShowFolderRecyclerView = false;
-        }
-    }
-
-    /**
-     * 显示文件夹列表
-     */
-    private void showFolderRecyclerView() {
-        if (!isShowFolderRecyclerView) {
-            maskView.setVisibility(View.VISIBLE);
-            AnimatorUtils.translationY(folderRecyclerView, JackConstant.ANIMATOR_DURATION, -folderRecyclerView.getHeight(), 0);
-            isShowFolderRecyclerView = true;
         }
     }
 
@@ -268,8 +288,8 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void selectFolder(PhotoFolder photoFolder) {
         if (photoFolder != null && photosAdapter != null && !photoFolder.equals(this.currentPhotoFolder)) {
-            this.currentPhotoFolder = photoFolder;
-            folderNameTextView.setText(photoFolder.getName());
+            currentPhotoFolder = photoFolder;
+            titleBarView.setTitle(photoFolder.getName());
             photoRecyclerView.scrollToPosition(0);
             photosAdapter.refresh(photoFolder.getPhotoList(), photoFolder.isUseCamera());
         }
@@ -385,20 +405,6 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             PermissionUtils.requestWriteExternalPermission(this);
         }
-    }
-
-    /**
-     * 默认隐藏文件夹列表
-     */
-    private void hidePhotoFolderList() {
-        folderRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                folderRecyclerView.setTranslationY(folderRecyclerView.getHeight());
-                folderRecyclerView.setVisibility(View.GONE);
-                folderRecyclerView.setBackgroundColor(Color.WHITE);
-            }
-        });
     }
 
     /**

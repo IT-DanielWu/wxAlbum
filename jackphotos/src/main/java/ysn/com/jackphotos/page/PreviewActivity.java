@@ -104,6 +104,11 @@ public class PreviewActivity extends AppCompatActivity implements TitleBarView.O
     }
 
     @Override
+    public void onSpecialTitleClick() {
+
+    }
+
+    @Override
     public void onConfirmClick() {
         isConfirm = true;
         finish();

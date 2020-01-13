@@ -50,6 +50,15 @@ public class AnimatorUtils {
             .start();
     }
 
+    /**
+     * 旋转
+     */
+    public static void rotate(View view, long duration, float... values) {
+        ObjectAnimator.ofFloat(view, "rotation", values)
+            .setDuration(duration)
+            .start();
+    }
+
     public interface OnAnimationEndListener {
 
         void onAnimationEnd(View view, Animator animation);

@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ysn.com.jackphotos.R;
+import ysn.com.jackphotos.constant.JackConstant;
+import ysn.com.jackphotos.utils.AnimatorUtils;
 
 /**
  * @Author yangsanning
@@ -25,11 +27,15 @@ import ysn.com.jackphotos.R;
 public class TitleBarView extends LinearLayout implements View.OnClickListener {
 
     private int iconRes;
+    private boolean isSpecial;
 
     private OnTitleBarClickListener onTitleBarClickListener;
 
     private ImageView iconImageView;
     private TextView titleTextView;
+    private View specialLayout;
+    private TextView specialTitleTextView;
+    private ImageView specialArrowIamgeView;
     private View confirmLayout;
     private TextView confirmTextView;
 
@@ -62,6 +68,7 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleBarView);
 
         iconRes = typedArray.getResourceId(R.styleable.TitleBarView_tbv_icon, R.drawable.jack_ic_close);
+        isSpecial = typedArray.getBoolean(R.styleable.TitleBarView_tbv_special, Boolean.FALSE);
 
         typedArray.recycle();
     }
@@ -70,15 +77,23 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
         LayoutInflater.from(context).inflate(R.layout.view_title_bar, this);
         iconImageView = findViewById(R.id.title_bar_view_icon);
         titleTextView = findViewById(R.id.title_bar_view_title);
+        specialLayout = findViewById(R.id.title_bar_view_special_title_layout);
+        specialTitleTextView = findViewById(R.id.title_bar_view_special_title);
+        specialArrowIamgeView = findViewById(R.id.title_bar_view_special_title_arrow);
         confirmLayout = findViewById(R.id.title_bar_view_confirm_layout);
         confirmTextView = findViewById(R.id.title_bar_view_confirm);
 
         iconImageView.setImageResource(iconRes);
+        if (isSpecial) {
+            titleTextView.setVisibility(GONE);
+            specialLayout.setVisibility(VISIBLE);
+        }
     }
 
     private void setViewListener() {
         findViewById(R.id.title_bar_view_icon_layout).setOnClickListener(this);
         findViewById(R.id.title_bar_view_confirm_layout).setOnClickListener(this);
+        specialLayout.setOnClickListener(this);
     }
 
     @Override
@@ -91,12 +106,32 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
             if (onTitleBarClickListener != null) {
                 onTitleBarClickListener.onConfirmClick();
             }
+        } else if (view.getId() == R.id.title_bar_view_special_title_layout) {
+            if (onTitleBarClickListener != null) {
+                onTitleBarClickListener.onSpecialTitleClick();
+            }
+            view.setEnabled(Boolean.FALSE);
+            if (specialArrowIamgeView.getTag() == null) {
+                specialArrowIamgeView.setTag(Boolean.TRUE);
+                AnimatorUtils.rotate(specialArrowIamgeView, JackConstant.ANIMATOR_DURATION, 0, 180);
+            } else {
+                specialArrowIamgeView.setTag(null);
+                AnimatorUtils.rotate(specialArrowIamgeView, JackConstant.ANIMATOR_DURATION, 180, 360);
+            }
         }
     }
 
     public TitleBarView setTitle(String title) {
-        titleTextView.setText(title);
+        if (isSpecial) {
+            specialTitleTextView.setText(title);
+        } else {
+            titleTextView.setText(title);
+        }
         return this;
+    }
+
+    public void setSpecialTitleEnabled(boolean enabled) {
+        specialLayout.setEnabled(enabled);
     }
 
     public void setConfirmEnabled(boolean enabled) {
@@ -128,6 +163,8 @@ public class TitleBarView extends LinearLayout implements View.OnClickListener {
     public interface OnTitleBarClickListener {
 
         void onIconClick();
+
+        void onSpecialTitleClick();
 
         void onConfirmClick();
     }

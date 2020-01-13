@@ -6,6 +6,8 @@
     <color name="jack_title_bar">#343434</color>
     <color name="jack_close_selector">#4C4C4C</color>
 
+    <color name="jack_title_bar_special">#4C4C4C</color>
+
     <color name="jack_photo_list_bg">#343434</color>
     <color name="jack_photo_time_bg">#9e111212</color>
     <color name="jack_photo_bg">#010101</color>
