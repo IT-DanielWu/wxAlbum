@@ -3,7 +3,7 @@
     <dimen name="jack_primary_text">16sp</dimen>
     <dimen name="jack_accent_text">15sp</dimen>
 
-    <dimen name="jack_title_bar">42dp</dimen>
+    <dimen name="jack_title_bar">43dp</dimen>
     <dimen name="jack_space">14dp</dimen>
     <dimen name="jack_small_space">10dp</dimen>
     <dimen name="jack_radius">3dp</dimen>
@@ -26,7 +26,7 @@
     <dimen name="jack_folder_item_select_tag_size">18dp</dimen>
     <dimen name="jack_folder_item_padding">10dp</dimen>
 
-    <dimen name="jack_bottom_bar">42dp</dimen>
+    <dimen name="jack_bottom_bar">50dp</dimen>
 
     <dimen name="jack_preview_select_tag_size">16dp</dimen>
 </resources>
