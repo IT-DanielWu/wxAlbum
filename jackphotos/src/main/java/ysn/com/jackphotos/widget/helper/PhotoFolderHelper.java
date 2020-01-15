@@ -20,12 +20,12 @@ import ysn.com.jackphotos.utils.ValidatorUtils;
 
 /**
  * @Author yangsanning
- * @ClassName PhotofolderHelper
+ * @ClassName PhotoFolderHelper
  * @Description 文件夹工具类
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
-public class PhotofolderHelper {
+public class PhotoFolderHelper {
 
     /**
      * 缓存图片
@@ -35,13 +35,13 @@ public class PhotofolderHelper {
 
     private Context context;
     private PhotoContentObserver photoContentObserver;
-    private static PhotofolderHelper instance;
+    private static PhotoFolderHelper instance;
 
-    public static PhotofolderHelper get(Context context) {
+    public static PhotoFolderHelper get(Context context) {
         if (instance == null) {
-            synchronized (PhotofolderHelper.class) {
+            synchronized (PhotoFolderHelper.class) {
                 if (instance == null) {
-                    instance = new PhotofolderHelper(context);
+                    instance = new PhotoFolderHelper(context);
                 }
             }
         }
@@ -52,7 +52,7 @@ public class PhotofolderHelper {
         instance = null;
     }
 
-    private PhotofolderHelper(Context context) {
+    private PhotoFolderHelper(Context context) {
         this.context = context;
     }
 
@@ -95,7 +95,7 @@ public class PhotofolderHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (PhotofolderHelper.class) {
+                synchronized (PhotoFolderHelper.class) {
                     if (cachePhotoFolderList != null) {
                         cachePhotoFolderList.clear();
                         cachePhotoFolderList = null;
@@ -125,7 +125,7 @@ public class PhotofolderHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (PhotofolderHelper.class) {
+                synchronized (PhotoFolderHelper.class) {
                     boolean isAndroidQ = AndroidVersionUtils.isAndroidQ();
                     ArrayList<PhotoFolder> photoFolderList;
                     if (cachePhotoFolderList == null || isPreload) {

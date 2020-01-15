@@ -41,7 +41,7 @@ import ysn.com.jackphotos.utils.ViewUtils;
 import ysn.com.jackphotos.widget.adapter.FolderAdapter;
 import ysn.com.jackphotos.widget.adapter.PhotosAdapter;
 import ysn.com.jackphotos.widget.component.TitleBarView;
-import ysn.com.jackphotos.widget.helper.PhotofolderHelper;
+import ysn.com.jackphotos.widget.helper.PhotoFolderHelper;
 import ysn.com.statusbar.StatusBarUtils;
 
 /**
@@ -379,7 +379,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if (PermissionUtils.hasWriteExternalPermission(this)) {
-            PhotofolderHelper.get(this).loadImageForSDCard(this, new PhotofolderHelper.OnPhotoFolderListListener() {
+            PhotoFolderHelper.get(this).loadImageForSDCard(this, new PhotoFolderHelper.OnPhotoFolderListListener() {
                 @Override
                 public void onPhotoFolderList(ArrayList<PhotoFolder> photoFolderList) {
                     PhotosActivity.this.photoFolderList = photoFolderList;

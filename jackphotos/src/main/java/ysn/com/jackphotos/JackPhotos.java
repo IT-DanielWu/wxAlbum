@@ -2,7 +2,7 @@ package ysn.com.jackphotos;
 
 import android.content.Context;
 
-import ysn.com.jackphotos.widget.helper.PhotofolderHelper;
+import ysn.com.jackphotos.widget.helper.PhotoFolderHelper;
 
 /**
  * @Author yangsanning
@@ -26,13 +26,13 @@ public class JackPhotos {
      * 预加载图片
      */
     public static void preload(Context context) {
-        PhotofolderHelper.get(context).preload();
+        PhotoFolderHelper.get(context).preload();
     }
 
     /**
      * 清空缓存
      */
     public static void clearCache(Context context) {
-        PhotofolderHelper.get(context).clearCache();
+        PhotoFolderHelper.get(context).clearCache();
     }
 }
