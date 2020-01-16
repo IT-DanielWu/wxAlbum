@@ -21,9 +21,11 @@ import ysn.com.jackphotos.constant.JackConstant;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.AnimatorUtils;
+import ysn.com.jackphotos.utils.ToastUtils;
 import ysn.com.jackphotos.widget.adapter.PreviewAdapter;
 import ysn.com.jackphotos.widget.adapter.PreviewPagerAdapter;
 import ysn.com.jackphotos.widget.component.PreviewViewPager;
+import ysn.com.jackphotos.widget.component.SmoothScrollLayoutManager;
 import ysn.com.jackphotos.widget.component.TitleBarView;
 import ysn.com.statusbar.StatusBarUtils;
 
@@ -134,32 +136,62 @@ public class PreviewActivity extends AppCompatActivity {
                         selectPhotoList.add(photo);
                     } else if (maxCount <= 0 || selectPhotoList.size() < maxCount) {
                         selectPhotoList.add(photo);
+                    } else {
+                        ToastUtils.showMsg(PreviewActivity.this, R.string.jack_photo_format_photo_max_count, maxCount);
                     }
-                    selectChange();
+                    selectChange(position);
                 }
             }
         });
+    }
+
+    private void selectChange(int position) {
+        Photo photo = photoList.get(position);
+        selectTagImageView.setImageResource(
+            selectPhotoList.contains(photo) ? R.drawable.jack_ic_selected_tag : R.drawable.jack_ic_un_selected_tag);
+
+        int count = selectPhotoList.size();
+        if (count == 0) {
+            titleBarView.setConfirmEnabled(Boolean.FALSE);
+            titleBarView.setConfirmText(R.string.jack_photo_text_confirm);
+        } else {
+            titleBarView.setConfirmEnabled(Boolean.TRUE);
+            if (isSingle) {
+                titleBarView.setConfirmText(R.string.jack_photo_text_confirm);
+            } else if (maxCount > 0) {
+                titleBarView.setConfirmText(getString(R.string.jack_photo_text_confirm) + "(" + count + "/" + maxCount + ")");
+            } else {
+                titleBarView.setConfirmText(getString(R.string.jack_photo_text_confirm) + "(" + count + ")");
+            }
+        }
+
+        if (isSingle) {
+            return;
+        }
+        previewAdapter.setNewDatas(selectPhotoList, photo);
+        previewRecyclerView.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
     }
 
     private void initPreviewAdapter() {
         if (isSingle) {
             return;
         }
-        previewAdapter = new PreviewAdapter(this, selectPhotoList);
-        previewAdapter.setOnPhotosMultiListener(new PreviewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Photo photo) {
-                for (int i = 0; i < photoList.size(); i++) {
-                    if (photo.equals(photoList.get(i))) {
-                        previewViewPager.setCurrentItem(i, false);
-                        break;
+        previewAdapter = new PreviewAdapter(this, selectPhotoList)
+            .bindRecyclerView(previewRecyclerView)
+            .setOnItemClickListener(new PreviewAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Photo photo) {
+                    for (int i = 0; i < photoList.size(); i++) {
+                        if (photo.equals(photoList.get(i))) {
+                            previewViewPager.setCurrentItem(i, false);
+                            break;
+                        }
                     }
                 }
-            }
-        });
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        previewRecyclerView.setLayoutManager(linearLayoutManager);
+            });
+        SmoothScrollLayoutManager layoutManager = new SmoothScrollLayoutManager(this, 60);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        previewRecyclerView.setLayoutManager(layoutManager);
         previewRecyclerView.setAdapter(previewAdapter);
     }
 
@@ -200,12 +232,7 @@ public class PreviewActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 titleBarView.setTitle(position + 1 + "/" + photoList.size());
-                Photo photo = photoList.get(position);
-                selectTagImageView.setImageResource(selectPhotoList.contains(photo) ?
-                        R.drawable.jack_ic_selected_tag : R.drawable.jack_ic_un_selected_tag);
-                if (!isSingle) {
-                    previewAdapter.selectPhoto(photo);
-                }
+                selectChange(position);
             }
 
             @Override
@@ -213,29 +240,8 @@ public class PreviewActivity extends AppCompatActivity {
             }
         });
 
-        selectChange();
+        selectChange(0);
         previewViewPager.setCurrentItem(position);
-    }
-
-    private void selectChange() {
-        int count = selectPhotoList.size();
-        if (count == 0) {
-            titleBarView.setConfirmEnabled(Boolean.FALSE);
-            titleBarView.setConfirmText(R.string.jack_photo_text_confirm);
-        } else {
-            titleBarView.setConfirmEnabled(Boolean.TRUE);
-            if (isSingle) {
-                titleBarView.setConfirmText(R.string.jack_photo_text_confirm);
-            } else if (maxCount > 0) {
-                titleBarView.setConfirmText(getString(R.string.jack_photo_text_confirm) + "(" + count + "/" + maxCount + ")");
-            } else {
-                titleBarView.setConfirmText(getString(R.string.jack_photo_text_confirm) + "(" + count + ")");
-            }
-        }
-        if (!isSingle) {
-            previewAdapter.setNewDatas(selectPhotoList);
-            previewRecyclerView.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
-        }
     }
 
     @Override

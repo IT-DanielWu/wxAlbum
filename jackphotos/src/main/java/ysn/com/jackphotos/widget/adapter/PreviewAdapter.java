@@ -32,12 +32,13 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
     private ArrayList<Photo> datas;
     private Photo previewPhoto;
 
-    private OnItemClickListener onPhotosMultiListener;
+    private OnItemClickListener onItemClickListener;
+
+    private RecyclerView recyclerView;
 
     public PreviewAdapter(Context context, ArrayList<Photo> datas) {
         this.context = context;
         this.datas = datas;
-
         this.layoutInflater = LayoutInflater.from(this.context);
     }
 
@@ -61,8 +62,8 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onPhotosMultiListener != null) {
-                    onPhotosMultiListener.onItemClick(photo);
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(photo);
                 }
             }
         });
@@ -73,22 +74,29 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
         return datas == null ? 0 : datas.size();
     }
 
-    public void setNewDatas(ArrayList<Photo> newDatas) {
+    public void setNewDatas(ArrayList<Photo> newDatas, Photo previewPhoto) {
         this.datas = newDatas;
+        this.previewPhoto = previewPhoto;
         notifyDataSetChanged();
+        scrollToPosition(previewPhoto);
     }
 
-    public void selectPhoto(Photo photo) {
-        if (datas.contains(photo)) {
-            previewPhoto = photo;
-        } else {
-            previewPhoto = null;
+    public PreviewAdapter bindRecyclerView(@NonNull RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+        return this;
+    }
+
+    public void scrollToPosition(@NonNull Photo previewPhoto) {
+        for (int i = 0; i < datas.size(); i++) {
+            if (previewPhoto.equals(datas.get(i))) {
+                recyclerView.smoothScrollToPosition(i);
+            }
         }
-        notifyDataSetChanged();
     }
 
-    public void setOnPhotosMultiListener(OnItemClickListener onPhotosMultiListener) {
-        this.onPhotosMultiListener = onPhotosMultiListener;
+    public PreviewAdapter setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+        return this;
     }
 
     public interface OnItemClickListener {

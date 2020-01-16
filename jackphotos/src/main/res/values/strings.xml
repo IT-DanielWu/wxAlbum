@@ -13,4 +13,5 @@
     <string name="jack_photo_text_permissions_hint">该相册需要赋予访问存储和拍照的权限，请到“设置”>“应用”>“权限”中配置权限。</string>
 
     <string name="jack_photo_format_image_count">(%d)</string>
+    <string name="jack_photo_format_photo_max_count">你最多只能选择%d个图片</string>
 </resources>
