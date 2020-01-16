@@ -28,5 +28,8 @@
 
     <dimen name="jack_bottom_bar">50dp</dimen>
 
+    <dimen name="jack_preview_item_size">51dp</dimen>
+    <dimen name="jack_preview_item_vertical_margin">14dp</dimen>
+    <dimen name="jack_preview_item_horizontal_margin">7dp</dimen>
     <dimen name="jack_preview_select_tag_size">16dp</dimen>
 </resources>
