@@ -21,8 +21,8 @@ import ysn.com.jackphotos.constant.JackConstant;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.AnimatorUtils;
-import ysn.com.jackphotos.widget.adapter.PhotoPagerAdapter;
 import ysn.com.jackphotos.widget.adapter.PreviewAdapter;
+import ysn.com.jackphotos.widget.adapter.PreviewPagerAdapter;
 import ysn.com.jackphotos.widget.component.PreviewViewPager;
 import ysn.com.jackphotos.widget.component.TitleBarView;
 import ysn.com.statusbar.StatusBarUtils;
@@ -30,7 +30,7 @@ import ysn.com.statusbar.StatusBarUtils;
 /**
  * @Author yangsanning
  * @ClassName PreviewActivity
- * @Description 一句话概括作用
+ * @Description 图片预览
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
@@ -135,7 +135,7 @@ public class PreviewActivity extends AppCompatActivity {
                     } else if (maxCount <= 0 || selectPhotoList.size() < maxCount) {
                         selectPhotoList.add(photo);
                     }
-                    selectChange(photo);
+                    selectChange();
                 }
             }
         });
@@ -149,7 +149,12 @@ public class PreviewActivity extends AppCompatActivity {
         previewAdapter.setOnPhotosMultiListener(new PreviewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Photo photo) {
-                // todo: 选择图片
+                for (int i = 0; i < photoList.size(); i++) {
+                    if (photo.equals(photoList.get(i))) {
+                        previewViewPager.setCurrentItem(i, false);
+                        break;
+                    }
+                }
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -162,9 +167,9 @@ public class PreviewActivity extends AppCompatActivity {
      * 初始化ViewPager
      */
     private void initViewPager() {
-        PhotoPagerAdapter photoPagerAdapter = new PhotoPagerAdapter(this, photoList);
-        previewViewPager.setAdapter(photoPagerAdapter);
-        photoPagerAdapter.setOnItemClickListener(new PhotoPagerAdapter.OnItemClickListener() {
+        PreviewPagerAdapter previewPagerAdapter = new PreviewPagerAdapter(photoList);
+        previewViewPager.setAdapter(previewPagerAdapter);
+        previewPagerAdapter.setOnItemClickListener(new PreviewPagerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, Photo photo) {
                 if (isBarShow) {
@@ -195,7 +200,12 @@ public class PreviewActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 titleBarView.setTitle(position + 1 + "/" + photoList.size());
-                selectChange(photoList.get(position));
+                Photo photo = photoList.get(position);
+                selectTagImageView.setImageResource(selectPhotoList.contains(photo) ?
+                        R.drawable.jack_ic_selected_tag : R.drawable.jack_ic_un_selected_tag);
+                if (!isSingle) {
+                    previewAdapter.selectPhoto(photo);
+                }
             }
 
             @Override
@@ -203,14 +213,11 @@ public class PreviewActivity extends AppCompatActivity {
             }
         });
 
-        selectChange(photoList.get(0));
+        selectChange();
         previewViewPager.setCurrentItem(position);
     }
 
-    private void selectChange(Photo photo) {
-        selectTagImageView.setImageResource(
-            selectPhotoList.contains(photo) ? R.drawable.jack_ic_selected_tag : R.drawable.jack_ic_un_selected_tag);
-
+    private void selectChange() {
         int count = selectPhotoList.size();
         if (count == 0) {
             titleBarView.setConfirmEnabled(Boolean.FALSE);

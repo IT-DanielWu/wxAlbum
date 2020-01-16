@@ -30,7 +30,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
     private boolean isAndroidQ = AndroidVersionUtils.isAndroidQ();
 
     private ArrayList<Photo> datas;
-    private int currentPosition = -1;
+    private Photo previewPhoto;
 
     private OnItemClickListener onPhotosMultiListener;
 
@@ -48,21 +48,20 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Photo photo = datas.get(position);
         if (isAndroidQ) {
-            ImageUtils.loadImage(context, photo.getUri(), holder.photoImageView);
+            ImageUtils.loadImageAsBitmap(context, photo.getUri(), holder.photoImageView);
         } else {
-            ImageUtils.loadImage(context, photo.getPath(), holder.photoImageView);
+            ImageUtils.loadImageAsBitmap(context, photo.getPath(), holder.photoImageView);
         }
 
-        holder.photoImageView.setShowFrame(currentPosition == position);
+        holder.photoImageView.setShowFrame(photo.equals(previewPhoto));
         holder.gifTagImageView.setVisibility(photo.isGif() ? View.VISIBLE : View.GONE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onPhotosMultiListener != null) {
-                    currentPosition = position;
                     onPhotosMultiListener.onItemClick(photo);
                 }
             }
@@ -76,6 +75,15 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
 
     public void setNewDatas(ArrayList<Photo> newDatas) {
         this.datas = newDatas;
+        notifyDataSetChanged();
+    }
+
+    public void selectPhoto(Photo photo) {
+        if (datas.contains(photo)) {
+            previewPhoto = photo;
+        } else {
+            previewPhoto = null;
+        }
         notifyDataSetChanged();
     }
 

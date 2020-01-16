@@ -185,7 +185,7 @@ public class ImageUtils {
      * 加载图片
      */
     public static void loadImage(Context context, Uri uri, ImageView imageView) {
-        Glide.with(context).asBitmap().load(uri)
+        Glide.with(context).load(uri)
             .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(imageView);
     }
@@ -194,6 +194,24 @@ public class ImageUtils {
      * 加载图片
      */
     public static void loadImage(Context context, String imagePath, ImageView imageView) {
+        Glide.with(context).load(imagePath)
+            .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+            .into(imageView);
+    }
+
+    /**
+     * 加载图片
+     */
+    public static void loadImageAsBitmap(Context context, Uri uri, ImageView imageView) {
+        Glide.with(context).asBitmap().load(uri)
+            .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+            .into(imageView);
+    }
+
+    /**
+     * 加载图片
+     */
+    public static void loadImageAsBitmap(Context context, String imagePath, ImageView imageView) {
         Glide.with(context).asBitmap().load(imagePath)
             .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
             .into(imageView);

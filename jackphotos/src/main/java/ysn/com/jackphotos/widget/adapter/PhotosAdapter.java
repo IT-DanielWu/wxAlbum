@@ -69,9 +69,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
             final int realPosition = getRealPosition(position);
             final Photo photo = photoList.get(realPosition);
             if (isAndroidQ) {
-                ImageUtils.loadImage(context, photo.getUri(), holder.photoImageView);
+                ImageUtils.loadImageAsBitmap(context, photo.getUri(), holder.photoImageView);
             } else {
-                ImageUtils.loadImage(context, photo.getPath(), holder.photoImageView);
+                ImageUtils.loadImageAsBitmap(context, photo.getPath(), holder.photoImageView);
             }
 
             upSelectPhotoUi(holder, selectedPhotoList.contains(photo));
