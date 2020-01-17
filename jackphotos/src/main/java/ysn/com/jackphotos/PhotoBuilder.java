@@ -114,6 +114,12 @@ public class PhotoBuilder {
         return this;
     }
 
+    public PhotoBuilder setSpanCount(int portraitSpanCount, int landscapeSpanCount) {
+        photoConfig.portraitSpanCount = portraitSpanCount;
+        photoConfig.landscapeSpanCount = landscapeSpanCount;
+        return this;
+    }
+
     /**
      * 纠正参数
      */

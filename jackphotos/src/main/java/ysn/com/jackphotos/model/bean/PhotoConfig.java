@@ -70,6 +70,12 @@ public class PhotoConfig implements Parcelable {
      */
     public String rootDirPath;
 
+    /**
+     * 照片选择页面横竖屏展示个数
+     */
+    public int portraitSpanCount = 4;
+    public int landscapeSpanCount = 5;
+
     @Override
     public int describeContents() {
         return 0;

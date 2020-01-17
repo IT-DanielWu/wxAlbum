@@ -11,5 +11,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/jack_photo_bg"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerCrop" />
 </FrameLayout>

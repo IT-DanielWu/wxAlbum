@@ -243,9 +243,9 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         // 判断屏幕方向
         Configuration configuration = getResources().getConfiguration();
         if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            gridLayoutManager = new GridLayoutManager(this, 4);
+            gridLayoutManager = new GridLayoutManager(this, photoConfig.portraitSpanCount);
         } else {
-            gridLayoutManager = new GridLayoutManager(this, 5);
+            gridLayoutManager = new GridLayoutManager(this, photoConfig.landscapeSpanCount);
         }
         photoRecyclerView.setLayoutManager(gridLayoutManager);
         photoRecyclerView.setAdapter(photosAdapter);
@@ -536,11 +536,11 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         if (gridLayoutManager != null && photosAdapter != null) {
             //切换为竖屏
             if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                gridLayoutManager.setSpanCount(3);
+                gridLayoutManager.setSpanCount(photoConfig.portraitSpanCount);
             }
             //切换为横屏
             else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                gridLayoutManager.setSpanCount(5);
+                gridLayoutManager.setSpanCount(photoConfig.landscapeSpanCount);
             }
             photosAdapter.notifyDataSetChanged();
         }

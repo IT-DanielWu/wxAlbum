@@ -2,11 +2,11 @@ package ysn.com.demo.jackphotos;
 
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
+import ysn.com.jackphotos.utils.ImageUtils;
 import ysn.com.jackphotos.utils.UriUtils;
 
 /**
@@ -28,9 +28,9 @@ public class ResultAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, String item) {
         ImageView imageView = helper.getView(R.id.result_item_image);
         if (isAndroidQ) {
-            Glide.with(mContext).load(UriUtils.getImageContentUri(mContext, item)).into(imageView);
+            ImageUtils.loadImage(mContext, UriUtils.getImageContentUri(mContext, item), imageView);
         } else {
-            Glide.with(mContext).load(item).into(imageView);
+            ImageUtils.loadImage(mContext, item, imageView);
         }
     }
 }
