@@ -58,9 +58,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_PHOTO) {
-            return new ViewHolder(layoutInflater.inflate(R.layout.item_photo, parent, false));
+            return new ViewHolder(layoutInflater.inflate(R.layout.jack_item_photo, parent, false));
         }
-        return new ViewHolder(layoutInflater.inflate(R.layout.item_photo_camera, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.jack_item_photo_camera, parent, false));
     }
 
     @Override
@@ -256,12 +256,12 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            photoImageView = itemView.findViewById(R.id.photo_item_photo);
-            selectedTagImageView = itemView.findViewById(R.id.photo_item_selected_tag);
-            photoMaskImageView = itemView.findViewById(R.id.photo_item_photo_mask);
-            gifTagImageView = itemView.findViewById(R.id.photo_item_selected_gif_tag);
+            photoImageView = itemView.findViewById(R.id.jack_photo_item_photo);
+            selectedTagImageView = itemView.findViewById(R.id.jack_photo_item_selected_tag);
+            photoMaskImageView = itemView.findViewById(R.id.jack_photo_item_photo_mask);
+            gifTagImageView = itemView.findViewById(R.id.jack_photo_item_selected_gif_tag);
 
-            cameraImageView = itemView.findViewById(R.id.photo_camera_item_camera);
+            cameraImageView = itemView.findViewById(R.id.jack_photo_camera_item_camera);
         }
     }
 

@@ -44,7 +44,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.item_folder, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.jack_item_folder, parent, false));
     }
 
     @Override
@@ -106,10 +106,10 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
         ViewHolder(View itemView) {
             super(itemView);
-            photoImageView = itemView.findViewById(R.id.folder_item_photo);
-            selectImageView = itemView.findViewById(R.id.folder_item_select);
-            folderNameTextView = itemView.findViewById(R.id.folder_item_folder_name);
-            photoCountTextView = itemView.findViewById(R.id.folder_item_photo_count);
+            photoImageView = itemView.findViewById(R.id.jack_folder_item_photo);
+            selectImageView = itemView.findViewById(R.id.jack_folder_item_select);
+            folderNameTextView = itemView.findViewById(R.id.jack_folder_item_folder_name);
+            photoCountTextView = itemView.findViewById(R.id.jack_folder_item_photo_count);
         }
     }
 }

@@ -51,7 +51,7 @@ import ysn.com.statusbar.StatusBarUtils;
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
-public class PhotosActivity extends AppCompatActivity implements View.OnClickListener, TitleBarView.OnTitleBarClickListener {
+public class JackPhotosActivity extends AppCompatActivity implements View.OnClickListener, TitleBarView.OnTitleBarClickListener {
 
     private PhotoConfig photoConfig;
 
@@ -92,7 +92,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
         if (photoConfig.onlyTakePhotos) {
             openCamera();
         } else {
-            setContentView(R.layout.activity_photos);
+            setContentView(R.layout.jack_activity_photos);
             StatusBarUtils.setColor(this, getResources().getColor(R.color.jack_title_bar));
             initView();
             loadPhotos();
@@ -121,12 +121,12 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
      * 初始化控件
      */
     private void initView() {
-        titleBarView = findViewById(R.id.photos_activity_title_bar_view);
-        timeTextView = findViewById(R.id.photos_activity_time);
-        photoRecyclerView = findViewById(R.id.photos_activity_photo_recycler_view);
-        folderRecyclerView = findViewById(R.id.photos_activity_folder_recycler_view);
-        previewTextView = findViewById(R.id.photos_activity_preview);
-        maskView = findViewById(R.id.photos_activity_mask);
+        titleBarView = findViewById(R.id.jack_photos_activity_title_bar_view);
+        timeTextView = findViewById(R.id.jack_photos_activity_time);
+        photoRecyclerView = findViewById(R.id.jack_photos_activity_photo_recycler_view);
+        folderRecyclerView = findViewById(R.id.jack_photos_activity_folder_recycler_view);
+        previewTextView = findViewById(R.id.jack_photos_activity_preview);
+        maskView = findViewById(R.id.jack_photos_activity_mask);
 
         titleBarView.setOnTitleBarClickListener(this);
         previewTextView.setOnClickListener(this);
@@ -201,9 +201,9 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.photos_activity_preview) {
+        if (id == R.id.jack_photos_activity_preview) {
             startPreviewActivity(new ArrayList<>(photosAdapter.getSelectedPhotoList()), 0);
-        } else if (id == R.id.photos_activity_mask) {
+        } else if (id == R.id.jack_photos_activity_mask) {
             hideFolderRecyclerView();
         }
     }
@@ -268,7 +268,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
             private void updateTimeView() {
                 Photo photo = photosAdapter.getFirstVisibleItem(gridLayoutManager.findFirstVisibleItemPosition());
                 if (photo != null) {
-                    timeTextView.setText(TimeUtils.formatPhotoTime((PhotosActivity.this), photo.getTime()));
+                    timeTextView.setText(TimeUtils.formatPhotoTime((JackPhotosActivity.this), photo.getTime()));
                     showTime();
                 }
             }
@@ -382,15 +382,15 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
             PhotoFolderHelper.get(this).loadImageForSDCard(this, new PhotoFolderHelper.OnPhotoFolderListListener() {
                 @Override
                 public void onPhotoFolderList(ArrayList<PhotoFolder> photoFolderList) {
-                    PhotosActivity.this.photoFolderList = photoFolderList;
+                    JackPhotosActivity.this.photoFolderList = photoFolderList;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (ValidatorUtils.isNotEmptyList(PhotosActivity.this.photoFolderList)) {
+                            if (ValidatorUtils.isNotEmptyList(JackPhotosActivity.this.photoFolderList)) {
                                 initFolderRecyclerView();
 
-                                PhotosActivity.this.photoFolderList.get(0).setUseCamera(photoConfig.useCamera);
-                                selectFolder(PhotosActivity.this.photoFolderList.get(0));
+                                JackPhotosActivity.this.photoFolderList.get(0).setUseCamera(photoConfig.useCamera);
+                                selectFolder(JackPhotosActivity.this.photoFolderList.get(0));
                                 if (photoConfig.selectedPhotoPathList != null && photosAdapter != null) {
                                     photosAdapter.setSelectedPhotoList(photoConfig.selectedPhotoPathList);
                                     updatePhotoCountUi(photosAdapter.getSelectedPhotoList().size());
@@ -517,7 +517,7 @@ public class PhotosActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                PhotoPageUtils.startAppSettings(PhotosActivity.this, PhotosActivity.this.getPackageName());
+                PhotoPageUtils.startAppSettings(JackPhotosActivity.this, JackPhotosActivity.this.getPackageName());
                 if (applyLoad) {
                     applyLoadImage = true;
                 } else {

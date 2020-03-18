@@ -5,19 +5,19 @@
     android:layout_height="match_parent">
 
     <ysn.com.jackphotos.widget.component.PreviewViewPager
-        android:id="@+id/preview_activity_view_pager"
+        android:id="@+id/jack_preview_activity_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/jack_preview_bg" />
 
     <ysn.com.jackphotos.widget.component.TitleBarView
-        android:id="@+id/preview_activity_title_bar_view"
+        android:id="@+id/jack_preview_activity_title_bar_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         ysn:tbv_icon="@drawable/jack_ic_back" />
 
     <LinearLayout
-        android:id="@+id/preview_activity_bottom_layout"
+        android:id="@+id/jack_preview_activity_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -27,13 +27,13 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/preview_activity_preview_recycler_view"
+            android:id="@+id/jack_preview_activity_preview_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <View
-            android:id="@+id/preview_activity_bottom_line"
+            android:id="@+id/jack_preview_activity_bottom_line"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/jack_preview_line" />
@@ -43,15 +43,15 @@
             android:layout_height="@dimen/jack_bottom_bar">
 
             <ImageView
-                android:id="@+id/preview_activity_select_tag"
+                android:id="@+id/jack_preview_activity_select_tag"
                 android:layout_width="@dimen/jack_preview_select_tag_size"
                 android:layout_height="@dimen/jack_preview_select_tag_size"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/preview_activity_select"
+                android:layout_toStartOf="@+id/jack_preview_activity_select"
                 android:background="@drawable/jack_ic_un_selected_tag" />
 
             <TextView
-                android:id="@+id/preview_activity_select"
+                android:id="@+id/jack_preview_activity_select"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"

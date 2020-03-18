@@ -7,7 +7,7 @@
     android:layout_margin="1dp">
 
     <ysn.com.jackphotos.widget.component.SquareImageView
-        android:id="@+id/photo_item_photo"
+        android:id="@+id/jack_photo_item_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -15,14 +15,14 @@
         android:scaleType="centerCrop" />
 
     <ysn.com.jackphotos.widget.component.SquareImageView
-        android:id="@+id/photo_item_photo_mask"
+        android:id="@+id/jack_photo_item_photo_mask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/jack_photo_selected_mask" />
 
     <ImageView
-        android:id="@+id/photo_item_selected_tag"
+        android:id="@+id/jack_photo_item_selected_tag"
         android:layout_width="@dimen/jack_photo_item_select_tag_size"
         android:layout_height="@dimen/jack_photo_item_select_tag_size"
         android:layout_gravity="right"
@@ -30,7 +30,7 @@
         android:src="@drawable/jack_ic_un_selected_tag" />
 
     <ImageView
-        android:id="@+id/photo_item_selected_gif_tag"
+        android:id="@+id/jack_photo_item_selected_gif_tag"
         android:layout_width="@dimen/jack_photo_item_gif_tag_width"
         android:layout_height="@dimen/jack_photo_item_gif_tag_height"
         android:layout_gravity="bottom"

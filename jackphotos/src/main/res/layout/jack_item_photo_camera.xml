@@ -7,7 +7,7 @@
     android:background="@color/jack_photo_bg">
 
     <ysn.com.jackphotos.widget.component.SquareImageView
-        android:id="@+id/photo_camera_item_camera"
+        android:id="@+id/jack_photo_camera_item_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

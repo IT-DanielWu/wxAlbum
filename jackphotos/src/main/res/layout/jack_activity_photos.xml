@@ -5,11 +5,11 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/photos_activity_photo_recycler_view"
+        android:id="@+id/jack_photos_activity_photo_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/photos_activity_bottom_bar"
-        android:layout_below="@+id/photos_activity_title_bar_view"
+        android:layout_above="@+id/jack_photos_activity_bottom_bar"
+        android:layout_below="@+id/jack_photos_activity_title_bar_view"
         android:background="@color/jack_photo_list_bg"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dp"
@@ -17,10 +17,10 @@
         android:scrollbars="vertical" />
 
     <TextView
-        android:id="@+id/photos_activity_time"
+        android:id="@+id/jack_photos_activity_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/photos_activity_photo_recycler_view"
+        android:layout_alignTop="@+id/jack_photos_activity_photo_recycler_view"
         android:background="#9e111212"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
@@ -30,14 +30,14 @@
         android:textSize="12sp" />
 
     <RelativeLayout
-        android:id="@+id/photos_activity_bottom_bar"
+        android:id="@+id/jack_photos_activity_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/jack_bottom_bar"
         android:layout_alignParentBottom="true"
         android:background="@color/jack_bottom_bar">
 
         <TextView
-            android:id="@+id/photos_activity_preview"
+            android:id="@+id/jack_photos_activity_preview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -49,18 +49,18 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/photos_activity_mask"
+        android:id="@+id/jack_photos_activity_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/photos_activity_title_bar_view"
+        android:layout_below="@id/jack_photos_activity_title_bar_view"
         android:background="#c4111212"
         android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/photos_activity_folder_recycler_view"
+        android:id="@+id/jack_photos_activity_folder_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/photos_activity_title_bar_view"
+        android:layout_below="@+id/jack_photos_activity_title_bar_view"
         android:layout_marginBottom="100dp"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dp"
@@ -68,7 +68,7 @@
         android:scrollbars="vertical" />
 
     <ysn.com.jackphotos.widget.component.TitleBarView
-        android:id="@+id/photos_activity_title_bar_view"
+        android:id="@+id/jack_photos_activity_title_bar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ysn:tbv_special="true" />

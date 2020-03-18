@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import ysn.com.jackphotos.model.bean.PhotoConfig;
 import ysn.com.jackphotos.model.mode.JackCropMode;
-import ysn.com.jackphotos.page.PhotosActivity;
+import ysn.com.jackphotos.page.JackPhotosActivity;
 import ysn.com.jackphotos.utils.PhotoPageUtils;
 
 /**
@@ -141,7 +141,7 @@ public class PhotoBuilder {
     public void start(Activity activity, int requestCode) {
         photoConfig.requestCode = requestCode;
         redressConfig();
-        PhotoPageUtils.startPhotoPage(activity, PhotosActivity.class, requestCode, photoConfig);
+        PhotoPageUtils.startPhotoPage(activity, JackPhotosActivity.class, requestCode, photoConfig);
     }
 
     /**
@@ -150,7 +150,7 @@ public class PhotoBuilder {
     public void start(Fragment fragment, int requestCode) {
         photoConfig.requestCode = requestCode;
         redressConfig();
-        PhotoPageUtils.startPhotoPage(fragment, PhotosActivity.class, requestCode, photoConfig);
+        PhotoPageUtils.startPhotoPage(fragment, JackPhotosActivity.class, requestCode, photoConfig);
     }
 
     /**
@@ -159,6 +159,6 @@ public class PhotoBuilder {
     public void start(android.app.Fragment fragment, int requestCode) {
         photoConfig.requestCode = requestCode;
         redressConfig();
-        PhotoPageUtils.startPhotoPage(fragment, PhotosActivity.class, requestCode, photoConfig);
+        PhotoPageUtils.startPhotoPage(fragment, JackPhotosActivity.class, requestCode, photoConfig);
     }
 }

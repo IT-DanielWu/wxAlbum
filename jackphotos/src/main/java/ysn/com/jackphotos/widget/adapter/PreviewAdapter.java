@@ -45,7 +45,7 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.item_preview, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.jack_item_preview, parent, false));
     }
 
     @Override
@@ -114,8 +114,8 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
 
         ViewHolder(View itemView) {
             super(itemView);
-            photoImageView = itemView.findViewById(R.id.preview_item_photo);
-            gifTagImageView = itemView.findViewById(R.id.preview_item_selected_gif_tag);
+            photoImageView = itemView.findViewById(R.id.jack_preview_item_photo);
+            gifTagImageView = itemView.findViewById(R.id.jack_preview_item_selected_gif_tag);
         }
     }
 }

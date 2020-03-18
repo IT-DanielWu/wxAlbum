@@ -8,14 +8,12 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.constant.JackConstant;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.model.bean.PhotoConfig;
-import ysn.com.jackphotos.page.PreviewActivity;
-import ysn.com.view.cropimageview.utils.FileUtils;
+import ysn.com.jackphotos.page.JackPreviewActivity;
 
 /**
  * @Author yangsanning
@@ -70,9 +68,9 @@ public class PhotoPageUtils {
     public static void startPreviewActivity(Activity activity, ArrayList<Photo> photoList,
                                             ArrayList<Photo> selectedPhotoList, boolean isSingle,
                                             int maxSelectCount, int position) {
-        PreviewActivity.tempPhotoList = photoList;
-        PreviewActivity.tempSelectPhotoList = selectedPhotoList;
-        Intent intent = new Intent(activity, PreviewActivity.class);
+        JackPreviewActivity.tempPhotoList = photoList;
+        JackPreviewActivity.tempSelectPhotoList = selectedPhotoList;
+        Intent intent = new Intent(activity, JackPreviewActivity.class);
         intent.putExtra(JackConstant.EXTRA_MAX_SELECT_COUNT, maxSelectCount);
         intent.putExtra(JackConstant.EXTRA_IS_SINGLE, isSingle);
         intent.putExtra(JackConstant.EXTRA_POSITION, position);

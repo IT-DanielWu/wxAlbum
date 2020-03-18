@@ -9,14 +9,14 @@
     android:layout_marginBottom="@dimen/jack_preview_item_vertical_margin">
 
     <ysn.com.jackphotos.widget.component.FrameImageView
-        android:id="@+id/preview_item_photo"
+        android:id="@+id/jack_preview_item_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/jack_photo_bg"
         android:scaleType="centerCrop" />
 
     <ImageView
-        android:id="@+id/preview_item_selected_gif_tag"
+        android:id="@+id/jack_preview_item_selected_gif_tag"
         android:layout_width="@dimen/jack_photo_item_gif_tag_width"
         android:layout_height="@dimen/jack_photo_item_gif_tag_height"
         android:layout_gravity="bottom"

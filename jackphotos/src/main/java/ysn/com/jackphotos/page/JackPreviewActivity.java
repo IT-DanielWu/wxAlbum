@@ -36,7 +36,7 @@ import ysn.com.statusbar.StatusBarUtils;
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
-public class PreviewActivity extends AppCompatActivity {
+public class JackPreviewActivity extends AppCompatActivity {
 
     /**
      * 用静态变量的好处: 1.保证两个页面操作的是同一个列表数据, 2.可以避免数据量大时, Intent传输发生错误问题
@@ -63,7 +63,7 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preview);
+        setContentView(R.layout.jack_activity_preview);
 
         if (AndroidVersionUtils.isAndroidP()) {
             // 设置页面全屏显示
@@ -92,11 +92,11 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        titleBarView = findViewById(R.id.preview_activity_title_bar_view);
-        previewViewPager = findViewById(R.id.preview_activity_view_pager);
-        bottomLayout = findViewById(R.id.preview_activity_bottom_layout);
-        previewRecyclerView = findViewById(R.id.preview_activity_preview_recycler_view);
-        selectTagImageView = findViewById(R.id.preview_activity_select_tag);
+        titleBarView = findViewById(R.id.jack_preview_activity_title_bar_view);
+        previewViewPager = findViewById(R.id.jack_preview_activity_view_pager);
+        bottomLayout = findViewById(R.id.jack_preview_activity_bottom_layout);
+        previewRecyclerView = findViewById(R.id.jack_preview_activity_preview_recycler_view);
+        selectTagImageView = findViewById(R.id.jack_preview_activity_select_tag);
 
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) titleBarView.getLayoutParams();
         layoutParams.topMargin = StatusBarUtils.getStatusBarHeight(this);
@@ -123,7 +123,7 @@ public class PreviewActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.preview_activity_select).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.jack_preview_activity_select).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = previewViewPager.getCurrentItem();
@@ -137,7 +137,7 @@ public class PreviewActivity extends AppCompatActivity {
                     } else if (maxCount <= 0 || selectPhotoList.size() < maxCount) {
                         selectPhotoList.add(photo);
                     } else {
-                        ToastUtils.showMsg(PreviewActivity.this, R.string.jack_photo_format_photo_max_count, maxCount);
+                        ToastUtils.showMsg(JackPreviewActivity.this, R.string.jack_photo_format_photo_max_count, maxCount);
                     }
                     selectChange(position);
                 }
@@ -211,14 +211,14 @@ public class PreviewActivity extends AppCompatActivity {
                         public void onAnimationEnd(View view, Animator animation) {
                             if (view != null) {
                                 view.setVisibility(View.GONE);
-                                StatusBarUtils.hideStatusBar(PreviewActivity.this);
+                                StatusBarUtils.hideStatusBar(JackPreviewActivity.this);
                             }
                         }
                     }, 0, -titleBarView.getHeight());
                     AnimatorUtils.translationY(bottomLayout, JackConstant.ANIMATOR_DURATION, 0, bottomLayout.getHeight());
                 } else {
                     isBarShow = true;
-                    StatusBarUtils.showStatusBar(PreviewActivity.this);
+                    StatusBarUtils.showStatusBar(JackPreviewActivity.this);
                     AnimatorUtils.translationY(titleBarView, JackConstant.ANIMATOR_DURATION, titleBarView.getTranslationY(), 0);
                     AnimatorUtils.translationY(bottomLayout, JackConstant.ANIMATOR_DURATION, bottomLayout.getTranslationY(), 0);
                 }
