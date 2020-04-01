@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 
@@ -33,14 +34,14 @@ public class FileUtils {
         Uri imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         ContentResolver contentResolver = context.getContentResolver();
         Cursor cursor = contentResolver.query(imageUri, new String[]{
-                MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.DATE_ADDED,
-                MediaStore.Images.Media._ID,
-                MediaStore.Images.Media.MIME_TYPE},
-            null,
-            null,
-            MediaStore.Images.Media.DATE_ADDED);
+                        MediaStore.Images.Media.DATA,
+                        MediaStore.Images.Media.DISPLAY_NAME,
+                        MediaStore.Images.Media.DATE_ADDED,
+                        MediaStore.Images.Media._ID,
+                        MediaStore.Images.Media.MIME_TYPE},
+                null,
+                null,
+                MediaStore.Images.Media.DATE_ADDED);
 
         ArrayList<Photo> imageList = new ArrayList<>();
 
@@ -113,7 +114,6 @@ public class FileUtils {
         return false;
     }
 
-
     /**
      * @param rootDirPath 存储目录
      * @param fileName    文件名
@@ -131,5 +131,23 @@ public class FileUtils {
             rootDir.mkdir();
         }
         return new File(rootDir, fileName);
+    }
+
+    /**
+     * 删除文件
+     */
+    public static void deleteFile(Context context, Uri uri) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            context.getContentResolver().delete(uri, null, null);
+        } else {
+            String path = UriUtils.getPathForUri(context, uri);
+            if (path == null) {
+                return;
+            }
+            File file = new File(path);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
     }
 }

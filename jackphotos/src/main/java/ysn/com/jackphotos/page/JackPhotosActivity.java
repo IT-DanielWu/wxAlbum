@@ -32,6 +32,7 @@ import ysn.com.jackphotos.model.bean.PhotoConfig;
 import ysn.com.jackphotos.model.bean.PhotoFolder;
 import ysn.com.jackphotos.model.mode.JackCropMode;
 import ysn.com.jackphotos.utils.AnimatorUtils;
+import ysn.com.jackphotos.utils.FileUtils;
 import ysn.com.jackphotos.utils.PermissionUtils;
 import ysn.com.jackphotos.utils.PhotoPageUtils;
 import ysn.com.jackphotos.utils.TimeUtils;
@@ -214,7 +215,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
     private void startPreviewActivity(ArrayList<Photo> photoList, int position) {
         if (ValidatorUtils.isNotEmptyList(photoList)) {
             PhotoPageUtils.startPreviewActivity(this, photoList,
-                photosAdapter.getSelectedPhotoList(), photoConfig.isSingle, photoConfig.maxSelectCount, position);
+                    photosAdapter.getSelectedPhotoList(), photoConfig.isSingle, photoConfig.maxSelectCount, position);
         }
     }
 
@@ -307,7 +308,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
                 titleBarView.setConfirmView(true, R.string.jack_photo_text_confirm);
             } else if (photoConfig.maxSelectCount > 0) {
                 titleBarView.setConfirmView(true,
-                    (getString(R.string.jack_photo_text_confirm) + "(" + count + "/" + photoConfig.maxSelectCount + ")"));
+                        (getString(R.string.jack_photo_text_confirm) + "(" + count + "/" + photoConfig.maxSelectCount + ")"));
             } else {
                 titleBarView.setConfirmView(true, (getString(R.string.jack_photo_text_confirm) + "(" + count + ")"));
             }
@@ -358,7 +359,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
             finish(photoPathList);
         } else {
             cropUri = PhotoPageUtils.startSystemCropActivity(this, photoConfig,
-                UriUtils.getImageContentUri(this, photoPathList.get(0)));
+                    UriUtils.getImageContentUri(this, photoPathList.get(0)));
         }
     }
 
@@ -449,8 +450,8 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
                 break;
             case JackConstant.PERMISSION_REQUEST_CODE_WRITE_EXTERNAL_AND_CAMERA:
                 if (grantResults.length > 1
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     openCamera();
                 } else {
                     showPermissionTipsDialog(Boolean.FALSE);
@@ -483,16 +484,21 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
                     photoPathList.add(UriUtils.getPathForUri(this, cameraUri));
                     complete(photoPathList);
                 } else {
+                    FileUtils.deleteFile(this, cameraUri);
                     if (photoConfig.onlyTakePhotos) {
                         finish();
                     }
                 }
                 break;
             case JackConstant.PAGE_REQUEST_CODE_CROP:
+                FileUtils.deleteFile(this, cameraUri);
                 if (resultCode == RESULT_OK) {
                     ArrayList<String> photoPathList = new ArrayList<>();
                     photoPathList.add(UriUtils.getPathForUri(this, cropUri));
                     finish(photoPathList);
+                } else {
+                    FileUtils.deleteFile(this, cropUri);
+                    finish();
                 }
             default:
                 break;
@@ -504,16 +510,16 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
      */
     private void showPermissionTipsDialog(final boolean applyLoad) {
         new AlertDialog.Builder(this)
-            .setCancelable(false)
-            .setTitle(R.string.jack_photo_text_tips)
-            .setMessage(R.string.jack_photo_text_permissions_hint)
-            .setNegativeButton(R.string.jack_photo_text_cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                    finish();
-                }
-            }).setPositiveButton(R.string.jack_photo_text_confirm, new DialogInterface.OnClickListener() {
+                .setCancelable(false)
+                .setTitle(R.string.jack_photo_text_tips)
+                .setMessage(R.string.jack_photo_text_permissions_hint)
+                .setNegativeButton(R.string.jack_photo_text_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                }).setPositiveButton(R.string.jack_photo_text_confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
