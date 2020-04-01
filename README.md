@@ -19,12 +19,12 @@
 
 #### 1.1 AndroidManifest.xml中添加
 ```android
-        <activity
-            android:name="ysn.com.jackphotos.page.PhotosActivity"
+    	<activity
+            android:name="ysn.com.jackphotos.page.JackPhotosActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="ysn.com.jackphotos.page.PreviewActivity"
+            android:name="ysn.com.jackphotos.page.JackPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 ```
