@@ -138,6 +138,9 @@ public class FileUtils {
      */
     public static void deleteFile(Context context, Uri uri) {
         if (Build.VERSION.SDK_INT >= 24) {
+            if (uri == null) {
+                return;
+            }
             context.getContentResolver().delete(uri, null, null);
         } else {
             String path = UriUtils.getPathForUri(context, uri);

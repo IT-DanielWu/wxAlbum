@@ -485,6 +485,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
                     complete(photoPathList);
                 } else {
                     FileUtils.deleteFile(this, cameraUri);
+                    cameraUri = null;
                     if (photoConfig.onlyTakePhotos) {
                         finish();
                     }
@@ -492,6 +493,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
                 break;
             case JackConstant.PAGE_REQUEST_CODE_CROP:
                 FileUtils.deleteFile(this, cameraUri);
+                cameraUri = null;
                 if (resultCode == RESULT_OK) {
                     ArrayList<String> photoPathList = new ArrayList<>();
                     photoPathList.add(UriUtils.getPathForUri(this, cropUri));
