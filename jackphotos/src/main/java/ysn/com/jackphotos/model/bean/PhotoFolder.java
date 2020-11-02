@@ -1,5 +1,7 @@
 package ysn.com.jackphotos.model.bean;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.utils.ValidatorUtils;
@@ -50,12 +52,28 @@ public class PhotoFolder {
         this.useCamera = useCamera;
     }
 
-    public void addImage(Photo image) {
-        if (image != null && ValidatorUtils.isNotBlank(image.getPath())) {
-            if (photoList == null) {
+    public void addPhoto(Photo photo) {
+        if (photo != null && ValidatorUtils.isNotBlank(photo.getFilePath())) {
+            if (isNull()) {
                 photoList = new ArrayList<>();
             }
-            photoList.add(image);
+            photoList.add(photo);
         }
+    }
+
+    public boolean isNotNull() {
+        return !isNull();
+    }
+
+    public boolean isNull() {
+        return photoList == null;
+    }
+
+    public String getThumbnails() {
+        return photoList.get(0).getThumbnails();
+    }
+
+    public Uri getThumbnailsUri() {
+        return photoList.get(0).getThumbnailsUri();
     }
 }

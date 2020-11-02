@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Jack Photo</string>
-    <string name="jack_photo_text_photo">Photos</string>
+    <string name="jack_photo_text_photos">Photos</string>
     <string name="jack_photo_text_confirm">Confirm</string>
     <string name="jack_photo_text_preview">Preview</string>
     <string name="jack_photo_text_select">Select</string>
-    <string name="jack_photo_text_all_photo">All Photos</string>
+    <string name="jack_photo_text_photos_and_videos">Photos And Videos</string>
+    <string name="jack_photo_text_all_photos">All Photos</string>
+    <string name="jack_photo_text_all_video">All Videos</string>
     <string name="jack_photo_text_today">Today</string>
     <string name="jack_photo_text_this_week">This week</string>
     <string name="jack_photo_text_this_month">This month</string>

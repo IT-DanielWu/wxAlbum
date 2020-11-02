@@ -24,6 +24,11 @@ public class PhotoConfig implements Parcelable {
     public boolean useCamera = true;
 
     /**
+     * 是否支持视频
+     */
+    public boolean useVideo = false;
+
+    /**
      * 仅拍照, 不打开相册(true时, useCamera也必定为true)
      */
     public boolean onlyTakePhotos = false;
@@ -83,10 +88,11 @@ public class PhotoConfig implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte(this.useCamera ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.onlyTakePhotos ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isSingle ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.canPreview ? (byte) 1 : (byte) 0);
+        dest.writeBoolean(this.useCamera);
+        dest.writeBoolean(this.useVideo);
+        dest.writeBoolean(this.onlyTakePhotos);
+        dest.writeBoolean(this.isSingle);
+        dest.writeBoolean(this.canPreview);
         dest.writeInt(this.maxSelectCount);
         dest.writeStringList(this.selectedPhotoPathList);
         dest.writeInt(this.requestCode);
@@ -105,10 +111,11 @@ public class PhotoConfig implements Parcelable {
     }
 
     protected PhotoConfig(Parcel in) {
-        this.useCamera = in.readByte() != 0;
-        this.onlyTakePhotos = in.readByte() != 0;
-        this.isSingle = in.readByte() != 0;
-        this.canPreview = in.readByte() != 0;
+        this.useCamera = in.readBoolean();
+        this.useVideo = in.readBoolean();
+        this.onlyTakePhotos = in.readBoolean();
+        this.isSingle = in.readBoolean();
+        this.canPreview = in.readBoolean();
         this.maxSelectCount = in.readInt();
         this.selectedPhotoPathList = in.createStringArrayList();
         this.requestCode = in.readInt();

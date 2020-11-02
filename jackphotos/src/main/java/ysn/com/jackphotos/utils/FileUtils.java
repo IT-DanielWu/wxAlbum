@@ -13,8 +13,11 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import ysn.com.jackphotos.R;
 import ysn.com.jackphotos.model.bean.Photo;
+import ysn.com.jackphotos.model.bean.PhotoFolder;
 
 /**
  * @Author yangsanning
@@ -24,6 +27,15 @@ import ysn.com.jackphotos.model.bean.Photo;
  * @History 2019/12/27 author: description:
  */
 public class FileUtils {
+
+    /**
+     * 从SDCard加载图片
+     */
+    public static synchronized ArrayList<Photo> loadPhotos(Context context) {
+        ArrayList<Photo> photoList = loadPhotoForSDCard(context);
+        photoList.addAll(loadVideoForSDCard(context));
+        return photoList;
+    }
 
     /**
      * 从SDCard加载图片
@@ -43,48 +55,91 @@ public class FileUtils {
                 null,
                 MediaStore.Images.Media.DATE_ADDED);
 
-        ArrayList<Photo> imageList = new ArrayList<>();
-
-        //读取扫描到的图片
+        ArrayList<Photo> photoList = new ArrayList<>();
+        // 读取扫描到的图片
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 // 获取图片的路径
                 long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
-                String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-
-                //获取图片名称
+                String filePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                // 获取图片名称
                 String name = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
-
-                //获取图片时间
+                // 获取图片时间
                 long time = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.DATE_ADDED));
                 if (String.valueOf(time).length() < 13) {
                     time *= 1000;
                 }
-
                 //获取图片类型
                 String mimeType = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.MIME_TYPE));
-
                 //获取图片uri
                 Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
-
-                imageList.add(new Photo(path, time, name, mimeType, uri));
+                photoList.add(new Photo(filePath, time, name, mimeType, filePath, uri));
             }
             cursor.close();
         }
-        return imageList;
+        return photoList;
     }
 
+
     /**
-     * 根据文件路径, 获取文件夹名称
+     * 从SDCard加载视频
      */
-    public static String getFolderName(String path) {
-        if (ValidatorUtils.isNotBlank(path)) {
-            String[] strings = path.split(File.separator);
-            if (strings.length >= 2) {
-                return strings[strings.length - 2];
+    public static synchronized ArrayList<Photo> loadVideoForSDCard(Context context) {
+
+        // 扫描视频
+        Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        ContentResolver contentResolver = context.getContentResolver();
+        String[] videoProjection = {
+                MediaStore.Video.Media.DATA,
+                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.DATE_ADDED,
+                MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.MIME_TYPE};
+        Cursor videoCursor = contentResolver.query(videoUri, videoProjection,
+                null,
+                null,
+                MediaStore.Video.Media.DATE_ADDED);
+
+        ArrayList<Photo> photoList = new ArrayList<>();
+        // 读取扫描到的视频
+        if (videoCursor != null) {
+            while (videoCursor.moveToNext()) {
+                // 获取视频路径
+                long id = videoCursor.getLong(videoCursor.getColumnIndex(MediaStore.Video.Media._ID));
+                String filePath = videoCursor.getString(videoCursor.getColumnIndex(MediaStore.Video.Media.DATA));
+                // 获取视频名称
+                String name = videoCursor.getString(videoCursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
+                // 获取视频时间
+                long time = videoCursor.getLong(videoCursor.getColumnIndex(MediaStore.Video.Media.DATE_ADDED));
+                if (String.valueOf(time).length() < 13) {
+                    time *= 1000;
+                }
+                // 获取视频类型
+                String mimeType = videoCursor.getString(videoCursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE));
+
+                // 提前生成缩略图，再获取：http://stackoverflow.com/questions/27903264/how-to-get-the-video-thumbnail-path-and-not-the-bitmap
+                MediaStore.Video.Thumbnails.getThumbnail(contentResolver, id, MediaStore.Video.Thumbnails.MICRO_KIND, null);
+                String[] projection = {MediaStore.Video.Thumbnails._ID, MediaStore.Video.Thumbnails.DATA};
+                Cursor cursor = contentResolver.query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI,
+                        projection,
+                        MediaStore.Video.Thumbnails.VIDEO_ID + "=?",
+                        new String[]{id + ""},
+                        null);
+                String thumbnails = "";
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        thumbnails = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
+                    }
+                    cursor.close();
+                }
+                // 获取视频缩略图uri
+                Uri thumbnailsUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
+
+                photoList.add(new Photo(filePath, time, name, mimeType, thumbnails, thumbnailsUri, true));
             }
+            videoCursor.close();
         }
-        return "";
+        return photoList;
     }
 
     /**
@@ -152,5 +207,70 @@ public class FileUtils {
                 file.delete();
             }
         }
+    }
+
+    /**
+     * 把图片/视频按文件夹拆分(第一个文件夹保存所有的图片/视频，第二个保存所有视频)
+     */
+    public static ArrayList<PhotoFolder> splitFolder(Context context, ArrayList<Photo> photoList, boolean useVideo) {
+        ArrayList<PhotoFolder> photoFolderList = new ArrayList<>();
+        if (useVideo) {
+            photoFolderList.add(new PhotoFolder(context.getString(R.string.jack_photo_text_photos_and_videos), photoList));
+            PhotoFolder videosPhotoFolder = new PhotoFolder(context.getString(R.string.jack_photo_text_all_video));
+            if (ValidatorUtils.isNotEmptyList(photoList)) {
+                for (Photo photo : photoList) {
+                    String name = FileUtils.getFolderName(photo.getFilePath());
+                    if (ValidatorUtils.isNotBlank(name)) {
+                        getFolder(name, photoFolderList).addPhoto(photo);
+                    }
+                    if (photo.isVideo()) {
+                        videosPhotoFolder.addPhoto(photo);
+                    }
+                }
+            }
+            if (videosPhotoFolder.isNotNull()) {
+                photoFolderList.add(1, videosPhotoFolder);
+            }
+        } else {
+            PhotoFolder allPhotoFolder = new PhotoFolder(context.getString(R.string.jack_photo_text_all_photos));
+            photoFolderList.add(allPhotoFolder);
+            if (ValidatorUtils.isNotEmptyList(photoList)) {
+                for (Photo photo : photoList) {
+                    if (photo.isVideo()) {
+                        continue;
+                    }
+                    allPhotoFolder.addPhoto(photo);
+                    String name = getFolderName(photo.getFilePath());
+                    if (ValidatorUtils.isNotBlank(name)) {
+                        getFolder(name, photoFolderList).addPhoto(photo);
+                    }
+                }
+            }
+        }
+        return photoFolderList;
+    }
+
+    /**
+     * 根据文件路径, 获取文件夹名称
+     */
+    public static String getFolderName(String path) {
+        if (ValidatorUtils.isNotBlank(path)) {
+            String[] strings = path.split(File.separator);
+            if (strings.length >= 2) {
+                return strings[strings.length - 2];
+            }
+        }
+        return "";
+    }
+
+    public static PhotoFolder getFolder(String name, List<PhotoFolder> photoFolderList) {
+        for (PhotoFolder folder : photoFolderList) {
+            if (name.equals(folder.getName())) {
+                return folder;
+            }
+        }
+        PhotoFolder newFolder = new PhotoFolder(name);
+        photoFolderList.add(newFolder);
+        return newFolder;
     }
 }

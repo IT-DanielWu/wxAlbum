@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Jack Photo</string>
-    <string name="jack_photo_text_photo">图片</string>
+    <string name="jack_photo_text_photos">图片</string>
     <string name="jack_photo_text_confirm">确定</string>
     <string name="jack_photo_text_preview">预览</string>
     <string name="jack_photo_text_select">选择</string>
-    <string name="jack_photo_text_all_photo">全部图片</string>
+    <string name="jack_photo_text_photos_and_videos">图片和视频</string>
+    <string name="jack_photo_text_all_photos">所有图片</string>
+    <string name="jack_photo_text_all_video">所有视频</string>
     <string name="jack_photo_text_today">今天</string>
     <string name="jack_photo_text_this_week">本周</string>
     <string name="jack_photo_text_this_month">本月</string>

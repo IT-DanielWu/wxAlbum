@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/jack_title_bar_view_icon_layout"
-        android:text="@string/jack_photo_text_photo"
+        android:text="@string/jack_photo_text_photos"
         android:textColor="@color/jack_primary_text"
         android:textSize="@dimen/jack_primary_text" />
 
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="@string/jack_photo_text_photo"
+            android:text="@string/jack_photo_text_photos"
             android:textColor="@color/jack_primary_text"
             android:textSize="@dimen/jack_primary_text" />
 

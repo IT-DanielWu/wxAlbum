@@ -60,9 +60,9 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         } else {
             holder.photoCountTextView.setText(context.getString(R.string.jack_photo_format_image_count, photoList.size()));
             if (isAndroidQ) {
-                ImageUtils.loadImageAsBitmap(context, photoList.get(0).getUri(), holder.photoImageView);
+                ImageUtils.loadImageAsBitmap(context, photoFolder.getThumbnailsUri(), holder.photoImageView);
             } else {
-                ImageUtils.loadImageAsBitmap(context, photoList.get(0).getPath(), holder.photoImageView);
+                ImageUtils.loadImageAsBitmap(context, photoFolder.getThumbnails(), holder.photoImageView);
             }
         }
 

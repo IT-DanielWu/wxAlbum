@@ -13,34 +13,44 @@ import android.os.Parcelable;
  */
 public class Photo implements Parcelable {
 
-    private String path;
+    private String filePath;
     private long time;
     private String name;
     private String mimeType;
-    private Uri uri;
+    private String thumbnails;
+    private Uri thumbnailsUri;
 
-    public Photo(String path, long time, String name, String mimeType, Uri uri) {
-        this.path = path;
+    private boolean isVideo;
+
+    public Photo(String filePath, long time, String name, String mimeType, String thumbnails, Uri thumbnailsUri) {
+        this(filePath, time, name, mimeType, thumbnails, thumbnailsUri, false);
+    }
+
+    public Photo(String filePath, long time, String name, String mimeType, String thumbnails,
+                 Uri thumbnailsUri, boolean isVideo) {
+        this.filePath = filePath;
         this.time = time;
         this.name = name;
         this.mimeType = mimeType;
-        this.uri = uri;
+        this.thumbnails = thumbnails;
+        this.thumbnailsUri = thumbnailsUri;
+        this.isVideo = isVideo;
     }
 
-    public Uri getUri() {
-        return uri;
+    public Uri getThumbnailsUri() {
+        return thumbnailsUri;
     }
 
-    public void setUri(Uri uri) {
-        this.uri = uri;
+    public void setThumbnailsUri(Uri thumbnailsUri) {
+        this.thumbnailsUri = thumbnailsUri;
     }
 
-    public String getPath() {
-        return path;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     public long getTime() {
@@ -67,10 +77,29 @@ public class Photo implements Parcelable {
         this.mimeType = mimeType;
     }
 
+    public boolean isPhoto() {
+        return !isVideo();
+    }
+
+    public boolean isVideo() {
+        return isVideo;
+    }
+
+    public void setVideo(boolean video) {
+        isVideo = video;
+    }
+
     public boolean isGif() {
         return "image/gif".equals(mimeType);
     }
 
+    public String getThumbnails() {
+        return thumbnails;
+    }
+
+    public void setThumbnails(String thumbnails) {
+        this.thumbnails = thumbnails;
+    }
 
     @Override
     public int describeContents() {
@@ -79,19 +108,25 @@ public class Photo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.path);
+        dest.writeString(this.filePath);
         dest.writeLong(this.time);
         dest.writeString(this.name);
         dest.writeString(this.mimeType);
-        dest.writeParcelable(this.uri, flags);
+        dest.writeString(this.thumbnails);
+        dest.writeParcelable(this.thumbnailsUri, flags);
+
+        dest.writeBoolean(isVideo);
     }
 
     protected Photo(Parcel in) {
-        this.path = in.readString();
+        this.filePath = in.readString();
         this.time = in.readLong();
         this.name = in.readString();
         this.mimeType = in.readString();
-        this.uri = in.readParcelable(Uri.class.getClassLoader());
+        this.thumbnails = in.readString();
+        this.thumbnailsUri = in.readParcelable(Uri.class.getClassLoader());
+
+        this.isVideo = in.readBoolean();
     }
 
     public static final Creator<Photo> CREATOR = new Creator<Photo>() {

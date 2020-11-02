@@ -91,6 +91,14 @@ public class PhotoBuilder {
     }
 
     /**
+     * 是否支持视频(默认false)
+     */
+    public PhotoBuilder useVideo(boolean useVideo) {
+        photoConfig.useVideo = useVideo;
+        return this;
+    }
+
+    /**
      * 仅使用拍照功能
      */
     public PhotoBuilder onlyTakePhoto(boolean onlyTakePhoto) {

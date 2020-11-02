@@ -26,11 +26,20 @@ public class JackPhotos {
      * 预加载图片
      */
     public static void preload(Context context) {
-        PhotoFolderHelper.get(context).preload();
+        PhotoFolderHelper.get(context).preload(false);
     }
 
     /**
-     * 清空缓存
+     * 预加载图片/视频
+     *
+     * @param isLoadVideo 是否加载视频
+     */
+    public static void preload(Context context, boolean isLoadVideo) {
+        PhotoFolderHelper.get(context).preload(isLoadVideo);
+    }
+
+    /**
+     * 清空缓存（为避免没必要的错误，每次使用完，清除一下）
      */
     public static void clearCache(Context context) {
         PhotoFolderHelper.get(context).clearCache();

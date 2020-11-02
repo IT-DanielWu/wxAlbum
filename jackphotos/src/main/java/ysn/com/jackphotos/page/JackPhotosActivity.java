@@ -348,7 +348,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
         ArrayList<Photo> selectedPhotoList = photosAdapter.getSelectedPhotoList();
         ArrayList<String> photoPathList = new ArrayList<>();
         for (Photo photo : selectedPhotoList) {
-            photoPathList.add(photo.getPath());
+            photoPathList.add(photo.getFilePath());
         }
 
         complete(photoPathList);
@@ -380,7 +380,7 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (PermissionUtils.hasWriteExternalPermission(this)) {
-            PhotoFolderHelper.get(this).loadImageForSDCard(this, new PhotoFolderHelper.OnPhotoFolderListListener() {
+            PhotoFolderHelper.get(this).loadPhotos(this, photoConfig.useVideo, new PhotoFolderHelper.OnPhotoFolderListListener() {
                 @Override
                 public void onPhotoFolderList(ArrayList<PhotoFolder> photoFolderList) {
                     JackPhotosActivity.this.photoFolderList = photoFolderList;

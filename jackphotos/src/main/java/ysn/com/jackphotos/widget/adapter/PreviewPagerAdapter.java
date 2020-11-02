@@ -48,9 +48,9 @@ public class PreviewPagerAdapter extends PagerAdapter {
         container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         final Photo photo = photoList.get(position);
         if (isAndroidQ) {
-            ImageUtils.loadImage(context, photo.getUri(), photoView);
+            ImageUtils.loadImage(context, photo.getThumbnailsUri(), photoView);
         } else {
-            ImageUtils.loadImage(context, photo.getPath(), photoView);
+            ImageUtils.loadImage(context, photo.getThumbnails(), photoView);
         }
         photoView.setOnClickListener(new View.OnClickListener() {
             @Override

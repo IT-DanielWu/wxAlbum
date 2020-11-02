@@ -52,9 +52,9 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Photo photo = datas.get(position);
         if (isAndroidQ) {
-            ImageUtils.loadImageAsBitmap(context, photo.getUri(), holder.photoImageView);
+            ImageUtils.loadImageAsBitmap(context, photo.getThumbnailsUri(), holder.photoImageView);
         } else {
-            ImageUtils.loadImageAsBitmap(context, photo.getPath(), holder.photoImageView);
+            ImageUtils.loadImageAsBitmap(context, photo.getThumbnails(), holder.photoImageView);
         }
 
         holder.photoImageView.setShowFrame(photo.equals(previewPhoto));

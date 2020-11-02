@@ -69,9 +69,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
             final int realPosition = getRealPosition(position);
             final Photo photo = photoList.get(realPosition);
             if (isAndroidQ) {
-                ImageUtils.loadImageAsBitmap(context, photo.getUri(), holder.photoImageView);
+                ImageUtils.loadImageAsBitmap(context, photo.getThumbnailsUri(), holder.photoImageView);
             } else {
-                ImageUtils.loadImageAsBitmap(context, photo.getPath(), holder.photoImageView);
+                ImageUtils.loadImageAsBitmap(context, photo.getThumbnails(), holder.photoImageView);
             }
 
             upSelectPhotoUi(holder, selectedPhotoList.contains(photo));
@@ -219,7 +219,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
                     return;
                 }
                 for (Photo photo : photoList) {
-                    if (selectedPhotoPath.equals(photo.getPath())) {
+                    if (selectedPhotoPath.equals(photo.getFilePath())) {
                         if (!this.selectedPhotoList.contains(photo)) {
                             this.selectedPhotoList.add(photo);
                         }
