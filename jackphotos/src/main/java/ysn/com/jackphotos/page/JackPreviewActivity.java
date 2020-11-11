@@ -2,6 +2,7 @@ package ysn.com.jackphotos.page;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -222,6 +223,15 @@ public class JackPreviewActivity extends AppCompatActivity {
                     AnimatorUtils.translationY(titleBarView, JackConstant.ANIMATOR_DURATION, titleBarView.getTranslationY(), 0);
                     AnimatorUtils.translationY(bottomLayout, JackConstant.ANIMATOR_DURATION, bottomLayout.getTranslationY(), 0);
                 }
+            }
+        }).setOnItemChildClickListener(new PreviewPagerAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(Photo photo) {
+                // todo: 暂定调用系统播放器播放
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.parse(photo.getFilePath()),"video/*");
+                startActivity(intent);
             }
         });
         previewViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

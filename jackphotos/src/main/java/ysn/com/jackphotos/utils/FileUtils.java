@@ -94,7 +94,8 @@ public class FileUtils {
                 MediaStore.Video.Media.DISPLAY_NAME,
                 MediaStore.Video.Media.DATE_ADDED,
                 MediaStore.Video.Media._ID,
-                MediaStore.Video.Media.MIME_TYPE};
+                MediaStore.Video.Media.MIME_TYPE,
+                MediaStore.Video.Media.DURATION};
         Cursor videoCursor = contentResolver.query(videoUri, videoProjection,
                 null,
                 null,
@@ -117,6 +118,9 @@ public class FileUtils {
                 // 获取视频类型
                 String mimeType = videoCursor.getString(videoCursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE));
 
+                // 获取视频时长
+                long duration = videoCursor.getLong(videoCursor.getColumnIndex(MediaStore.Video.Media.DURATION));
+
                 // 提前生成缩略图，再获取：http://stackoverflow.com/questions/27903264/how-to-get-the-video-thumbnail-path-and-not-the-bitmap
                 MediaStore.Video.Thumbnails.getThumbnail(contentResolver, id, MediaStore.Video.Thumbnails.MICRO_KIND, null);
                 String[] projection = {MediaStore.Video.Thumbnails._ID, MediaStore.Video.Thumbnails.DATA};
@@ -135,7 +139,7 @@ public class FileUtils {
                 // 获取视频缩略图uri
                 Uri thumbnailsUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
 
-                photoList.add(new Photo(filePath, time, name, mimeType, thumbnails, thumbnailsUri, true));
+                photoList.add(new Photo(filePath, time, duration, name, mimeType, thumbnails, thumbnailsUri));
             }
             videoCursor.close();
         }

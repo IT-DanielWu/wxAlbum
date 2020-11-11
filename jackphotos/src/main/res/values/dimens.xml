@@ -2,6 +2,7 @@
 <resources>
     <dimen name="jack_primary_text">16sp</dimen>
     <dimen name="jack_accent_text">15sp</dimen>
+    <dimen name="jack_video_time_text">12sp</dimen>
 
     <dimen name="jack_title_bar">43dp</dimen>
     <dimen name="jack_space">14dp</dimen>
@@ -20,6 +21,8 @@
     <dimen name="jack_photo_camera_item_padding">20dp</dimen>
     <dimen name="jack_photo_item_gif_tag_height">17dp</dimen>
     <dimen name="jack_photo_item_gif_tag_width">22dp</dimen>
+    <dimen name="jack_photo_item_video_icon_height">10dp</dimen>
+    <dimen name="jack_photo_item_video_icon_width">18dp</dimen>
 
     <dimen name="jack_folder_image_size">55dp</dimen>
     <dimen name="jack_folder_name_max_width">195dp</dimen>
@@ -32,4 +35,5 @@
     <dimen name="jack_preview_item_vertical_margin">14dp</dimen>
     <dimen name="jack_preview_item_horizontal_margin">7dp</dimen>
     <dimen name="jack_preview_select_tag_size">16dp</dimen>
+    <dimen name="jack_preview_video_play">70dp</dimen>
 </resources>

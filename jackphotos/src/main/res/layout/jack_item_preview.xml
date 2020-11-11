@@ -25,4 +25,15 @@
         android:src="@drawable/jack_ic_gif"
         android:visibility="gone"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/jack_preview_item_video_icon"
+        android:layout_width="@dimen/jack_photo_item_video_icon_width"
+        android:layout_height="@dimen/jack_photo_item_video_icon_height"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/jack_ic_video"
+        android:visibility="gone"
+        tools:visibility="visible" />
 </FrameLayout>

@@ -58,6 +58,8 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
         }
 
         holder.photoImageView.setShowFrame(photo.equals(previewPhoto));
+
+        holder.videoIconImageView.setVisibility(photo.isVideo() ? View.VISIBLE : View.GONE);
         holder.gifTagImageView.setVisibility(photo.isGif() ? View.VISIBLE : View.GONE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,11 +112,13 @@ public class PreviewAdapter extends RecyclerView.Adapter<PreviewAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         FrameImageView photoImageView;
+        ImageView videoIconImageView;
         ImageView gifTagImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
             photoImageView = itemView.findViewById(R.id.jack_preview_item_photo);
+            videoIconImageView = itemView.findViewById(R.id.jack_preview_item_video_icon);
             gifTagImageView = itemView.findViewById(R.id.jack_preview_item_selected_gif_tag);
         }
     }

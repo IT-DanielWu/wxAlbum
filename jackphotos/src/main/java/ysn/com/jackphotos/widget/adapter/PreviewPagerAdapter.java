@@ -14,6 +14,7 @@ import java.util.List;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.ImageUtils;
+import ysn.com.jackphotos.widget.component.PreviewLayout;
 
 /**
  * @Author yangsanning
@@ -28,6 +29,7 @@ public class PreviewPagerAdapter extends PagerAdapter {
     private List<Photo> photoList;
 
     private OnItemClickListener onItemClickListener;
+    private OnItemChildClickListener onItemChildClickListener;
 
     public PreviewPagerAdapter(List<Photo> photoList) {
         this.photoList = photoList;
@@ -42,16 +44,17 @@ public class PreviewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         Context context = container.getContext();
-        PhotoView photoView = new PhotoView(context);
+        PreviewLayout previewLayout = new PreviewLayout(context);
+        PhotoView photoView = previewLayout.photoView;
         photoView.setZoomable(true);
         photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         final Photo photo = photoList.get(position);
         if (isAndroidQ) {
             ImageUtils.loadImage(context, photo.getThumbnailsUri(), photoView);
         } else {
             ImageUtils.loadImage(context, photo.getThumbnails(), photoView);
         }
+
         photoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +63,24 @@ public class PreviewPagerAdapter extends PagerAdapter {
                 }
             }
         });
-        return photoView;
+
+        View playView = previewLayout.playView;
+        if (photo.isVideo()) {
+            playView.setVisibility(View.VISIBLE);
+            playView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemChildClickListener != null) {
+                        onItemChildClickListener.onItemChildClick(photo);
+                    }
+                }
+            });
+        } else {
+            playView.setVisibility(View.GONE);
+        }
+
+        container.addView(previewLayout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        return previewLayout;
     }
 
     @Override
@@ -73,12 +93,23 @@ public class PreviewPagerAdapter extends PagerAdapter {
         return view == object;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public PreviewPagerAdapter setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+        return this;
+    }
+
+    public PreviewPagerAdapter setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
+        this.onItemChildClickListener = onItemChildClickListener;
+        return this;
     }
 
     public interface OnItemClickListener {
 
         void onItemClick(int position, Photo photo);
+    }
+
+    public interface OnItemChildClickListener {
+
+        void onItemChildClick(Photo photo);
     }
 }

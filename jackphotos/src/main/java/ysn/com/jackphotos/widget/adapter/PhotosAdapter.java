@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import ysn.com.jackphotos.R;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.ImageUtils;
+import ysn.com.jackphotos.utils.TimeUtils;
 import ysn.com.jackphotos.utils.ValidatorUtils;
 
 /**
@@ -72,6 +74,13 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
                 ImageUtils.loadImageAsBitmap(context, photo.getThumbnailsUri(), holder.photoImageView);
             } else {
                 ImageUtils.loadImageAsBitmap(context, photo.getThumbnails(), holder.photoImageView);
+            }
+
+            if (photo.isVideo()) {
+                holder.videoLayout.setVisibility(View.VISIBLE);
+                holder.videoTimeTextView.setText(TimeUtils.formatMinutesSeconds(photo.getDuration()));
+            } else {
+                holder.videoLayout.setVisibility(View.GONE);
             }
 
             upSelectPhotoUi(holder, selectedPhotoList.contains(photo));
@@ -251,6 +260,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
         ImageView photoImageView;
         ImageView selectedTagImageView;
         ImageView photoMaskImageView;
+        View videoLayout;
+        TextView videoTimeTextView;
         ImageView gifTagImageView;
         ImageView cameraImageView;
 
@@ -259,6 +270,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
             photoImageView = itemView.findViewById(R.id.jack_photo_item_photo);
             selectedTagImageView = itemView.findViewById(R.id.jack_photo_item_selected_tag);
             photoMaskImageView = itemView.findViewById(R.id.jack_photo_item_photo_mask);
+            videoLayout = itemView.findViewById(R.id.jack_photo_item_video_layout);
+            videoTimeTextView = itemView.findViewById(R.id.jack_photo_item_video_time);
             gifTagImageView = itemView.findViewById(R.id.jack_photo_item_selected_gif_tag);
 
             cameraImageView = itemView.findViewById(R.id.jack_photo_camera_item_camera);

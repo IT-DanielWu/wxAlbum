@@ -20,9 +20,14 @@ public class TimeUtils {
 
     public static final String TIME_FORMAT = "yyyyMMdd_HHmmss";
     public static final String MONTH_FORMAT = "yyyy/MM";
+    public static final String MINUTES_SECONDS_FORMAT = "mm:ss";
 
     public static String getTime() {
         return new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(new Date());
+    }
+
+    public static String formatMinutesSeconds(long time) {
+        return new SimpleDateFormat(MINUTES_SECONDS_FORMAT, Locale.getDefault()).format(new Date(time));
     }
 
     public static String formatPhotoTime(Context context, long time) {
@@ -43,16 +48,16 @@ public class TimeUtils {
 
     public static boolean sameDay(Calendar calendar1, Calendar calendar2) {
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)
-            && calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR);
+                && calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR);
     }
 
     public static boolean sameWeek(Calendar calendar1, Calendar calendar2) {
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)
-            && calendar1.get(Calendar.WEEK_OF_YEAR) == calendar2.get(Calendar.WEEK_OF_YEAR);
+                && calendar1.get(Calendar.WEEK_OF_YEAR) == calendar2.get(Calendar.WEEK_OF_YEAR);
     }
 
     public static boolean sameMonth(Calendar calendar1, Calendar calendar2) {
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)
-            && calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH);
+                && calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH);
     }
 }

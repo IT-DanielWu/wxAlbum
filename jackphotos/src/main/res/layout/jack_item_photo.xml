@@ -39,4 +39,30 @@
         android:src="@drawable/jack_ic_gif"
         android:visibility="gone"
         tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/jack_photo_item_video_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/jack_photo_item_video_icon_width"
+            android:layout_height="@dimen/jack_photo_item_video_icon_height"
+            android:layout_marginStart="6dp"
+            android:src="@drawable/jack_ic_video" />
+
+        <TextView
+            android:id="@+id/jack_photo_item_video_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:includeFontPadding="false"
+            android:textColor="@color/jack_primary_text"
+            android:textSize="@dimen/jack_video_time_text"
+            tools:text="0:00" />
+    </LinearLayout>
 </FrameLayout>

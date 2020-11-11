@@ -7,7 +7,7 @@ import android.os.Parcelable;
 /**
  * @Author yangsanning
  * @ClassName Photo
- * @Description 相片
+ * @Description 相片 / 视频
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
@@ -21,20 +21,30 @@ public class Photo implements Parcelable {
     private Uri thumbnailsUri;
 
     private boolean isVideo;
+    /**
+     * 视频时长
+     */
+    private long duration;
 
     public Photo(String filePath, long time, String name, String mimeType, String thumbnails, Uri thumbnailsUri) {
-        this(filePath, time, name, mimeType, thumbnails, thumbnailsUri, false);
-    }
-
-    public Photo(String filePath, long time, String name, String mimeType, String thumbnails,
-                 Uri thumbnailsUri, boolean isVideo) {
         this.filePath = filePath;
         this.time = time;
         this.name = name;
         this.mimeType = mimeType;
         this.thumbnails = thumbnails;
         this.thumbnailsUri = thumbnailsUri;
-        this.isVideo = isVideo;
+    }
+
+    public Photo(String filePath, long time, long duration, String name, String mimeType, String thumbnails,
+                 Uri thumbnailsUri) {
+        this.filePath = filePath;
+        this.time = time;
+        this.duration = duration;
+        this.name = name;
+        this.mimeType = mimeType;
+        this.thumbnails = thumbnails;
+        this.thumbnailsUri = thumbnailsUri;
+        this.isVideo = Boolean.TRUE;
     }
 
     public Uri getThumbnailsUri() {
@@ -101,6 +111,14 @@ public class Photo implements Parcelable {
         this.thumbnails = thumbnails;
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -116,6 +134,7 @@ public class Photo implements Parcelable {
         dest.writeParcelable(this.thumbnailsUri, flags);
 
         dest.writeBoolean(isVideo);
+        dest.writeLong(duration);
     }
 
     protected Photo(Parcel in) {
@@ -127,6 +146,7 @@ public class Photo implements Parcelable {
         this.thumbnailsUri = in.readParcelable(Uri.class.getClassLoader());
 
         this.isVideo = in.readBoolean();
+        this.duration = in.readLong();
     }
 
     public static final Creator<Photo> CREATOR = new Creator<Photo>() {
