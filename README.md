@@ -73,7 +73,15 @@
             .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
 ```
 
-#### 1.2.5 更多使用自行摸索
+
+#### 1.2.5 相册显示视频
+```android
+        JackPhotos.create()
+            .useVideo(true)
+            .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
+```
+
+#### 1.2.6 更多使用自行摸索
 
 
 ### 2. 结果获取
