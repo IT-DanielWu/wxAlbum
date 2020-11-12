@@ -8,12 +8,13 @@ ext {
     ]
 
     dependVersion = [
-            support_version: "28.0.0",
+            appcompat: "1.2.0",
+            recyclerview: "1.1.0",
     ]
 
     supportLib = [
-            v7          : "com.android.support:appcompat-v7:$dependVersion.support_version",
-            recyclerview: "com.android.support:recyclerview-v7:$dependVersion.support_version",
+            appcompat: "androidx.appcompat:appcompat:$dependVersion.appcompat",
+            recyclerview: "androidx.recyclerview:recyclerview:$dependVersion.recyclerview"
     ]
 
     supportLibs = supportLib.values()

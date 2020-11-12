@@ -3,7 +3,7 @@ package ysn.com.jackphotos.widget.helper;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -3,7 +3,7 @@ package ysn.com.jackphotos;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 

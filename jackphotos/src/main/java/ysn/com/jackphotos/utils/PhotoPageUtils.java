@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
