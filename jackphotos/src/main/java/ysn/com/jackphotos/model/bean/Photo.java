@@ -13,10 +13,17 @@ import android.os.Parcelable;
  */
 public class Photo implements Parcelable {
 
+    /**
+     * 文件路径
+     */
     private String filePath;
     private long time;
     private String name;
     private String mimeType;
+    /**
+     * thumbnails: 预览图
+     * thumbnailsUri: 预览图 Uri
+     */
     private String thumbnails;
     private Uri thumbnailsUri;
 
@@ -25,6 +32,12 @@ public class Photo implements Parcelable {
      * 视频时长
      */
     private long duration;
+
+    public Photo(String filePath, String thumbnails, Uri thumbnailsUri) {
+        this.filePath = filePath;
+        this.thumbnails = thumbnails;
+        this.thumbnailsUri = thumbnailsUri;
+    }
 
     public Photo(String filePath, long time, String name, String mimeType, String thumbnails, Uri thumbnailsUri) {
         this.filePath = filePath;

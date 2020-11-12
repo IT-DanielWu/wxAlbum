@@ -345,27 +345,21 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
         if (photosAdapter == null) {
             return;
         }
-        ArrayList<Photo> selectedPhotoList = photosAdapter.getSelectedPhotoList();
-        ArrayList<String> photoPathList = new ArrayList<>();
-        for (Photo photo : selectedPhotoList) {
-            photoPathList.add(photo.getFilePath());
-        }
-
-        complete(photoPathList);
+        complete(photosAdapter.getSelectedPhotoList());
     }
 
-    private void complete(ArrayList<String> photoPathList) {
+    private void complete(ArrayList<Photo> photoPathList) {
         if (JackCropMode.NO_USE == photoConfig.jackCropMode) {
             finish(photoPathList);
         } else {
             cropUri = PhotoPageUtils.startSystemCropActivity(this, photoConfig,
-                    UriUtils.getImageContentUri(this, photoPathList.get(0)));
+                    UriUtils.getImageContentUri(this, photoPathList.get(0).getFilePath()));
         }
     }
 
-    private void finish(ArrayList<String> photoPathList) {
+    private void finish(ArrayList<Photo> photoPathList) {
         Intent intent = new Intent();
-        intent.putStringArrayListExtra(JackPhotos.EXTRA_PHOTOS, photoPathList);
+        intent.putParcelableArrayListExtra(JackPhotos.EXTRA_PHOTOS, photoPathList);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -480,9 +474,10 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
             case JackConstant.PAGE_REQUEST_CODE_CAMERA:
                 if (resultCode == RESULT_OK) {
                     sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, cameraUri));
-                    ArrayList<String> photoPathList = new ArrayList<>();
-                    photoPathList.add(UriUtils.getPathForUri(this, cameraUri));
-                    complete(photoPathList);
+                    ArrayList<Photo> photoList = new ArrayList<>();
+                    String photoPath = UriUtils.getPathForUri(this, cameraUri);
+                    photoList.add(new Photo(photoPath, photoPath, cameraUri));
+                    complete(photoList);
                 } else {
                     FileUtils.deleteFile(this, cameraUri);
                     cameraUri = null;
@@ -495,9 +490,10 @@ public class JackPhotosActivity extends AppCompatActivity implements View.OnClic
                 FileUtils.deleteFile(this, cameraUri);
                 cameraUri = null;
                 if (resultCode == RESULT_OK) {
-                    ArrayList<String> photoPathList = new ArrayList<>();
-                    photoPathList.add(UriUtils.getPathForUri(this, cropUri));
-                    finish(photoPathList);
+                    ArrayList<Photo> photoList = new ArrayList<>();
+                    String photoPath = UriUtils.getPathForUri(this, cropUri);
+                    photoList.add(new Photo(photoPath, photoPath, cropUri));
+                    finish(photoList);
                 } else {
                     FileUtils.deleteFile(this, cropUri);
                     finish();

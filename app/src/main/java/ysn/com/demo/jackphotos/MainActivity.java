@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ysn.com.jackphotos.JackPhotos;
+import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.model.mode.JackCropMode;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -63,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAGE_REQUEST_CODE_JACK_PHOTOS && data != null) {
-            ArrayList<String> photoPathList = data.getStringArrayListExtra(JackPhotos.EXTRA_PHOTOS);
-            resultAdapter.setNewData(photoPathList);
+            resultAdapter.setNewData(data.<Photo>getParcelableArrayListExtra(JackPhotos.EXTRA_PHOTOS));
         }
     }
 
