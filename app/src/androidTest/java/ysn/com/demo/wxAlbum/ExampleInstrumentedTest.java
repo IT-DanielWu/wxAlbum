@@ -1,4 +1,4 @@
-package ysn.com.demo.jackphotos;
+package ysn.com.demo.wxAlbum;
 
 import android.content.Context;
 

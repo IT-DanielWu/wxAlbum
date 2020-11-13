@@ -4,7 +4,7 @@ android {
     compileSdkVersion rootProject.ext.version.compileSdkVersion
 
     defaultConfig {
-        applicationId "ysn.com.demo.jackphotos"
+        applicationId "ysn.com.demo.wxalbum"
 
         minSdkVersion rootProject.ext.version.minSdkVersion
         targetSdkVersion rootProject.ext.version.targetSdkVersion

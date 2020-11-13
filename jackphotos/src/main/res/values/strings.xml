@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Jack Photo</string>
     <string name="jack_photo_text_photos">图片</string>
     <string name="jack_photo_text_confirm">确定</string>
     <string name="jack_photo_text_preview">预览</string>

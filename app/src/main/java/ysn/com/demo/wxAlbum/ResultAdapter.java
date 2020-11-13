@@ -1,4 +1,4 @@
-package ysn.com.demo.jackphotos;
+package ysn.com.demo.wxAlbum;
 
 import android.widget.ImageView;
 
@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import ysn.com.jackphotos.model.bean.Photo;
 import ysn.com.jackphotos.utils.AndroidVersionUtils;
 import ysn.com.jackphotos.utils.ImageUtils;
-import ysn.com.jackphotos.utils.UriUtils;
 
 /**
  * @Author yangsanning
