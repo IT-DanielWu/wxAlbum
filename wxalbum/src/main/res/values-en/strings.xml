@@ -1,0 +1,18 @@
+<resources>
+    <string name="album_text_photos">Photos</string>
+    <string name="album_text_confirm">Confirm</string>
+    <string name="album_text_preview">Preview</string>
+    <string name="album_text_select">Select</string>
+    <string name="album_text_photos_and_videos">Photos And Videos</string>
+    <string name="album_text_all_photos">All Photos</string>
+    <string name="album_text_all_video">All Videos</string>
+    <string name="album_text_today">Today</string>
+    <string name="album_text_this_week">This week</string>
+    <string name="album_text_this_month">This month</string>
+    <string name="album_text_cancel">Cancel</string>
+    <string name="album_text_tips">Tips</string>
+    <string name="album_text_permissions_hint">This album needs to be granted access to storage and photos, please go to Settings > App > Permissions to configure permissions.</string>
+
+    <string name="album_format_image_count">(%d)</string>
+    <string name="album_format_photo_max_count">You can only select up to %d pictures</string>
+</resources>

@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ysn.com.jackphotos.JackPhotos;
-import ysn.com.jackphotos.model.bean.Photo;
-import ysn.com.jackphotos.model.mode.JackCropMode;
+import ysn.com.wxalbum.WxAlbum;
+import ysn.com.wxalbum.model.bean.Album;
+import ysn.com.wxalbum.model.mode.AlbumPhotoCropMode;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (hasWriteExternalPermission == PackageManager.PERMISSION_GRANTED) {
             // 预加载手机图片以及视频
-            JackPhotos.preload(this, false);
+            WxAlbum.preload(this, false);
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_WRITE_EXTERNAL);
@@ -62,19 +62,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAGE_REQUEST_CODE_JACK_PHOTOS && data != null) {
-            resultAdapter.setNewData(data.<Photo>getParcelableArrayListExtra(JackPhotos.EXTRA_PHOTOS));
+            resultAdapter.setNewData(data.<Album>getParcelableArrayListExtra(WxAlbum.EXTRA_PHOTOS));
         }
     }
 
     @Override
     public void onClick(View v) {
         // 为方便演示，清楚缓存
-        JackPhotos.clearCache(this);
+        WxAlbum.clearCache(this);
 
         switch (v.getId()) {
             case R.id.main_activity_select:
                 //多选(最多9张)
-                JackPhotos.create()
+                WxAlbum.create()
                         // 设置是否使用拍照
                         .useCamera(true)
                         // 设置是否单选
@@ -88,17 +88,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_activity_single_and_crop:
                 //单选并剪裁
-                JackPhotos.create()
+                WxAlbum.create()
                         .useCamera(true)
                         // 设置裁剪模式
-                        .setCropMore(JackCropMode.SYSTEM)
+                        .setCropMore(AlbumPhotoCropMode.SYSTEM)
                         // 设置裁剪路径
                         .setSingle(true)
                         .canPreview(true)
                         .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
                 break;
             case R.id.main_activity_camera:
-                JackPhotos.create()
+                WxAlbum.create()
                         // 仅拍照
                         .onlyTakePhoto(true)
                         // 设置文件输出路径
@@ -106,14 +106,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
                 break;
             case R.id.main_activity_camera_and_crop:
-                JackPhotos.create()
-                        .setCropMore(JackCropMode.SYSTEM)
+                WxAlbum.create()
+                        .setCropMore(AlbumPhotoCropMode.SYSTEM)
                         .onlyTakePhoto(true)
                         .start(this, PAGE_REQUEST_CODE_JACK_PHOTOS);
                 break;
             case R.id.main_activity_video:
                 // 多选含视频(最多9张)
-                JackPhotos.create()
+                WxAlbum.create()
                         // 设置是否使用拍照
                         .useCamera(true)
                         // 设置是否支持视频

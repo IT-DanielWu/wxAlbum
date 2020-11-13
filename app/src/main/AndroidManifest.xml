@@ -22,11 +22,11 @@
         </activity>
 
         <activity
-            android:name="ysn.com.jackphotos.page.JackPhotosActivity"
+            android:name="ysn.com.wxalbum.page.AlbumActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="ysn.com.jackphotos.page.JackPreviewActivity"
+            android:name="ysn.com.wxalbum.page.AlbumPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>

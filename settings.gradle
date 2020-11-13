@@ -1,2 +1,2 @@
-include ':app', ':jackphotos'
-rootProject.name='JackPhotos'
+include ':app', ':wxalbum'
+rootProject.name='wxAlbum'

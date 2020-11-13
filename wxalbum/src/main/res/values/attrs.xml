@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AlbumTitleBarView">
+        <attr name="tbv_icon" format="reference" />
+        <attr name="tbv_special" format="boolean" />
+    </declare-styleable>
+</resources>

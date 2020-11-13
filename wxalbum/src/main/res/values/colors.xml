@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="album_primary_text">#FFFFFF</color>
+    <color name="album_primary_text_ban">#343434</color>
+
+    <color name="album_primary">#07C163</color>
+    <color name="album_title_bar">#343434</color>
+    <color name="album_close_selector">#4C4C4C</color>
+
+    <color name="album_title_bar_special">#4C4C4C</color>
+
+    <color name="album_list_bg">#343434</color>
+    <color name="album_time_bg">#9e111212</color>
+    <color name="album_bg">#010101</color>
+    <color name="album_selected_mask">#111212</color>
+
+    <color name="album_folder_item_name">#FFFFFF</color>
+    <color name="album_folder_item_album_count">#aaaaaa</color>
+    <color name="album_folder_item_line">#4C4C4C</color>
+
+    <color name="album_bottom_bar">#171918</color>
+
+    <color name="album_preview_bg">#000000</color>
+    <color name="album_preview_bottom_bar">#E6171918</color>
+    <color name="album_preview_line">#4C4C4C</color>
+
+    <color name="album_crop_bg">#272828</color>
+</resources>

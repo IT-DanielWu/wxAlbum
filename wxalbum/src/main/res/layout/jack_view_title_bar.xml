@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/album_title_bar"
+    android:background="@color/album_title_bar"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/jack_title_bar_view_icon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/album_selector_close"
+        android:paddingStart="@dimen/album_space"
+        android:paddingEnd="@dimen/album_space">
+
+        <ImageView
+            android:id="@+id/jack_title_bar_view_icon"
+            android:layout_width="@dimen/album_title_bar_close_size"
+            android:layout_height="@dimen/album_title_bar_close_size"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/album_ic_close" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/jack_title_bar_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/jack_title_bar_view_icon_layout"
+        android:text="@string/album_text_photos"
+        android:textColor="@color/album_primary_text"
+        android:textSize="@dimen/album_primary_text" />
+
+    <LinearLayout
+        android:id="@+id/jack_title_bar_view_special_title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/album_title_bar_btn_height"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/jack_title_bar_view_icon_layout"
+        android:background="@drawable/album_bg_title_bar_special"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/album_title_bar_special_padding_left"
+        android:paddingEnd="@dimen/album_title_bar_special_padding_right"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/jack_title_bar_view_special_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/album_text_photos"
+            android:textColor="@color/album_primary_text"
+            android:textSize="@dimen/album_primary_text" />
+
+        <ImageView
+            android:id="@+id/jack_title_bar_view_special_title_arrow"
+            android:layout_width="@dimen/album_title_bar_special_arrow_size"
+            android:layout_height="@dimen/album_title_bar_special_arrow_size"
+            android:layout_marginStart="@dimen/album_title_bar_special_padding_right"
+            android:scaleType="centerInside"
+            android:src="@drawable/album_ic_title_bar_special_arrow" />
+    </LinearLayout>
+
+    <ysn.com.wxalbum.widget.component.PressedTextView
+        android:id="@+id/jack_title_bar_view_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/album_title_bar_btn_height"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/album_space"
+        android:background="@drawable/album_bg_title_bar_confirm_enabled_true"
+        android:gravity="center"
+        android:paddingStart="@dimen/album_title_bar_confirm_horizontal_padding"
+        android:paddingEnd="@dimen/album_title_bar_confirm_horizontal_padding"
+        android:text="@string/album_text_confirm"
+        android:textColor="@drawable/album_title_bar_confirm_text_selector"
+        android:textSize="@dimen/album_accent_text" />
+</RelativeLayout>

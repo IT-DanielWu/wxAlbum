@@ -3,13 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="1dp">
+    android:layout_margin="1dp"
+    android:background="@color/album_bg">
 
     <ysn.com.wxalbum.widget.component.SquareImageView
-        android:id="@+id/result_item_image"
+        android:id="@+id/album_camera_item_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/album_bg"
-        android:scaleType="centerCrop" />
+        android:layout_margin="@dimen/album_photo_camera_item_padding"
+        android:scaleType="centerInside"
+        android:src="@drawable/album_ic_camera" />
 </FrameLayout>

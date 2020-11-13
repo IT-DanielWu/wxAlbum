@@ -5,9 +5,9 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import ysn.com.jackphotos.model.bean.Photo;
-import ysn.com.jackphotos.utils.AndroidVersionUtils;
-import ysn.com.jackphotos.utils.ImageUtils;
+import ysn.com.wxalbum.model.bean.Album;
+import ysn.com.wxalbum.utils.AndroidVersionUtils;
+import ysn.com.wxalbum.utils.ImageUtils;
 
 /**
  * @Author yangsanning
@@ -16,7 +16,7 @@ import ysn.com.jackphotos.utils.ImageUtils;
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
-public class ResultAdapter extends BaseQuickAdapter<Photo, BaseViewHolder> {
+public class ResultAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     private boolean isAndroidQ = AndroidVersionUtils.isAndroidQ();
 
@@ -25,7 +25,7 @@ public class ResultAdapter extends BaseQuickAdapter<Photo, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Photo item) {
+    protected void convert(BaseViewHolder helper, Album item) {
         ImageView imageView = helper.getView(R.id.result_item_image);
         if (isAndroidQ) {
             ImageUtils.loadImage(mContext,  item.getThumbnailsUri(), imageView);

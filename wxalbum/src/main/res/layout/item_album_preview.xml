@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/album_preview_item_size"
+    android:layout_height="@dimen/album_preview_item_size"
+    android:layout_marginStart="@dimen/album_preview_item_horizontal_margin"
+    android:layout_marginTop="@dimen/album_preview_item_vertical_margin"
+    android:layout_marginEnd="@dimen/album_preview_item_horizontal_margin"
+    android:layout_marginBottom="@dimen/album_preview_item_vertical_margin">
+
+    <ysn.com.wxalbum.widget.component.FrameImageView
+        android:id="@+id/album_preview_item_thumbnails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/album_bg"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/album_preview_item_selected_gif_tag"
+        android:layout_width="@dimen/album_photo_item_gif_tag_width"
+        android:layout_height="@dimen/album_photo_item_gif_tag_height"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/album_ic_gif"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/album_preview_item_video_icon"
+        android:layout_width="@dimen/album_photo_item_video_icon_width"
+        android:layout_height="@dimen/album_photo_item_video_icon_height"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
+        android:src="@drawable/album_ic_video"
+        android:visibility="gone"
+        tools:visibility="visible" />
+</FrameLayout>
