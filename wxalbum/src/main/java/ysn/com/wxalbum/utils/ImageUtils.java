@@ -18,6 +18,8 @@ import com.bumptech.glide.request.RequestOptions;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
+import ysn.com.utlis.AndroidVersionUtils;
+
 /**
  * @Author yangsanning
  * @ClassName ImageUtils

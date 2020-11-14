@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-import ysn.com.wxalbum.utils.ValidatorUtils;
+import ysn.com.utlis.ValidatorUtils;
 
 /**
  * @Author yangsanning

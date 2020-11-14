@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ysn.com.utlis.ValidatorUtils;
 import ysn.com.wxalbum.R;
 import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.wxalbum.model.bean.AlbumFolder;

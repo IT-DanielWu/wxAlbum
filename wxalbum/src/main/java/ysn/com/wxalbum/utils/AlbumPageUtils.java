@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
+
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -17,12 +18,12 @@ import ysn.com.wxalbum.page.AlbumPreviewActivity;
 
 /**
  * @Author yangsanning
- * @ClassName PhotoPageUtils
+ * @ClassName AlbumPageUtils
  * @Description 页面跳转工具类
  * @Date 2019/12/27
  * @History 2019/12/27 author: description:
  */
-public class PhotoPageUtils {
+public class AlbumPageUtils {
 
     public static final String KEY_CONFIG = "KEY_CONFIG";
 

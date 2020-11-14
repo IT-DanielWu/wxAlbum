@@ -12,7 +12,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 import java.util.List;
 
 import ysn.com.wxalbum.model.bean.Album;
-import ysn.com.wxalbum.utils.AndroidVersionUtils;
+import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.utils.ImageUtils;
 import ysn.com.wxalbum.widget.component.AlbumPreviewLayout;
 

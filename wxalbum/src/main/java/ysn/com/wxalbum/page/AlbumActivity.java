@@ -31,14 +31,14 @@ import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.wxalbum.model.bean.AlbumConfig;
 import ysn.com.wxalbum.model.bean.AlbumFolder;
 import ysn.com.wxalbum.model.mode.AlbumPhotoCropMode;
-import ysn.com.wxalbum.utils.AnimatorUtils;
+import ysn.com.utlis.AnimatorUtils;
 import ysn.com.wxalbum.utils.FileUtils;
 import ysn.com.wxalbum.utils.PermissionUtils;
-import ysn.com.wxalbum.utils.PhotoPageUtils;
+import ysn.com.wxalbum.utils.AlbumPageUtils;
 import ysn.com.wxalbum.utils.TimeUtils;
 import ysn.com.wxalbum.utils.UriUtils;
-import ysn.com.wxalbum.utils.ValidatorUtils;
-import ysn.com.wxalbum.utils.ViewUtils;
+import ysn.com.utlis.ValidatorUtils;
+import ysn.com.utlis.ViewUtils;
 import ysn.com.wxalbum.widget.adapter.AlbumFolderAdapter;
 import ysn.com.wxalbum.widget.adapter.AlbumAdapter;
 import ysn.com.wxalbum.widget.component.AlbumTitleBarView;
@@ -88,7 +88,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        albumConfig = getIntent().getParcelableExtra(PhotoPageUtils.KEY_CONFIG);
+        albumConfig = getIntent().getParcelableExtra(AlbumPageUtils.KEY_CONFIG);
 
         if (albumConfig.onlyTakePhotos) {
             openCamera();
@@ -214,7 +214,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
      */
     private void startPreviewActivity(ArrayList<Album> photoList, int position) {
         if (ValidatorUtils.isNotEmptyList(photoList)) {
-            PhotoPageUtils.startPreviewActivity(this, photoList,
+            AlbumPageUtils.startPreviewActivity(this, photoList,
                     albumAdapter.getSelectedAlbumList(), albumConfig.isSingle, albumConfig.maxSelectCount, position);
         }
     }
@@ -352,7 +352,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
         if (AlbumPhotoCropMode.NO_USE == albumConfig.jackCropMode) {
             finish(photoPathList);
         } else {
-            cropUri = PhotoPageUtils.startSystemCropActivity(this, albumConfig,
+            cropUri = AlbumPageUtils.startSystemCropActivity(this, albumConfig,
                     UriUtils.getImageContentUri(this, photoPathList.get(0).getFilePath()));
         }
     }
@@ -521,7 +521,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                PhotoPageUtils.startAppSettings(AlbumActivity.this, AlbumActivity.this.getPackageName());
+                AlbumPageUtils.startAppSettings(AlbumActivity.this, AlbumActivity.this.getPackageName());
                 if (applyLoad) {
                     applyLoadImage = true;
                 } else {

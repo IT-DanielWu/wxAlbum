@@ -12,7 +12,7 @@ import java.util.Comparator;
 import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.wxalbum.model.bean.AlbumFolder;
 import ysn.com.wxalbum.observer.AlbumContentObserver;
-import ysn.com.wxalbum.utils.AndroidVersionUtils;
+import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.utils.FileUtils;
 
 /**

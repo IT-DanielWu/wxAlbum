@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import ysn.com.wxalbum.R;
 import ysn.com.wxalbum.constant.AlbumConstant;
-import ysn.com.wxalbum.utils.AnimatorUtils;
+import ysn.com.utlis.AnimatorUtils;
 
 /**
  * @Author yangsanning

@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 import ysn.com.wxalbum.model.mode.AlbumPhotoCropMode;
+import ysn.com.wxalbum.utils.AlbumPageUtils;
 
 /**
  * @Author yangsanning
@@ -61,7 +62,7 @@ public class AlbumConfig implements Parcelable {
     public AlbumPhotoCropMode jackCropMode = AlbumPhotoCropMode.NO_USE;
 
     /**
-     * 采用系统裁剪的时候使用到的参数{@link ysn.com.wxalbum.utils.PhotoPageUtils#startSystemCropActivity(Activity, AlbumConfig, Uri)}
+     * 采用系统裁剪的时候使用到的参数{@link AlbumPageUtils#startSystemCropActivity(Activity, AlbumConfig, Uri)}
      * aspectX, aspectY: 裁剪框比例
      * outputX, outputY: 输出图片大小
      */

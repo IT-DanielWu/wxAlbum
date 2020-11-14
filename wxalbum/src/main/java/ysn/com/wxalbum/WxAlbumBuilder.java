@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import ysn.com.wxalbum.model.bean.AlbumConfig;
 import ysn.com.wxalbum.model.mode.AlbumPhotoCropMode;
 import ysn.com.wxalbum.page.AlbumActivity;
-import ysn.com.wxalbum.utils.PhotoPageUtils;
+import ysn.com.wxalbum.utils.AlbumPageUtils;
 
 /**
  * @Author yangsanning
@@ -149,7 +149,7 @@ public class WxAlbumBuilder {
     public void start(Activity activity, int requestCode) {
         albumConfig.requestCode = requestCode;
         redressConfig();
-        PhotoPageUtils.startPhotoPage(activity, AlbumActivity.class, requestCode, albumConfig);
+        AlbumPageUtils.startPhotoPage(activity, AlbumActivity.class, requestCode, albumConfig);
     }
 
     /**
@@ -158,7 +158,7 @@ public class WxAlbumBuilder {
     public void start(Fragment fragment, int requestCode) {
         albumConfig.requestCode = requestCode;
         redressConfig();
-        PhotoPageUtils.startPhotoPage(fragment, AlbumActivity.class, requestCode, albumConfig);
+        AlbumPageUtils.startPhotoPage(fragment, AlbumActivity.class, requestCode, albumConfig);
     }
 
     /**
@@ -167,6 +167,6 @@ public class WxAlbumBuilder {
     public void start(android.app.Fragment fragment, int requestCode) {
         albumConfig.requestCode = requestCode;
         redressConfig();
-        PhotoPageUtils.startPhotoPage(fragment, AlbumActivity.class, requestCode, albumConfig);
+        AlbumPageUtils.startPhotoPage(fragment, AlbumActivity.class, requestCode, albumConfig);
     }
 }

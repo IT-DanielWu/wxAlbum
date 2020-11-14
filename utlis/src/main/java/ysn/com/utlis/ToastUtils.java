@@ -1,4 +1,4 @@
-package ysn.com.wxalbum.utils;
+package ysn.com.utlis;
 
 import android.content.Context;
 import androidx.annotation.StringRes;

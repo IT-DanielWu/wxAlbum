@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 import ysn.com.wxalbum.R;
 import ysn.com.wxalbum.model.bean.Album;
-import ysn.com.wxalbum.utils.AndroidVersionUtils;
+import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.utils.ImageUtils;
 import ysn.com.wxalbum.utils.TimeUtils;
-import ysn.com.wxalbum.utils.ValidatorUtils;
+import ysn.com.utlis.ValidatorUtils;
 
 /**
  * @Author yangsanning

@@ -1,2 +1,3 @@
+include ':utlis'
 include ':app', ':wxalbum'
 rootProject.name='wxAlbum'

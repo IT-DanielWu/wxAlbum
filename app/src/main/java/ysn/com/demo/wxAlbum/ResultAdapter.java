@@ -5,8 +5,8 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.model.bean.Album;
-import ysn.com.wxalbum.utils.AndroidVersionUtils;
 import ysn.com.wxalbum.utils.ImageUtils;
 
 /**
@@ -28,9 +28,9 @@ public class ResultAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Album item) {
         ImageView imageView = helper.getView(R.id.result_item_image);
         if (isAndroidQ) {
-            ImageUtils.loadImage(mContext,  item.getThumbnailsUri(), imageView);
+            ImageUtils.loadImage(mContext, item.getThumbnailsUri(), imageView);
         } else {
-            ImageUtils.loadImage(mContext,  item.getThumbnails(), imageView);
+            ImageUtils.loadImage(mContext, item.getThumbnails(), imageView);
         }
     }
 }
