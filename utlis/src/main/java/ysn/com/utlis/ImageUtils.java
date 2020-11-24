@@ -1,4 +1,4 @@
-package ysn.com.wxalbum.utils;
+package ysn.com.utlis;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,8 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
-
-import ysn.com.utlis.AndroidVersionUtils;
 
 /**
  * @Author yangsanning
@@ -52,7 +50,6 @@ public class ImageUtils {
      */
     @SuppressLint("NewApi")
     public static Bitmap decodeSampledBitmapFromFile(Context context, String pathName, int reqWidth, int reqHeight) {
-
         int degree = 0;
 
         Uri uri = UriUtils.getImageContentUri(context, pathName);
@@ -161,7 +158,7 @@ public class ImageUtils {
     public static Bitmap getBitmapFromUri(Context context, Uri uri, BitmapFactory.Options options) {
         try {
             ParcelFileDescriptor parcelFileDescriptor =
-                context.getContentResolver().openFileDescriptor(uri, "r");
+                    context.getContentResolver().openFileDescriptor(uri, "r");
             FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
             Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options);
             parcelFileDescriptor.close();
@@ -188,8 +185,8 @@ public class ImageUtils {
      */
     public static void loadImage(Context context, Uri uri, ImageView imageView) {
         Glide.with(context).load(uri)
-            .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-            .into(imageView);
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(imageView);
     }
 
     /**
@@ -197,8 +194,8 @@ public class ImageUtils {
      */
     public static void loadImage(Context context, String imagePath, ImageView imageView) {
         Glide.with(context).load(imagePath)
-            .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-            .into(imageView);
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(imageView);
     }
 
     /**
@@ -206,8 +203,8 @@ public class ImageUtils {
      */
     public static void loadImageAsBitmap(Context context, Uri uri, ImageView imageView) {
         Glide.with(context).asBitmap().load(uri)
-            .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-            .into(imageView);
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(imageView);
     }
 
     /**
@@ -215,7 +212,7 @@ public class ImageUtils {
      */
     public static void loadImageAsBitmap(Context context, String imagePath, ImageView imageView) {
         Glide.with(context).asBitmap().load(imagePath)
-            .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
-            .into(imageView);
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE))
+                .into(imageView);
     }
 }

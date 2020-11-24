@@ -93,7 +93,7 @@ public class AlbumPageUtils {
         intent.putExtra("outputY", photoConfig.outputY);
         intent.putExtra("scale", true);
 
-        Uri uriFile = UriUtils.getCropUri(activity, photoConfig.rootDirPath);
+        Uri uriFile = AlbumUriUtils.getCropUri(activity, photoConfig.rootDirPath);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriFile);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
         activity.startActivityForResult(intent, AlbumConstant.PAGE_REQUEST_CODE_CROP);

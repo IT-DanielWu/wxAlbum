@@ -1,4 +1,4 @@
-package ysn.com.wxalbum.utils;
+package ysn.com.utlis;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -25,9 +25,6 @@ import ysn.com.utlis.ValidatorUtils;
  * @History 2019/12/27 author: description:
  */
 public class UriUtils {
-
-    private static final String FILE_CAMERA_PREFIX = "/ysn_camera_";
-    private static final String FILE_CROP_PREFIX = "/ysn_crop_";
 
     @SuppressLint("NewApi")
     public static String getPathForUri(Context context, Uri uri) {
@@ -91,7 +88,6 @@ public class UriUtils {
     }
 
     public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
-
         Cursor cursor = null;
         final String column = "_data";
         final String[] projection = {column};
@@ -100,8 +96,8 @@ public class UriUtils {
             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
                 null);
             if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(column_index);
+                final int columnIndex = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(columnIndex);
             }
         } catch (IllegalArgumentException ex) {
         } finally {
@@ -170,38 +166,5 @@ public class UriUtils {
                 return null;
             }
         }
-    }
-
-    /**
-     * 获取相机uri
-     *
-     * @param rootDirPath 存储目录
-     */
-    public static Uri getCameraUri(Context context, String rootDirPath) {
-        long timeMillis = System.currentTimeMillis();
-        return UriUtils.getImageUri(context, rootDirPath, (FILE_CAMERA_PREFIX + timeMillis + ".jpeg"), timeMillis);
-    }
-
-    /**
-     * 获取裁剪uri
-     *
-     * @param rootDirPath 存储目录
-     */
-    public static Uri getCropUri(Context context, String rootDirPath) {
-        long timeMillis = System.currentTimeMillis();
-        return UriUtils.getImageUri(context, rootDirPath, (FILE_CROP_PREFIX + timeMillis + ".png"), timeMillis);
-    }
-
-    /**
-     * 获取图片uri
-     *
-     * @param rootDirPath 存储目录
-     */
-    public static Uri getImageUri(Context context, String rootDirPath, String fileName, long timeMillis) {
-        if (ValidatorUtils.isBlank(rootDirPath)) {
-            rootDirPath = ysn.com.view.cropimageview.utils.FileUtils.getImageFolderFile().getAbsolutePath();
-        }
-        return ysn.com.view.cropimageview.utils.FileUtils.getImageUri(
-            context, FileUtils.createFile(rootDirPath, fileName), (timeMillis / 1000));
     }
 }

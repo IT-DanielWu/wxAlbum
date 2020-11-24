@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.model.bean.Album;
-import ysn.com.wxalbum.utils.ImageUtils;
+import ysn.com.utlis.ImageUtils;
 
 /**
  * @Author yangsanning

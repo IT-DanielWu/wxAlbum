@@ -203,7 +203,7 @@ public class FileUtils {
             }
             context.getContentResolver().delete(uri, null, null);
         } else {
-            String path = UriUtils.getPathForUri(context, uri);
+            String path = AlbumUriUtils.getPathForUri(context, uri);
             if (path == null) {
                 return;
             }

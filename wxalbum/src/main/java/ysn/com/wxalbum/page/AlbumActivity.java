@@ -36,7 +36,7 @@ import ysn.com.wxalbum.utils.FileUtils;
 import ysn.com.wxalbum.utils.PermissionUtils;
 import ysn.com.wxalbum.utils.AlbumPageUtils;
 import ysn.com.wxalbum.utils.TimeUtils;
-import ysn.com.wxalbum.utils.UriUtils;
+import ysn.com.wxalbum.utils.AlbumUriUtils;
 import ysn.com.utlis.ValidatorUtils;
 import ysn.com.utlis.ViewUtils;
 import ysn.com.wxalbum.widget.adapter.AlbumFolderAdapter;
@@ -108,7 +108,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
         if (PermissionUtils.hasWriteExternalPermission(this) && PermissionUtils.hasCameraPermission(this)) {
             Intent imageCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (imageCaptureIntent.resolveActivity(getPackageManager()) != null) {
-                cameraUri = UriUtils.getCameraUri(this, albumConfig.rootDirPath);
+                cameraUri = AlbumUriUtils.getCameraUri(this, albumConfig.rootDirPath);
                 imageCaptureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
                 imageCaptureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startActivityForResult(imageCaptureIntent, AlbumConstant.PAGE_REQUEST_CODE_CAMERA);
@@ -353,7 +353,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
             finish(photoPathList);
         } else {
             cropUri = AlbumPageUtils.startSystemCropActivity(this, albumConfig,
-                    UriUtils.getImageContentUri(this, photoPathList.get(0).getFilePath()));
+                    AlbumUriUtils.getImageContentUri(this, photoPathList.get(0).getFilePath()));
         }
     }
 
@@ -475,7 +475,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
                 if (resultCode == RESULT_OK) {
                     sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, cameraUri));
                     ArrayList<Album> photoList = new ArrayList<>();
-                    String photoPath = UriUtils.getPathForUri(this, cameraUri);
+                    String photoPath = AlbumUriUtils.getPathForUri(this, cameraUri);
                     photoList.add(new Album(photoPath, photoPath, cameraUri));
                     complete(photoList);
                 } else {
@@ -491,7 +491,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
                 cameraUri = null;
                 if (resultCode == RESULT_OK) {
                     ArrayList<Album> photoList = new ArrayList<>();
-                    String photoPath = UriUtils.getPathForUri(this, cropUri);
+                    String photoPath = AlbumUriUtils.getPathForUri(this, cropUri);
                     photoList.add(new Album(photoPath, photoPath, cropUri));
                     finish(photoList);
                 } else {
