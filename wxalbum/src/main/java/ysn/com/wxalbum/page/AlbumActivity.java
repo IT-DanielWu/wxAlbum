@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,32 +22,29 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ysn.com.wxalbum.WxAlbum;
+import ysn.com.statusbar.StatusBarUtils;
+import ysn.com.utlis.AnimatorUtils;
+import ysn.com.utlis.ValidatorUtils;
+import ysn.com.utlis.ViewUtils;
 import ysn.com.wxalbum.R;
+import ysn.com.wxalbum.WxAlbum;
 import ysn.com.wxalbum.constant.AlbumConstant;
 import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.wxalbum.model.bean.AlbumConfig;
 import ysn.com.wxalbum.model.bean.AlbumFolder;
 import ysn.com.wxalbum.model.mode.AlbumPhotoCropMode;
-import ysn.com.utlis.AnimatorUtils;
 import ysn.com.wxalbum.utils.AlbumFileUtils;
-import ysn.com.wxalbum.utils.PermissionUtils;
 import ysn.com.wxalbum.utils.AlbumPageUtils;
-import ysn.com.wxalbum.utils.TimeUtils;
+import ysn.com.wxalbum.utils.AlbumTimeUtils;
 import ysn.com.wxalbum.utils.AlbumUriUtils;
-import ysn.com.utlis.ValidatorUtils;
-import ysn.com.utlis.ViewUtils;
-import ysn.com.wxalbum.widget.adapter.AlbumFolderAdapter;
+import ysn.com.wxalbum.utils.PermissionUtils;
 import ysn.com.wxalbum.widget.adapter.AlbumAdapter;
+import ysn.com.wxalbum.widget.adapter.AlbumFolderAdapter;
 import ysn.com.wxalbum.widget.component.AlbumTitleBarView;
 import ysn.com.wxalbum.widget.helper.AlbumFolderHelper;
-import ysn.com.statusbar.StatusBarUtils;
 
 /**
  * @Author yangsanning
@@ -267,9 +268,9 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
              * 更新时间显示
              */
             private void updateTimeView() {
-                Album photo = albumAdapter.getFirstVisibleItem(gridLayoutManager.findFirstVisibleItemPosition());
-                if (photo != null) {
-                    timeTextView.setText(TimeUtils.formatPhotoTime((AlbumActivity.this), photo.getTime()));
+                Album album = albumAdapter.getFirstVisibleItem(gridLayoutManager.findFirstVisibleItemPosition());
+                if (album != null) {
+                    timeTextView.setText(AlbumTimeUtils.formatPhotoTime((AlbumActivity.this), album.getTime()));
                     showTime();
                 }
             }

@@ -1,22 +1,23 @@
 package ysn.com.wxalbum.widget.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
-import ysn.com.wxalbum.R;
-import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.utlis.ImageUtils;
-import ysn.com.wxalbum.utils.TimeUtils;
 import ysn.com.utlis.ValidatorUtils;
+import ysn.com.wxalbum.R;
+import ysn.com.wxalbum.model.bean.Album;
+import ysn.com.wxalbum.utils.AlbumTimeUtils;
 
 /**
  * @Author yangsanning
@@ -78,7 +79,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
             if (album.isVideo()) {
                 holder.videoLayout.setVisibility(View.VISIBLE);
-                holder.videoTimeTextView.setText(TimeUtils.formatMinutesSeconds(album.getDuration()));
+                holder.videoTimeTextView.setText(AlbumTimeUtils.formatMinutesSeconds(album.getDuration()));
             } else {
                 holder.videoLayout.setVisibility(View.GONE);
             }
@@ -216,7 +217,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     public Album getFirstVisibleItem(int firstVisibleItemPosition) {
         if (ValidatorUtils.isNotEmptyList(albumList)) {
-            return albumList.get(firstVisibleItemPosition < 0 ? getRealPosition(firstVisibleItemPosition) : 0);
+            return albumList.get(firstVisibleItemPosition <= 0 ? 0 : getRealPosition(firstVisibleItemPosition));
         }
         return null;
     }
