@@ -32,7 +32,7 @@ import ysn.com.wxalbum.model.bean.AlbumConfig;
 import ysn.com.wxalbum.model.bean.AlbumFolder;
 import ysn.com.wxalbum.model.mode.AlbumPhotoCropMode;
 import ysn.com.utlis.AnimatorUtils;
-import ysn.com.wxalbum.utils.FileUtils;
+import ysn.com.wxalbum.utils.AlbumFileUtils;
 import ysn.com.wxalbum.utils.PermissionUtils;
 import ysn.com.wxalbum.utils.AlbumPageUtils;
 import ysn.com.wxalbum.utils.TimeUtils;
@@ -479,7 +479,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
                     photoList.add(new Album(photoPath, photoPath, cameraUri));
                     complete(photoList);
                 } else {
-                    FileUtils.deleteFile(this, cameraUri);
+                    AlbumFileUtils.deleteFile(this, cameraUri);
                     cameraUri = null;
                     if (albumConfig.onlyTakePhotos) {
                         finish();
@@ -487,7 +487,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case AlbumConstant.PAGE_REQUEST_CODE_CROP:
-                FileUtils.deleteFile(this, cameraUri);
+                AlbumFileUtils.deleteFile(this, cameraUri);
                 cameraUri = null;
                 if (resultCode == RESULT_OK) {
                     ArrayList<Album> photoList = new ArrayList<>();
@@ -495,7 +495,7 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
                     photoList.add(new Album(photoPath, photoPath, cropUri));
                     finish(photoList);
                 } else {
-                    FileUtils.deleteFile(this, cropUri);
+                    AlbumFileUtils.deleteFile(this, cropUri);
                     finish();
                 }
             default:

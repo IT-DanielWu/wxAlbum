@@ -13,7 +13,7 @@ import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.wxalbum.model.bean.AlbumFolder;
 import ysn.com.wxalbum.observer.AlbumContentObserver;
 import ysn.com.utlis.AndroidVersionUtils;
-import ysn.com.wxalbum.utils.FileUtils;
+import ysn.com.wxalbum.utils.AlbumFileUtils;
 
 /**
  * @Author yangsanning
@@ -133,7 +133,7 @@ public class AlbumFolderHelper {
                     boolean isAndroidQ = AndroidVersionUtils.isAndroidQ();
                     ArrayList<AlbumFolder> photoFolderList;
                     if (cachePhotoFolderList == null || isPreload) {
-                        ArrayList<Album> sdCardPhotoList = FileUtils.loadPhotos(context);
+                        ArrayList<Album> sdCardPhotoList = AlbumFileUtils.loadPhotos(context);
                         Collections.sort(sdCardPhotoList, new Comparator<Album>() {
                             @Override
                             public int compare(Album image, Album t1) {
@@ -150,13 +150,13 @@ public class AlbumFolderHelper {
                         ArrayList<Album>   photoList = new ArrayList<>();
                         for (Album photo : sdCardPhotoList) {
                             // 过滤未下载完成或者不存在的文件(因Android Q用uri判断图片是否有效的方法耗时, 故这里不进行判断)
-                            boolean isEffective = isAndroidQ || FileUtils.isEffective(photo.getThumbnails());
+                            boolean isEffective = isAndroidQ || AlbumFileUtils.isEffective(photo.getThumbnails());
                             if (isEffective) {
                                 photoList.add(photo);
                             }
                         }
                         Collections.reverse(photoList);
-                        photoFolderList = FileUtils.splitFolder(context, photoList,useVideo);
+                        photoFolderList = AlbumFileUtils.splitFolder(context, photoList,useVideo);
                         if (isNeedCache) {
                             cachePhotoFolderList = photoFolderList;
                         }

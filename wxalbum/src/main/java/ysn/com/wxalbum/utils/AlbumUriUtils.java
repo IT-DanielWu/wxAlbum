@@ -50,6 +50,6 @@ public class AlbumUriUtils extends UriUtils {
             rootDirPath = ysn.com.view.cropimageview.utils.FileUtils.getImageFolderFile().getAbsolutePath();
         }
         return ysn.com.view.cropimageview.utils.FileUtils.getImageUri(
-                context, FileUtils.createFile(rootDirPath, fileName), (fileCreateTimeMillis / 1000));
+                context, AlbumFileUtils.createFile(rootDirPath, fileName), (fileCreateTimeMillis / 1000));
     }
 }
