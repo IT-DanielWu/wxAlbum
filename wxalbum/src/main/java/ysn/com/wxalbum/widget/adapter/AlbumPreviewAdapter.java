@@ -106,7 +106,7 @@ public class AlbumPreviewAdapter extends RecyclerView.Adapter<AlbumPreviewAdapte
         /**
          * 图片点击事件回调
          */
-        void onItemClick(Album photo);
+        void onItemClick(Album album);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

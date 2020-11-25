@@ -4,7 +4,7 @@
     <application
         android:label="@string/app_name">
         <provider
-            android:name="ysn.com.wxalbum.provider.AlbumPhotosProvider"
+            android:name="ysn.com.wxalbum.provider.AlbumProvider"
             android:authorities="${applicationId}.JackPhotosProvider"
             android:exported="false"
             android:grantUriPermissions="true">

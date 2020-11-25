@@ -48,30 +48,30 @@ public class AlbumPreviewPagerAdapter extends PagerAdapter {
         PhotoView photoView = albumPreviewLayout.photoView;
         photoView.setZoomable(true);
         photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        final Album photo = albumList.get(position);
+        final Album album = albumList.get(position);
         if (isAndroidQ) {
-            ImageUtils.loadImage(context, photo.getThumbnailsUri(), photoView);
+            ImageUtils.loadImage(context, album.getThumbnailsUri(), photoView);
         } else {
-            ImageUtils.loadImage(context, photo.getThumbnails(), photoView);
+            ImageUtils.loadImage(context, album.getThumbnails(), photoView);
         }
 
         photoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position, photo);
+                    onItemClickListener.onItemClick(position, album);
                 }
             }
         });
 
         View playView = albumPreviewLayout.playView;
-        if (photo.isVideo()) {
+        if (album.isVideo()) {
             playView.setVisibility(View.VISIBLE);
             playView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onItemChildClickListener != null) {
-                        onItemChildClickListener.onItemChildClick(photo);
+                        onItemChildClickListener.onItemChildClick(album);
                     }
                 }
             });

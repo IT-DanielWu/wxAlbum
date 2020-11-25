@@ -227,12 +227,12 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
         albumAdapter = new AlbumAdapter((this), albumConfig.maxSelectCount, albumConfig.isSingle, albumConfig.canPreview);
         albumAdapter.setOnPhotosMultiListener(new AlbumAdapter.OnAlbumMultiListener() {
             @Override
-            public void onAlbumSelectChange(Album photo, boolean isSelect, int selectedCount) {
+            public void onAlbumSelectChange(Album album, boolean isSelect, int selectedCount) {
                 updatePhotoCountUi(selectedCount);
             }
 
             @Override
-            public void onAlbumItemClick(Album photo, int position) {
+            public void onAlbumItemClick(Album album, int position) {
                 startPreviewActivity(albumAdapter.getData(), position);
             }
 
@@ -375,10 +375,10 @@ public class AlbumActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if (PermissionUtils.hasWriteExternalPermission(this)) {
-            AlbumFolderHelper.get(this).loadPhotos(this, albumConfig.useVideo, new AlbumFolderHelper.OnPhotoFolderListListener() {
+            AlbumFolderHelper.get(this).loadPhotos(this, albumConfig.useVideo, new AlbumFolderHelper.OnAlbumFolderListListener() {
                 @Override
-                public void onPhotoFolderList(ArrayList<AlbumFolder> photoFolderList) {
-                    AlbumActivity.this.albumFolderList = photoFolderList;
+                public void onAlbumFolderList(ArrayList<AlbumFolder> albumList) {
+                    AlbumActivity.this.albumFolderList = albumList;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

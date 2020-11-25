@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/jack_preview_layout_photo_view"
+        android:id="@+id/album_preview_layout_photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/jack_preview_layout_video_play"
+        android:id="@+id/album_preview_layout_video_play"
         android:layout_width="@dimen/album_preview_video_play"
         android:layout_height="@dimen/album_preview_video_play"
         android:layout_gravity="center"

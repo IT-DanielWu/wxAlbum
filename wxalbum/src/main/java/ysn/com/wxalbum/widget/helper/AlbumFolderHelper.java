@@ -3,16 +3,17 @@ package ysn.com.wxalbum.widget.helper;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.model.bean.Album;
 import ysn.com.wxalbum.model.bean.AlbumFolder;
 import ysn.com.wxalbum.observer.AlbumContentObserver;
-import ysn.com.utlis.AndroidVersionUtils;
 import ysn.com.wxalbum.utils.AlbumFileUtils;
 
 /**
@@ -27,7 +28,7 @@ public class AlbumFolderHelper {
     /**
      * 缓存图片
      */
-    private static ArrayList<AlbumFolder> cachePhotoFolderList = null;
+    private static ArrayList<AlbumFolder> cacheAlbumFolderList = null;
     private boolean isNeedCache = false;
 
     private Context context;
@@ -97,9 +98,9 @@ public class AlbumFolderHelper {
             @Override
             public void run() {
                 synchronized (AlbumFolderHelper.class) {
-                    if (cachePhotoFolderList != null) {
-                        cachePhotoFolderList.clear();
-                        cachePhotoFolderList = null;
+                    if (cacheAlbumFolderList != null) {
+                        cacheAlbumFolderList.clear();
+                        cacheAlbumFolderList = null;
                     }
                 }
             }
@@ -112,7 +113,7 @@ public class AlbumFolderHelper {
      * @param useVideo             是否加载视频
      * @param onFolderListListener 文件夹实体类监听
      */
-    public void loadPhotos(final Context context, final boolean useVideo, final OnPhotoFolderListListener onFolderListListener) {
+    public void loadPhotos(final Context context, final boolean useVideo, final OnAlbumFolderListListener onFolderListListener) {
         loadPhotos(context, false, useVideo, onFolderListListener);
     }
 
@@ -121,20 +122,20 @@ public class AlbumFolderHelper {
      *
      * @param isPreload            是否是预加载
      * @param useVideo             是否加载视频
-     * @param onFolderListListener 文件夹实体类监听
+     * @param onAlbumFolderListListener 文件夹实体类监听
      */
     private void loadPhotos(final Context context, final boolean isPreload, final boolean useVideo,
-                            final OnPhotoFolderListListener onFolderListListener) {
+                            final OnAlbumFolderListListener onAlbumFolderListListener) {
         //由于扫描图片是耗时的操作，所以要在子线程处理。
         new Thread(new Runnable() {
             @Override
             public void run() {
                 synchronized (AlbumFolderHelper.class) {
                     boolean isAndroidQ = AndroidVersionUtils.isAndroidQ();
-                    ArrayList<AlbumFolder> photoFolderList;
-                    if (cachePhotoFolderList == null || isPreload) {
-                        ArrayList<Album> sdCardPhotoList = AlbumFileUtils.loadPhotos(context);
-                        Collections.sort(sdCardPhotoList, new Comparator<Album>() {
+                    ArrayList<AlbumFolder> albumFolderList;
+                    if (cacheAlbumFolderList == null || isPreload) {
+                        ArrayList<Album> sdCardAlbumList = AlbumFileUtils.loadPhotos(context);
+                        Collections.sort(sdCardAlbumList, new Comparator<Album>() {
                             @Override
                             public int compare(Album image, Album t1) {
                                 if (image.getTime() > t1.getTime()) {
@@ -147,36 +148,36 @@ public class AlbumFolderHelper {
                             }
                         });
 
-                        ArrayList<Album>   photoList = new ArrayList<>();
-                        for (Album photo : sdCardPhotoList) {
+                        ArrayList<Album> albumList = new ArrayList<>();
+                        for (Album album : sdCardAlbumList) {
                             // 过滤未下载完成或者不存在的文件(因Android Q用uri判断图片是否有效的方法耗时, 故这里不进行判断)
-                            boolean isEffective = isAndroidQ || AlbumFileUtils.isEffective(photo.getThumbnails());
+                            boolean isEffective = isAndroidQ || AlbumFileUtils.isEffective(album.getThumbnails());
                             if (isEffective) {
-                                photoList.add(photo);
+                                albumList.add(album);
                             }
                         }
-                        Collections.reverse(photoList);
-                        photoFolderList = AlbumFileUtils.splitFolder(context, photoList,useVideo);
+                        Collections.reverse(albumList);
+                        albumFolderList = AlbumFileUtils.splitFolder(context, albumList, useVideo);
                         if (isNeedCache) {
-                            cachePhotoFolderList = photoFolderList;
+                            cacheAlbumFolderList = albumFolderList;
                         }
                     } else {
-                        photoFolderList = cachePhotoFolderList;
+                        albumFolderList = cacheAlbumFolderList;
                     }
 
-                    if (onFolderListListener != null) {
-                        onFolderListListener.onPhotoFolderList(photoFolderList);
+                    if (onAlbumFolderListListener != null) {
+                        onAlbumFolderListListener.onAlbumFolderList(albumFolderList);
                     }
                 }
             }
         }).start();
     }
 
-    public interface OnPhotoFolderListListener {
+    public interface OnAlbumFolderListListener {
 
         /**
-         * @param photoList 图片文件夹实体类集合
+         * @param albumList 相册文件夹实体类集合
          */
-        void onPhotoFolderList(ArrayList<AlbumFolder> photoList);
+        void onAlbumFolderList(ArrayList<AlbumFolder> albumList);
     }
 }

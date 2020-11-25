@@ -63,7 +63,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         if (viewType == TYPE_PHOTO) {
             return new ViewHolder(layoutInflater.inflate(R.layout.item_album, parent, false));
         }
-        return new ViewHolder(layoutInflater.inflate(R.layout.jack_item_album_camera, parent, false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.item_album_camera, parent, false));
     }
 
     @Override
@@ -284,12 +284,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         /**
          * 选中状态更改的回调
          */
-        void onAlbumSelectChange(Album photo, boolean isSelect, int selectedCount);
+        void onAlbumSelectChange(Album album, boolean isSelect, int selectedCount);
 
         /**
          * 图片点击事件回调
          */
-        void onAlbumItemClick(Album photo, int position);
+        void onAlbumItemClick(Album album, int position);
 
         /**
          * 相机点击回调

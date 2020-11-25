@@ -53,12 +53,12 @@ public class AlbumFolderAdapter extends RecyclerView.Adapter<AlbumFolderAdapter.
         holder.folderNameTextView.setText(albumFolder.getName());
         holder.selectImageView.setVisibility(selectPosition == position ? View.VISIBLE : View.GONE);
 
-        ArrayList<Album> photoList = albumFolder.getPhotoList();
-        if (ValidatorUtils.isEmptyList(photoList)) {
+        ArrayList<Album> albumList = albumFolder.getPhotoList();
+        if (ValidatorUtils.isEmptyList(albumList)) {
             holder.photoCountTextView.setText(context.getString(R.string.album_format_image_count, 0));
             holder.thumbnailsImageView.setImageBitmap(null);
         } else {
-            holder.photoCountTextView.setText(context.getString(R.string.album_format_image_count, photoList.size()));
+            holder.photoCountTextView.setText(context.getString(R.string.album_format_image_count, albumList.size()));
             if (isAndroidQ) {
                 ImageUtils.loadImageAsBitmap(context, albumFolder.getThumbnailsUri(), holder.thumbnailsImageView);
             } else {

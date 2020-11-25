@@ -73,13 +73,13 @@ public class AlbumTitleBarView extends LinearLayout implements View.OnClickListe
     }
 
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.jack_view_title_bar, this);
-        iconImageView = findViewById(R.id.jack_title_bar_view_icon);
-        titleTextView = findViewById(R.id.jack_title_bar_view_title);
-        specialLayout = findViewById(R.id.jack_title_bar_view_special_title_layout);
-        specialTitleTextView = findViewById(R.id.jack_title_bar_view_special_title);
-        specialArrowIamgeView = findViewById(R.id.jack_title_bar_view_special_title_arrow);
-        confirmTextView = findViewById(R.id.jack_title_bar_view_confirm);
+        LayoutInflater.from(context).inflate(R.layout.view_album_title_bar, this);
+        iconImageView = findViewById(R.id.album_title_bar_view_icon);
+        titleTextView = findViewById(R.id.album_title_bar_view_title);
+        specialLayout = findViewById(R.id.album_title_bar_view_special_title_layout);
+        specialTitleTextView = findViewById(R.id.album_title_bar_view_special_title);
+        specialArrowIamgeView = findViewById(R.id.album_title_bar_view_special_title_arrow);
+        confirmTextView = findViewById(R.id.album_title_bar_view_confirm);
 
         iconImageView.setImageResource(iconRes);
         if (isSpecial) {
@@ -89,22 +89,22 @@ public class AlbumTitleBarView extends LinearLayout implements View.OnClickListe
     }
 
     private void setViewListener() {
-        findViewById(R.id.jack_title_bar_view_icon_layout).setOnClickListener(this);
+        findViewById(R.id.album_title_bar_view_icon_layout).setOnClickListener(this);
         specialLayout.setOnClickListener(this);
         confirmTextView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.jack_title_bar_view_icon_layout) {
+        if (view.getId() == R.id.album_title_bar_view_icon_layout) {
             if (onTitleBarClickListener != null) {
                 onTitleBarClickListener.onIconClick();
             }
-        } else if (view.getId() == R.id.jack_title_bar_view_confirm) {
+        } else if (view.getId() == R.id.album_title_bar_view_confirm) {
             if (onTitleBarClickListener != null) {
                 onTitleBarClickListener.onConfirmClick();
             }
-        } else if (view.getId() == R.id.jack_title_bar_view_special_title_layout) {
+        } else if (view.getId() == R.id.album_title_bar_view_special_title_layout) {
             if (onTitleBarClickListener != null) {
                 onTitleBarClickListener.onSpecialTitleClick();
             }

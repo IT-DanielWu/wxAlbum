@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/jack_title_bar_view_icon_layout"
+        android:id="@+id/album_title_bar_view_icon_layout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:foreground="@drawable/album_selector_close"
@@ -14,7 +14,7 @@
         android:paddingEnd="@dimen/album_space">
 
         <ImageView
-            android:id="@+id/jack_title_bar_view_icon"
+            android:id="@+id/album_title_bar_view_icon"
             android:layout_width="@dimen/album_title_bar_close_size"
             android:layout_height="@dimen/album_title_bar_close_size"
             android:layout_gravity="center"
@@ -23,21 +23,21 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/jack_title_bar_view_title"
+        android:id="@+id/album_title_bar_view_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/jack_title_bar_view_icon_layout"
+        android:layout_toEndOf="@+id/album_title_bar_view_icon_layout"
         android:text="@string/album_text_photos"
         android:textColor="@color/album_primary_text"
         android:textSize="@dimen/album_primary_text" />
 
     <LinearLayout
-        android:id="@+id/jack_title_bar_view_special_title_layout"
+        android:id="@+id/album_title_bar_view_special_title_layout"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/album_title_bar_btn_height"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/jack_title_bar_view_icon_layout"
+        android:layout_toEndOf="@+id/album_title_bar_view_icon_layout"
         android:background="@drawable/album_bg_title_bar_special"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -46,7 +46,7 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/jack_title_bar_view_special_title"
+            android:id="@+id/album_title_bar_view_special_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
@@ -55,7 +55,7 @@
             android:textSize="@dimen/album_primary_text" />
 
         <ImageView
-            android:id="@+id/jack_title_bar_view_special_title_arrow"
+            android:id="@+id/album_title_bar_view_special_title_arrow"
             android:layout_width="@dimen/album_title_bar_special_arrow_size"
             android:layout_height="@dimen/album_title_bar_special_arrow_size"
             android:layout_marginStart="@dimen/album_title_bar_special_padding_right"
@@ -64,7 +64,7 @@
     </LinearLayout>
 
     <ysn.com.wxalbum.widget.component.PressedTextView
-        android:id="@+id/jack_title_bar_view_confirm"
+        android:id="@+id/album_title_bar_view_confirm"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/album_title_bar_btn_height"
         android:layout_alignParentEnd="true"

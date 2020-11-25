@@ -181,9 +181,9 @@ public class AlbumPreviewActivity extends AppCompatActivity {
             .bindRecyclerView(previewRecyclerView)
             .setOnItemClickListener(new AlbumPreviewAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(Album photo) {
+                public void onItemClick(Album album) {
                     for (int i = 0; i < albumList.size(); i++) {
-                        if (photo.equals(albumList.get(i))) {
+                        if (album.equals(albumList.get(i))) {
                             previewViewPager.setCurrentItem(i, false);
                             break;
                         }

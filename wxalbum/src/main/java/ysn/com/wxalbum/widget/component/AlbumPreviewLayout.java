@@ -36,8 +36,8 @@ public class AlbumPreviewLayout extends FrameLayout {
     }
 
     private void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.jack_view_preview_layout, this);
-        photoView = findViewById(R.id.jack_preview_layout_photo_view);
-        playView = findViewById(R.id.jack_preview_layout_video_play);
+        LayoutInflater.from(context).inflate(R.layout.view_album_preview_layout, this);
+        photoView = findViewById(R.id.album_preview_layout_photo_view);
+        playView = findViewById(R.id.album_preview_layout_video_play);
     }
 }
